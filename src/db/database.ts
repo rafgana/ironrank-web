@@ -29,7 +29,7 @@ export const db = new IronRankDB()
 export async function seedExercises() {
   const count = await db.exercises.count()
   if (count > 0) return
-  const res = await fetch('/exercises.json')
+  const res = await fetch(import.meta.env.BASE_URL + 'exercises.json')
   const exercises = await res.json()
   await db.exercises.bulkAdd(exercises)
 }
