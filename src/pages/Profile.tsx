@@ -12,8 +12,8 @@ export function Profile() {
   const p = store.profile
 
   return (
-    <div className="px-4 pt-4 pb-24 space-y-4">
-      <h2 className="text-lg font-bold">Perfil</h2>
+    <div className="px-4 md:px-6 pt-4 md:pt-8 pb-4 max-w-lg">
+      <h2 className="text-lg font-bold md:text-2xl mb-4">Perfil</h2>
 
       <div className="space-y-3">
         <div className="flex justify-between items-center">
@@ -22,7 +22,7 @@ export function Profile() {
             className="w-20 text-sm text-right" />
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-sm">Género</span>
+          <span className="text-sm">Genero</span>
           <select value={p.gender} onChange={e => store.update({ gender: e.target.value as any })}
             className="w-28 text-sm">
             <option value="male">Hombre</option>
@@ -41,10 +41,10 @@ export function Profile() {
         </div>
       </div>
 
-      <div className="pt-2">
-        <label className="flex items-center justify-between">
+      <div className="pt-4">
+        <label className="flex items-center justify-between cursor-pointer">
           <span className="text-sm">Modo Oscuro</span>
-          <input type="checkbox" checked={dark} onChange={e => setDark(e.target.checked)} />
+          <input type="checkbox" checked={dark} onChange={e => setDark(e.target.checked)} className="w-5 h-5" />
         </label>
       </div>
     </div>

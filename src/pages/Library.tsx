@@ -13,7 +13,7 @@ export function Library() {
   const [muscle, setMuscle] = useState<string | null>(null)
   const profile = useProfileStore(s => s.profile)
 
-  useEffect(() => { loadExercises() }, [])
+  useEffect(() => { if (profile) loadExercises() }, [profile])
 
   const loadExercises = async () => {
     const exs = await db.exercises.toArray()
@@ -35,8 +35,8 @@ export function Library() {
   )
 
   return (
-    <div className="px-4 pt-4 pb-24">
-      <h2 className="text-lg font-bold mb-3">Ejercicios</h2>
+    <div className="px-4 md:px-6 pt-4 md:pt-8 pb-4">
+      <h2 className="text-lg font-bold md:text-2xl mb-3">Ejercicios</h2>
 
       <input type="text" placeholder="Buscar..." value={search}
         onChange={e => setSearch(e.target.value)}
@@ -55,9 +55,9 @@ export function Library() {
         ))}
       </div>
 
-      <div className="space-y-1">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
         {filtered.map(e => (
-          <div key={e.id} className="flex items-center justify-between py-2 px-2 rounded-lg hover:bg-white/5">
+          <div key={e.id} className="flex items-center justify-between py-2 px-3 rounded-lg hover:bg-white/5 transition-colors">
             <div>
               <div className="text-sm font-medium">{e.name}</div>
               <div className="text-xs text-gray-500">{e.musclePrimary} · {e.equipment}</div>
