@@ -1,0 +1,45 @@
+{
+  "press_banca": {
+    "entries": {
+      "hombre": [
+        {"ageMin": 18, "ageMax": 29, "bronze": 0.6, "prata": 0.8, "ouro": 1.0, "platina": 1.2, "esmeralda": 1.4, "diamante": 1.6},
+        {"ageMin": 30, "ageMax": 39, "bronze": 0.55, "prata": 0.75, "ouro": 0.95, "platina": 1.15, "esmeralda": 1.35, "diamante": 1.55},
+        {"ageMin": 40, "ageMax": 49, "bronze": 0.5, "prata": 0.7, "ouro": 0.9, "platina": 1.1, "esmeralda": 1.3, "diamante": 1.5},
+        {"ageMin": 50, "ageMax": 99, "bronze": 0.45, "prata": 0.65, "ouro": 0.85, "platina": 1.05, "esmeralda": 1.25, "diamante": 1.45}
+      ],
+      "mujer": [
+        {"ageMin": 18, "ageMax": 29, "bronze": 0.35, "prata": 0.5, "ouro": 0.65, "platina": 0.8, "esmeralda": 0.95, "diamante": 1.1},
+        {"ageMin": 30, "ageMax": 39, "bronze": 0.3, "prata": 0.45, "ouro": 0.6, "platina": 0.75, "esmeralda": 0.9, "diamante": 1.05},
+        {"ageMin": 40, "ageMax": 99, "bronze": 0.25, "prata": 0.4, "ouro": 0.55, "platina": 0.7, "esmeralda": 0.85, "diamante": 1.0}
+      ]
+    }
+  },
+  "sentadilla": {
+    "entries": {
+      "hombre": [
+        {"ageMin": 18, "ageMax": 29, "bronze": 0.8, "prata": 1.0, "ouro": 1.25, "platina": 1.5, "esmeralda": 1.75, "diamante": 2.0},
+        {"ageMin": 30, "ageMax": 39, "bronze": 0.75, "prata": 0.95, "ouro": 1.2, "platina": 1.45, "esmeralda": 1.7, "diamante": 1.95},
+        {"ageMin": 40, "ageMax": 99, "bronze": 0.7, "prata": 0.9, "ouro": 1.15, "platina": 1.4, "esmeralda": 1.65, "diamante": 1.9}
+      ],
+      "mujer": [
+        {"ageMin": 18, "ageMax": 29, "bronze": 0.5, "prata": 0.7, "ouro": 0.9, "platina": 1.1, "esmeralda": 1.3, "diamante": 1.5},
+        {"ageMin": 30, "ageMax": 39, "bronze": 0.45, "prata": 0.65, "ouro": 0.85, "platina": 1.05, "esmeralda": 1.25, "diamante": 1.45},
+        {"ageMin": 40, "ageMax": 99, "bronze": 0.4, "prata": 0.6, "ouro": 0.8, "platina": 1.0, "esmeralda": 1.2, "diamante": 1.4}
+      ]
+    }
+  },
+  "peso_muerto": {
+    "entries": {
+      "hombre": [
+        {"ageMin": 18, "ageMax": 29, "bronze": 0.9, "prata": 1.2, "ouro": 1.5, "platina": 1.8, "esmeralda": 2.1, "diamante": 2.4},
+        {"ageMin": 30, "ageMax": 39, "bronze": 0.85, "prata": 1.15, "ouro": 1.45, "platina": 1.75, "esmeralda": 2.05, "diamante": 2.35},
+        {"ageMin": 40, "ageMax": 99, "bronze": 0.8, "prata": 1.1, "ouro": 1.4, "platina": 1.7, "esmeralda": 2.0, "diamante": 2.3}
+      ],
+      "mujer": [
+        {"ageMin": 18, "ageMax": 29, "bronze": 0.55, "prata": 0.75, "ouro": 1.0, "platina": 1.2, "esmeralda": 1.4, "diamante": 1.6},
+        {"ageMin": 30, "ageMax": 39, "bronze": 0.5, "prata": 0.7, "ouro": 0.95, "platina": 1.15, "esmeralda": 1.35, "diamante": 1.55},
+        {"ageMin": 40, "ageMax": 99, "bronze": 0.45, "prata": 0.65, "ouro": 0.9, "platina": 1.1, "esmeralda": 1.3, "diamante": 1.5}
+      ]
+    }
+  }
+}

@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+:root {
+  --color-bronze: #cd7f32;
+  --color-silver: #c0c0c0;
+  --color-gold: #ffd700;
+  --color-platinum: #e5e4e2;
+  --color-emerald: #50c878;
+  --color-diamond: #b9f2ff;
+  --color-challenger: #ff4500;
+  --color-accent: #f97316;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, sans-serif; background: #0f0f0f; color: #e5e5e5; }
+input, select { background: #1a1a1a; color: #e5e5e5; border: 1px solid #333; border-radius: 8px; padding: 8px 12px; }
+input:focus, select:focus { outline: none; border-color: #f97316; }
+button:disabled { opacity: 0.4; }

@@ -1,0 +1,9 @@
+{
+  "name": "IronRank",
+  "short_name": "IronRank",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#f97316",
+  "icons": []
+}
