@@ -193,7 +193,7 @@ export function WorkoutList({ onStart }: { onStart: () => void }) {
 
       <div className="grid items-start gap-4 md:gap-6 lg:grid-cols-12">
         {/* TIMELINE */}
-        <motion.section variants={enterItem} className="lg:col-span-8">
+        <motion.section variants={enterItem} className="min-w-0 lg:col-span-8">
           {loading ? (
             <div className="space-y-2.5">
               {[0, 1, 2].map((i) => (
@@ -247,7 +247,7 @@ export function WorkoutList({ onStart }: { onStart: () => void }) {
         {bestLifts.length > 0 && (
           <motion.aside
             variants={enterItem}
-            className="card p-5 lg:sticky lg:top-24 lg:col-span-4"
+            className="min-w-0 card p-5 lg:sticky lg:top-24 lg:col-span-4"
           >
             <SectionHeader eyebrow="Big three" title="Mejores marcas" />
             <ul className="space-y-3">

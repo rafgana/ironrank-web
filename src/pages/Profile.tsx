@@ -60,7 +60,7 @@ export function Profile() {
       {/* IDENTIDAD */}
       <motion.header
         variants={enterItem}
-        className="card-accent bg-noise flex items-center gap-5 p-5 md:p-6"
+        className="card-accent hud bg-noise flex items-center gap-5 p-5 md:p-6"
       >
         <TierEmblem tier={tier} size="md" animated />
         <div className="min-w-0 flex-1">

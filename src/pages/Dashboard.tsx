@@ -3,11 +3,11 @@ import { motion } from "motion/react";
 import { useWorkoutStore } from "../store/workoutStore";
 import { useOverallTier } from "../hooks/useOverallTier";
 import { TierEmblem } from "../components/ironrank/TierEmblem";
-import { StatTile } from "../components/ironrank/StatTile";
+import { TierProgression } from "../components/ironrank/TierProgression";
 import { SectionHeader } from "../components/ui/SectionHeader";
 import { TierProgressBar } from "../components/ui/TierProgressBar";
-import { EmptyState } from "../components/ui/EmptyState";
 import { Button } from "../components/ui/button";
+import { NumberTicker } from "../components/magicui/number-ticker";
 import { enterItem, enterStagger } from "../lib/motionTokens";
 import { TIER_VARS } from "../models/types";
 import {
@@ -17,6 +17,10 @@ import {
   Calendar,
   Zap,
   Clock,
+  User,
+  TrendingUp,
+  Check,
+  type LucideIcon,
 } from "lucide-react";
 
 const ActivityHeatmap = lazy(() =>
@@ -69,30 +73,39 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
     [ws.workouts],
   );
 
-  const recent = ws.workouts.slice(0, 5);
+  const recent = ws.workouts.slice(0, 6);
 
   return (
     <motion.div
       variants={enterStagger}
       initial="hidden"
       animate="show"
-      className="grid gap-4 md:gap-6 lg:grid-cols-12"
+      className="grid gap-4 md:gap-5 lg:grid-cols-12"
     >
-      {/* HERO DEL TIER */}
+      {/* ══ HERO: identidad ranked + stats integradas ══ */}
       <motion.section
         variants={enterItem}
-        className="card-accent bg-noise relative overflow-hidden p-6 md:p-10 lg:col-span-8"
+        className="min-w-0 card-accent hud bg-noise relative overflow-hidden lg:col-span-12"
       >
-        <div className="relative z-10 flex flex-col items-center gap-6 md:flex-row md:gap-10">
-          <TierEmblem
-            tier={overall.tier}
-            size="2xl"
-            animated
-            ringProgress={overall.hasData ? overall.score : undefined}
-            className="max-md:scale-90"
-          />
-          <div className="flex-1 space-y-3 text-center md:text-left">
-            <div className="eyebrow text-(--tier)">Rango actual</div>
+        {/* Línea de energía superior */}
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,transparent,var(--tier),transparent)] opacity-70" />
+
+        <div className="relative z-10 grid items-center gap-6 p-6 md:grid-cols-[auto_1fr_auto] md:gap-10 md:p-8">
+          {/* Emblema */}
+          <div className="flex justify-center">
+            <TierEmblem
+              tier={overall.tier}
+              size="xl"
+              animated
+              ringProgress={overall.hasData ? overall.score : undefined}
+            />
+          </div>
+
+          {/* Rango + progreso */}
+          <div className="space-y-3 text-center md:text-left">
+            <div className="eyebrow text-(--tier)">
+              Rango actual · Temporada 2026
+            </div>
             <h1 className="font-display tier-gradient-text text-display font-bold">
               {overall.tier}
             </h1>
@@ -118,18 +131,102 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
               </div>
             ) : (
               <p className="mx-auto max-w-md text-sm text-fg-muted md:mx-0">
-                Registra tu primer Press Banca, Sentadilla o Peso Muerto para
-                desbloquear tu rango.
+                Registra tu primer{" "}
+                <span className="font-semibold text-fg">Press Banca</span>,{" "}
+                <span className="font-semibold text-fg">Sentadilla</span> o{" "}
+                <span className="font-semibold text-fg">Peso Muerto</span> para
+                desbloquear tu rango real.
               </p>
             )}
+            <div className="flex flex-wrap justify-center gap-2 pt-1 md:justify-start">
+              <Button variant="tier" size="md" onClick={onStartWorkout}>
+                <Zap size={15} strokeWidth={2.5} />
+                {totalWorkouts ? "Nuevo workout" : "Empezar primer workout"}
+              </Button>
+            </div>
+          </div>
+
+          {/* Stats integradas */}
+          <div className="grid grid-cols-2 gap-x-8 gap-y-5 border-t border-(--tier-border) pt-5 max-md:mt-1 md:border-t-0 md:border-l md:pt-0 md:pl-10">
+            <HeroStat icon={Dumbbell} value={totalWorkouts} label="Entrenos" />
+            <HeroStat
+              icon={Flame}
+              value={streak}
+              label="Racha de días"
+              accent="var(--color-brand-500)"
+            />
+            <HeroStat
+              icon={Calendar}
+              value={weekWorkouts}
+              label="Esta semana"
+              accent="var(--color-tier-esmeralda)"
+            />
+            <HeroStat
+              icon={Trophy}
+              valueStr={overall.tier}
+              label="Rango"
+              accent={TIER_VARS[overall.tier]}
+            />
           </div>
         </div>
       </motion.section>
 
-      {/* ACTIVIDAD RECIENTE (right rail desktop) */}
+      {/* ══ QUEST LOG: primeros pasos (solo sin datos de rango) ══ */}
+      {!overall.hasData && (
+        <motion.section variants={enterItem} className="min-w-0 card p-5 lg:col-span-12">
+          <SectionHeader
+            eyebrow="Misiones"
+            title="Primeros pasos"
+            action={
+              <span className="font-mono text-sm tabular-nums text-fg-dim">
+                {(ws.profile ? 1 : 0) + (totalWorkouts > 0 ? 1 : 0)}/3
+              </span>
+            }
+          />
+          <div className="grid gap-2.5 md:grid-cols-3">
+            <Quest
+              n={1}
+              done={!!ws.profile}
+              icon={User}
+              title="Configura tu perfil"
+              desc="Peso corporal, edad y descanso por defecto"
+            />
+            <Quest
+              n={2}
+              done={totalWorkouts > 0}
+              icon={Dumbbell}
+              title="Completa un workout"
+              desc="Registra tus primeras series"
+            />
+            <Quest
+              n={3}
+              done={false}
+              icon={TrendingUp}
+              title="Desbloquea tu rango"
+              desc="Registra los 3 grandes levantamientos"
+            />
+          </div>
+        </motion.section>
+      )}
+
+      {/* ══ CAMINO AL RETADOR: siempre visible, da identidad ══ */}
+      <motion.section variants={enterItem} className="min-w-0 card p-5 md:p-6 lg:col-span-12">
+        <SectionHeader eyebrow="Clasificatoria" title="Camino al Retador" />
+        <TierProgression currentTier={overall.tier} />
+      </motion.section>
+
+      {/* ══ MAPA DE ACTIVIDAD: siempre visible (grid vacío estilo GitHub) ══ */}
+      <motion.section variants={enterItem} className="min-w-0 card p-5 md:p-6 lg:col-span-8">
+        <SectionHeader eyebrow="Consistencia" title="Mapa de actividad" />
+        <Suspense fallback={<div className="skeleton h-32" />}>
+          <ActivityHeatmap data={heatmapData} weeks={26} />
+        </Suspense>
+      </motion.section>
+
+      {/* ══ ACTIVIDAD RECIENTE ══ */}
       <motion.aside
         variants={enterItem}
-        className="card flex flex-col p-5 lg:col-span-4 lg:row-span-2"
+        className="min-w-0 card flex flex-col p-5 lg:col-span-4"
       >
         <SectionHeader eyebrow="Historial" title="Actividad reciente" />
         {recent.length > 0 ? (
@@ -137,7 +234,7 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
             {recent.map((w) => (
               <li
                 key={w.id}
-                className="flex items-center justify-between rounded-lg bg-surface-2 px-3 py-2.5"
+                className="flex items-center justify-between rounded-lg border border-[color-mix(in_oklab,white_5%,transparent)] bg-surface-2 px-3 py-2.5"
               >
                 <span className="flex items-center gap-2.5 text-sm">
                   <Calendar size={14} className="text-(--tier)" />
@@ -155,70 +252,113 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
             ))}
           </ul>
         ) : (
-          <p className="flex-1 text-sm text-fg-muted">
-            Aún no hay entrenos registrados.
-          </p>
+          <div className="flex-1 space-y-2">
+            {[0.45, 0.3, 0.18].map((op, i) => (
+              <div
+                key={i}
+                className="flex items-center justify-between rounded-lg border border-dashed border-border-subtle px-3 py-2.5"
+                style={{ opacity: op }}
+              >
+                <span className="flex items-center gap-2.5 text-sm text-fg-dim">
+                  <Calendar size={14} />
+                  Próximo entreno
+                </span>
+                <span className="font-mono text-sm text-fg-dim">—</span>
+              </div>
+            ))}
+            <p className="pt-1 text-xs text-fg-dim">
+              Tus workouts aparecerán aquí.
+            </p>
+          </div>
         )}
         <Button
-          variant="tier"
-          size="lg"
-          className="mt-4 w-full max-md:hidden"
+          variant="outline"
+          size="md"
+          className="mt-4 w-full"
           onClick={onStartWorkout}
         >
-          <Zap size={16} strokeWidth={2.5} />
-          {recent.length ? "Nuevo workout" : "Empezar primer workout"}
+          <Zap size={14} strokeWidth={2.5} />
+          Nuevo workout
         </Button>
       </motion.aside>
-
-      {/* STATS */}
-      <motion.section
-        variants={enterItem}
-        className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4 lg:col-span-8"
-      >
-        <StatTile icon={Dumbbell} label="Entrenos" value={totalWorkouts} />
-        <StatTile
-          icon={Flame}
-          label="Racha de días"
-          value={streak}
-          accent="var(--color-brand-500)"
-        />
-        <StatTile
-          icon={Calendar}
-          label="Esta semana"
-          value={weekWorkouts}
-          suffix={weekWorkouts === 1 ? "sesión" : "sesiones"}
-          accent="var(--color-tier-esmeralda)"
-        />
-        <StatTile
-          icon={Trophy}
-          label="Rango"
-          valueStr={overall.tier}
-          accent={TIER_VARS[overall.tier]}
-        />
-      </motion.section>
-
-      {/* HEATMAP DE ACTIVIDAD / EMPTY STATE */}
-      <motion.section variants={enterItem} className="lg:col-span-12">
-        {totalWorkouts > 0 ? (
-          <div className="card p-5 md:p-6">
-            <SectionHeader eyebrow="Consistencia" title="Mapa de actividad" />
-            <Suspense fallback={<div className="skeleton h-32" />}>
-              <ActivityHeatmap data={heatmapData} weeks={26} />
-            </Suspense>
-          </div>
-        ) : (
-          <EmptyState
-            icon={Dumbbell}
-            title="Tu primer PR te espera"
-            body="Empieza una serie y compite por subir de tier. Sin cuentas, sin nube: todo queda en tu dispositivo."
-          >
-            <Button variant="cta" onClick={onStartWorkout}>
-              <Zap size={20} strokeWidth={2.5} />
-              Empezar primer workout
-            </Button>
-          </EmptyState>
-        )}
-      </motion.section>
     </motion.div>
+  );
+}
+
+/** Stat compacta integrada en el hero */
+function HeroStat({
+  icon: Icon,
+  value,
+  valueStr,
+  label,
+  accent = "var(--tier)",
+}: {
+  icon: LucideIcon;
+  value?: number;
+  valueStr?: string;
+  label: string;
+  accent?: string;
+}) {
+  return (
+    <div className="min-w-24">
+      <div className="mb-1 flex items-center gap-1.5" style={{ color: accent }}>
+        <Icon size={14} />
+        <span className="eyebrow !text-[11px] !text-fg-muted">{label}</span>
+      </div>
+      {valueStr !== undefined ? (
+        <div
+          className="font-display text-xl font-bold tracking-tight"
+          style={{ color: accent }}
+        >
+          {valueStr}
+        </div>
+      ) : (
+        <div className="font-display text-3xl font-bold tracking-tight tabular-nums">
+          <NumberTicker value={value ?? 0} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Misión del quest-log inicial */
+function Quest({
+  n,
+  done,
+  icon: Icon,
+  title,
+  desc,
+}: {
+  n: number;
+  done: boolean;
+  icon: LucideIcon;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <div
+      className={
+        done
+          ? "flex items-center gap-3 rounded-xl border border-(--tier-border) bg-(--tier-softer) p-3.5"
+          : "flex items-center gap-3 rounded-xl border border-border-subtle bg-surface-2 p-3.5"
+      }
+    >
+      <span
+        className={
+          done
+            ? "flex size-9 shrink-0 items-center justify-center rounded-full bg-(--tier) text-(--tier-contrast)"
+            : "flex size-9 shrink-0 items-center justify-center rounded-full bg-surface-3 font-mono text-sm font-bold text-fg-muted"
+        }
+      >
+        {done ? <Check size={16} strokeWidth={3} /> : n}
+      </span>
+      <div className="min-w-0">
+        <div className="flex items-center gap-1.5 text-sm font-semibold">
+          <Icon size={13} className={done ? "text-(--tier)" : "text-fg-muted"} />
+          <span className={done ? "text-(--tier)" : undefined}>{title}</span>
+        </div>
+        <div className="mt-0.5 text-xs text-fg-muted">{desc}</div>
+      </div>
+    </div>
   );
 }

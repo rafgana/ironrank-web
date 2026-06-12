@@ -198,9 +198,9 @@ export function Ranking() {
       {/* COLUMNA IZQUIERDA: identidad ranked (sticky en desktop) */}
       <motion.div
         variants={enterItem}
-        className="space-y-4 md:space-y-6 lg:sticky lg:top-24 lg:col-span-4"
+        className="min-w-0 space-y-4 md:space-y-6 lg:sticky lg:top-24 lg:col-span-4"
       >
-        <section className="card-accent bg-noise relative overflow-hidden p-6 text-center md:p-8">
+        <section className="card-accent hud bg-noise relative overflow-hidden p-6 text-center md:p-8">
           <TierEmblem
             tier={overall}
             size="xl"
@@ -259,7 +259,7 @@ export function Ranking() {
       </motion.div>
 
       {/* COLUMNA DERECHA: distribución + ejercicios */}
-      <div className="space-y-4 md:space-y-6 lg:col-span-8">
+      <div className="min-w-0 space-y-4 md:space-y-6 lg:col-span-8">
         <motion.section variants={enterItem} className="card p-4 md:p-6">
           <div className="mb-3 flex items-center justify-between">
             <div>

@@ -310,11 +310,62 @@ export function Progress() {
 
   if (!hasData) {
     return (
-      <EmptyState
-        icon={BarChart3}
-        title="Aún no hay datos"
-        body="Completa tu primer workout para empezar a ver gráficas de volumen, PRs y distribución muscular."
-      />
+      <motion.div
+        variants={enterStagger}
+        initial="hidden"
+        animate="show"
+        className="space-y-5"
+      >
+        <motion.header variants={enterItem}>
+          <div className="eyebrow mb-1">Métricas</div>
+          <h1 className="font-display text-h1 font-bold">Progreso</h1>
+        </motion.header>
+        <motion.div
+          variants={enterItem}
+          className="grid grid-cols-2 gap-3 md:grid-cols-4"
+        >
+          <StatTile icon={Activity} label="Volumen total" value={0} suffix="kg" />
+          <StatTile
+            icon={Calendar}
+            label="Workouts"
+            value={0}
+            accent="var(--color-tier-esmeralda)"
+          />
+          <StatTile
+            icon={TrendingUp}
+            label="Esta semana"
+            value={0}
+            suffix="kg"
+            accent="var(--color-brand-500)"
+          />
+          <StatTile
+            icon={Trophy}
+            label="PRs"
+            value={0}
+            accent="var(--color-tier-oro)"
+          />
+        </motion.div>
+        <motion.div variants={enterItem}>
+          <EmptyState
+            icon={BarChart3}
+            title="Aún no hay datos"
+            body="Completa tu primer workout para empezar a ver gráficas de volumen, PRs y distribución muscular."
+          />
+        </motion.div>
+        <motion.div variants={enterItem} className="grid gap-5 lg:grid-cols-12">
+          <GhostPanel
+            className="min-w-0 lg:col-span-7"
+            eyebrow="Volumen semanal"
+            title="Se desbloquea con tu primer workout"
+          />
+          <GhostPanel
+            className="min-w-0 lg:col-span-5"
+            eyebrow="Grupos musculares"
+            title="Distribución de tu entrenamiento"
+            variant="radar"
+          />
+        </motion.div>
+      </motion.div>
     );
   }
 
@@ -497,6 +548,54 @@ function Panel({
     <section className="card h-full p-4 md:p-6">
       <SectionHeader eyebrow={eyebrow} title={title} action={action} />
       {children}
+    </section>
+  );
+}
+
+/** Panel fantasma para el estado sin datos: muestra la forma del contenido futuro */
+function GhostPanel({
+  eyebrow,
+  title,
+  variant = "bars",
+  className,
+}: {
+  eyebrow: string;
+  title: string;
+  variant?: "bars" | "radar";
+  className?: string;
+}) {
+  const bars = [38, 62, 45, 78, 55, 90, 70, 50, 84, 64, 96, 74];
+  return (
+    <section className={`card relative overflow-hidden p-4 md:p-6 ${className ?? ""}`}>
+      <SectionHeader eyebrow={eyebrow} title={title} />
+      {variant === "bars" ? (
+        <div className="flex h-44 items-end gap-2 opacity-30">
+          {bars.map((h, i) => (
+            <div
+              key={i}
+              className="flex-1 rounded-t-md bg-[linear-gradient(180deg,var(--tier),var(--tier-deep))]"
+              style={{ height: `${h}%`, opacity: 0.25 + (i / bars.length) * 0.5 }}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="flex h-44 items-center justify-center opacity-30">
+          <div className="relative size-40">
+            {[100, 72, 44].map((s) => (
+              <div
+                key={s}
+                className="absolute rounded-full border border-(--tier-border)"
+                style={{
+                  inset: `${(100 - s) / 2}%`,
+                  background:
+                    s === 44 ? "var(--tier-softer)" : "transparent",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,var(--color-surface-1))]" />
     </section>
   );
 }

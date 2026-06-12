@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { TIERS, TIER_VARS, tierAlpha, type Tier } from "@/models/types";
 import { TIER_BADGES } from "./tier-badges";
+import { useIsDesktop } from "@/hooks/useIsDesktop";
 import { cn } from "@/lib/utils";
 import { Check, Lock } from "lucide-react";
 
@@ -21,6 +22,8 @@ export function TierProgression({
   className,
 }: TierProgressionProps) {
   const currentIdx = TIERS.indexOf(currentTier);
+  /* Hexágonos más pequeños en pantallas estrechas: 7 badges fijos no caben en 360px */
+  const wide = useIsDesktop(480);
 
   if (orientation === "vertical") {
     const ladder = [...TIERS].reverse();
@@ -108,7 +111,7 @@ export function TierProgression({
               <TierNode
                 tier={tier}
                 status={status}
-                size={isCurrent ? 64 : 48}
+                size={isCurrent ? (wide ? 64 : 46) : wide ? 48 : 34}
               />
               <div
                 className={cn(

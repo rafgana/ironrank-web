@@ -198,6 +198,7 @@ export default function App() {
       <main className="relative min-w-0 flex-1">
         {/* Top bar desktop */}
         <header className="sticky top-0 z-10 hidden h-16 items-center justify-between border-b border-border-subtle bg-[color-mix(in_oklab,var(--color-surface-0)_75%,transparent)] px-8 backdrop-blur md:flex">
+          <div className="absolute inset-x-0 bottom-0 h-px bg-[linear-gradient(90deg,transparent,var(--tier-border),transparent)]" />
           <div className="flex items-center gap-3">
             {(() => {
               const current = tabs.find((t) => t.key === tab);
