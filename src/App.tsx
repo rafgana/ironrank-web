@@ -24,6 +24,7 @@ import { useOverallTier } from "./hooks/useOverallTier";
 import { setTierAccent } from "./lib/tierAccent";
 import { Logo } from "./components/ironrank/Logo";
 import { TierEmblem } from "./components/ironrank/TierEmblem";
+import { TierProgressBar } from "./components/ui/TierProgressBar";
 import { OfflineBanner } from "./hooks/useServiceWorker";
 import {
   Onboarding,
@@ -106,122 +107,148 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-surface-0 md:grid md:grid-cols-[240px_1fr] md:items-start">
+    <div className="min-h-screen bg-surface-0 md:grid md:grid-cols-[276px_1fr] md:items-start">
       {/* SIDEBAR DESKTOP */}
-      <aside className="hidden border-r border-border-subtle bg-(--sidebar) md:sticky md:top-0 md:z-20 md:flex md:h-screen md:flex-col md:self-start">
-        {/* Logo con halo del tier */}
-        <div className="relative flex h-16 items-center gap-3 border-b border-border-subtle px-5">
+      <aside className="hidden border-r border-[color-mix(in_oklab,white_6%,transparent)] bg-[linear-gradient(180deg,color-mix(in_oklab,var(--tier)_3%,var(--sidebar)),var(--sidebar)_30%)] md:sticky md:top-0 md:z-20 md:flex md:h-screen md:flex-col md:self-start">
+        {/* Marca */}
+        <div className="relative flex h-20 items-center gap-3.5 px-6">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_0%,var(--tier-softer),transparent_70%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(140%_120%_at_50%_-20%,var(--tier-softer),transparent_70%)]"
           />
-          <Logo size={32} />
+          <Logo size={38} />
           <div className="relative">
-            <div className="font-display text-lg leading-none font-bold tracking-tight">
+            <div className="font-display text-xl leading-none font-bold tracking-tight">
               IronRank
             </div>
-            <div className="eyebrow mt-0.5 !text-[11px] text-(--tier)">
-              GYM · RANKED
+            <div className="eyebrow mt-1 !text-[11px] text-(--tier)">
+              Gym · Ranked
             </div>
           </div>
         </div>
+        <div className="mx-6 h-px bg-[linear-gradient(90deg,var(--tier-border),transparent)]" />
 
         {/* Navegación */}
-        <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
-          {tabs.map((t) => {
-            const active = tab === t.key;
-            const Icon = t.icon;
-            return (
-              <button
-                key={t.key}
-                onClick={() => setTab(t.key)}
-                aria-current={active ? "page" : undefined}
-                className={cn(
-                  "relative flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
-                  active
-                    ? "bg-(--tier-soft) text-(--tier)"
-                    : "text-fg-muted hover:bg-surface-2 hover:text-fg",
-                )}
-              >
-                {active && (
-                  <motion.span
-                    layoutId="nav-rail"
-                    className="absolute inset-y-1.5 left-0 w-[3px] rounded-full bg-(--tier)"
-                    transition={springFast}
-                  />
-                )}
-                <Icon size={18} strokeWidth={active ? 2.5 : 2} />
-                <span>{t.label}</span>
-              </button>
-            );
-          })}
+        <nav className="flex-1 overflow-y-auto px-4 py-5">
+          <div className="eyebrow mb-3 px-2 !text-fg-dim">Menú</div>
+          <div className="space-y-1.5">
+            {tabs.map((t) => {
+              const active = tab === t.key;
+              const Icon = t.icon;
+              return (
+                <motion.button
+                  key={t.key}
+                  onClick={() => setTab(t.key)}
+                  aria-current={active ? "page" : undefined}
+                  whileTap={{ scale: 0.98 }}
+                  className={cn(
+                    "group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium transition-all duration-200",
+                    active
+                      ? "text-fg"
+                      : "text-fg-muted hover:translate-x-0.5 hover:text-fg",
+                  )}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      transition={springFast}
+                      className="absolute inset-0 rounded-xl border border-(--tier-border) bg-[linear-gradient(90deg,var(--tier-soft),transparent_75%)] shadow-[inset_0_1px_0_0_oklch(1_0_0/0.05)]"
+                    />
+                  )}
+                  {active && (
+                    <motion.span
+                      layoutId="nav-rail"
+                      className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-(--tier) shadow-[0_0_8px_var(--tier-glow)]"
+                      transition={springFast}
+                    />
+                  )}
+                  <span
+                    className={cn(
+                      "relative z-10 flex size-9 items-center justify-center rounded-lg transition-colors",
+                      active
+                        ? "bg-(--tier-soft) text-(--tier)"
+                        : "bg-surface-2 text-fg-muted group-hover:text-fg",
+                    )}
+                  >
+                    <Icon size={17} strokeWidth={active ? 2.5 : 2} />
+                  </span>
+                  <span className="relative z-10">{t.label}</span>
+                </motion.button>
+              );
+            })}
+          </div>
         </nav>
 
-        {/* Identidad ranked ambiental */}
-        <div className="flex items-center gap-3 border-t border-border-subtle px-5 py-3">
-          <TierEmblem tier={overall.tier} size="xs" />
-          <div>
-            <div className="text-xs font-semibold text-(--tier)">
-              {overall.tier}
+        {/* Tarjeta de jugador: rango + progreso */}
+        <div className="px-4 pb-4">
+          <div className="card-accent relative overflow-hidden p-4">
+            <div className="flex items-center gap-3">
+              <TierEmblem tier={overall.tier} size="sm" />
+              <div className="min-w-0 flex-1">
+                <div className="eyebrow !text-[11px]">Rango actual</div>
+                <div
+                  className="font-display truncate text-lg leading-tight font-bold"
+                  style={{ color: "var(--tier)" }}
+                >
+                  {overall.tier}
+                </div>
+              </div>
+              <span className="font-mono text-sm tabular-nums text-fg-muted">
+                {overall.score}%
+              </span>
             </div>
-            <div className="text-[11px] text-fg-dim">rango actual</div>
+            <TierProgressBar value={overall.score} className="mt-3 h-1.5" />
           </div>
-        </div>
-
-        {/* Acción rápida */}
-        <div className="border-t border-border-subtle px-3 py-2.5">
           <motion.button
             onClick={startWorkout}
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.015 }}
             whileTap={{ scale: 0.97 }}
-            className="flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-(image:--tier-gradient) text-xs font-bold text-(--tier-contrast) shadow-(--shadow-glow-tier)"
+            className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-(image:--tier-gradient) text-sm font-bold text-(--tier-contrast) shadow-(--shadow-glow-tier) transition-[filter] hover:brightness-110"
           >
-            <Zap size={14} strokeWidth={2.5} />
+            <Zap size={15} strokeWidth={2.5} />
             Nuevo workout
           </motion.button>
-        </div>
-
-        {/* Pie */}
-        <div className="flex items-center justify-between border-t border-border-subtle px-5 py-3 text-[11px] text-fg-dim">
-          <span className="eyebrow">v2.0</span>
-          <button
-            onClick={() => setTab("profile")}
-            aria-label="Configuración"
-            className="transition-colors hover:text-fg-muted"
-          >
-            <Settings size={12} />
-          </button>
         </div>
       </aside>
 
       {/* CONTENIDO PRINCIPAL */}
       <main className="relative min-w-0 flex-1">
         {/* Top bar desktop */}
-        <header className="sticky top-0 z-10 hidden h-16 items-center justify-between border-b border-border-subtle bg-[color-mix(in_oklab,var(--color-surface-0)_75%,transparent)] px-8 backdrop-blur md:flex">
+        <header className="sticky top-0 z-10 hidden h-16 items-center justify-between border-b border-border-subtle bg-[color-mix(in_oklab,var(--color-surface-0)_75%,transparent)] px-8 backdrop-blur-xl md:flex lg:px-10">
           <div className="absolute inset-x-0 bottom-0 h-px bg-[linear-gradient(90deg,transparent,var(--tier-border),transparent)]" />
-          <div className="flex items-center gap-3">
-            {(() => {
-              const current = tabs.find((t) => t.key === tab);
-              const Icon = current?.icon ?? Home;
-              return (
-                <>
-                  <Icon size={18} className="text-(--tier)" />
-                  <h1 className="font-display text-lg font-semibold tracking-tight">
-                    {current?.label}
-                  </h1>
-                </>
-              );
-            })()}
+          <div>
+            <div className="eyebrow !text-[11px] !text-fg-dim">
+              IronRank · Temporada 2026
+            </div>
+            <h1 className="font-display text-xl leading-tight font-bold tracking-tight">
+              {tabs.find((t) => t.key === tab)?.label}
+            </h1>
           </div>
-          {isSyncEnabled() && (
-            <span
-              title="Sincronización en la nube activa"
-              className="flex items-center gap-1.5 rounded-full border border-(--tier-border) bg-(--tier-soft) px-2.5 py-1.5"
-            >
-              <span className="size-1.5 rounded-full bg-(--tier)" />
-              <span className="eyebrow !text-[11px] text-(--tier)">Sync</span>
+          <div className="flex items-center gap-3">
+            <span className="hidden items-center gap-2 rounded-full border border-[color-mix(in_oklab,white_8%,transparent)] bg-surface-1 px-3.5 py-1.5 text-sm text-fg-muted capitalize lg:flex">
+              {new Date().toLocaleDateString("es-ES", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+              })}
             </span>
-          )}
+            {isSyncEnabled() && (
+              <span
+                title="Sincronización en la nube activa"
+                className="flex items-center gap-1.5 rounded-full border border-(--tier-border) bg-(--tier-soft) px-2.5 py-1.5"
+              >
+                <span className="size-1.5 rounded-full bg-(--tier)" />
+                <span className="eyebrow !text-[11px] text-(--tier)">Sync</span>
+              </span>
+            )}
+            <button
+              onClick={() => setTab("profile")}
+              aria-label="Configuración"
+              className="flex size-9 items-center justify-center rounded-full border border-[color-mix(in_oklab,white_8%,transparent)] bg-surface-1 text-fg-muted transition-colors hover:border-(--tier-border) hover:text-fg"
+            >
+              <Settings size={15} />
+            </button>
+          </div>
         </header>
 
         {/* Top bar móvil */}
@@ -263,7 +290,7 @@ export default function App() {
           </div>
         </header>
 
-        <div className="px-4 py-6 pb-32 md:px-8 md:py-8 md:pb-12 lg:px-10">
+        <div className="px-4 py-6 pb-32 md:px-8 md:py-8 md:pb-14 lg:px-10 lg:py-9">
           <div className="mx-auto max-w-[1600px]">
             <AnimatePresence mode="wait" initial={false} custom={direction.current}>
               <motion.div

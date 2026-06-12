@@ -132,7 +132,7 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
       variants={enterStagger}
       initial="hidden"
       animate="show"
-      className="grid auto-rows-min gap-4 lg:grid-cols-12"
+      className="grid auto-rows-min gap-4 md:gap-5 lg:grid-cols-12"
     >
       {/* ══ HERO VERTICAL: identidad ranked (columna izquierda, 2 filas) ══ */}
       <motion.section
@@ -220,7 +220,7 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
       {/* ══ CAMINO AL RETADOR ══ */}
       <motion.section
         variants={enterItem}
-        className="card min-w-0 p-5 lg:col-span-8"
+        className="card min-w-0 p-6 lg:col-span-8"
       >
         <SectionHeader eyebrow="Clasificatoria" title="Camino al Retador" />
         <TierProgression currentTier={overall.tier} />
@@ -229,7 +229,7 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
       {/* ══ MAPA DE ACTIVIDAD ══ */}
       <motion.section
         variants={enterItem}
-        className="card min-w-0 p-5 lg:col-span-8"
+        className="card min-w-0 p-6 lg:col-span-8"
       >
         <SectionHeader eyebrow="Consistencia" title="Mapa de actividad" />
         <Suspense fallback={<div className="skeleton h-32" />}>
@@ -240,7 +240,7 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
       {/* ══ ACTIVIDAD RECIENTE ══ */}
       <motion.aside
         variants={enterItem}
-        className="card flex min-w-0 flex-col p-5 lg:col-span-4"
+        className="card flex min-w-0 flex-col p-6 lg:col-span-4"
       >
         <SectionHeader eyebrow="Historial" title="Actividad reciente" />
         {recent.length > 0 ? (
@@ -299,7 +299,7 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
       {/* ══ LOS 3 GRANDES: slots bloqueados/desbloqueados ══ */}
       <motion.section
         variants={enterItem}
-        className="card min-w-0 p-5 lg:col-span-8"
+        className="card min-w-0 p-6 lg:col-span-8"
       >
         <SectionHeader
           eyebrow="Big three"
@@ -364,7 +364,7 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
       {!overall.hasData && (
         <motion.section
           variants={enterItem}
-          className="card min-w-0 p-5 lg:col-span-12"
+          className="card min-w-0 p-6 lg:col-span-12"
         >
           <SectionHeader
             eyebrow="Misiones"

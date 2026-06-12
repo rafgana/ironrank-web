@@ -6,7 +6,7 @@
 //   - Fonts: cache-first with 1-year TTL
 //   - Images: cache-first
 
-const CACHE_VERSION = "ironrank-v2.2.0";
+const CACHE_VERSION = "ironrank-v2.3.0";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const FONT_CACHE = `${CACHE_VERSION}-fonts`;
