@@ -16,6 +16,7 @@ interface WorkoutState {
   loadProfile: () => Promise<void>
   loadWorkouts: () => Promise<void>
   startWorkout: (routineId?: number) => Promise<void>
+  addExercise: (exerciseId: number) => Promise<void>
   addSet: (weight: number, reps: number, rir: number | null) => Promise<void>
   toggleSet: (setId: number) => Promise<void>
   completeWorkout: () => Promise<void>
@@ -60,6 +61,17 @@ export const useWorkoutStore = create<WorkoutState>((set, get) => ({
           set({ activeExercises: [...s.activeExercises, { we: { id: weId, workoutId: id, exerciseId: re.exerciseId, order: re.order }, exercise, sets: [] }] })
         }
       }
+    }
+  },
+
+  addExercise: async (exerciseId) => {
+    const s = get()
+    if (!s.activeWorkout) return
+    const order = s.activeExercises.length
+    const weId = await db.workoutExercises.add({ workoutId: s.activeWorkout.id!, exerciseId, order })
+    const exercise = await db.exercises.get(exerciseId)
+    if (exercise) {
+      set({ activeExercises: [...s.activeExercises, { we: { id: weId, workoutId: s.activeWorkout.id!, exerciseId, order }, exercise, sets: [] }] })
     }
   },
 

@@ -1,66 +1,371 @@
 @import "tailwindcss";
 
-:root {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.95 0 0);
-  --card: oklch(0.16 0 0);
-  --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.18 0 0);
-  --popover-foreground: oklch(0.95 0 0);
-  --primary: oklch(0.68 0.22 50);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.2 0 0);
-  --secondary-foreground: oklch(0.85 0 0);
-  --muted: oklch(0.2 0 0);
-  --muted-foreground: oklch(0.55 0 0);
-  --accent: oklch(0.22 0 0);
-  --accent-foreground: oklch(0.95 0 0);
-  --destructive: oklch(0.55 0.2 25);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.24 0 0);
-  --input: oklch(0.22 0 0);
-  --ring: oklch(0.68 0.22 50);
-  --radius: 0.5rem;
-  --sidebar: oklch(0.12 0 0);
-  --sidebar-foreground: oklch(0.85 0 0);
-  --sidebar-primary: oklch(0.68 0.22 50);
-  --sidebar-border: oklch(0.2 0 0);
+@theme {
+  /* Tipografías */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-condensed: "Bebas Neue", sans-serif;
+
+  /* Marca (paleta naranja) */
+  --color-brand-50: oklch(0.97 0.03 50);
+  --color-brand-100: oklch(0.93 0.06 50);
+  --color-brand-200: oklch(0.88 0.1 50);
+  --color-brand-300: oklch(0.82 0.16 50);
+  --color-brand-400: oklch(0.77 0.19 50);
+  --color-brand-500: oklch(0.72 0.22 50);
+  --color-brand-600: oklch(0.66 0.23 50);
+  --color-brand-700: oklch(0.58 0.22 50);
+  --color-brand-800: oklch(0.48 0.2 50);
+  --color-brand-900: oklch(0.38 0.16 50);
+
+  /* Tiers (OKLch, con variante -deep para gradientes) */
+  --color-tier-bronce: oklch(0.62 0.11 60);
+  --color-tier-bronce-deep: oklch(0.45 0.09 55);
+  --color-tier-plata: oklch(0.8 0.02 260);
+  --color-tier-plata-deep: oklch(0.6 0.02 260);
+  --color-tier-oro: oklch(0.85 0.17 95);
+  --color-tier-oro-deep: oklch(0.7 0.15 85);
+  --color-tier-platino: oklch(0.82 0.14 210);
+  --color-tier-platino-deep: oklch(0.62 0.12 220);
+  --color-tier-esmeralda: oklch(0.72 0.15 165);
+  --color-tier-esmeralda-deep: oklch(0.55 0.13 165);
+  --color-tier-diamante: oklch(0.88 0.09 230);
+  --color-tier-diamante-deep: oklch(0.7 0.12 250);
+  --color-tier-retador: oklch(0.65 0.24 15);
+  --color-tier-retador-deep: oklch(0.5 0.21 10);
+
+  /* Alias legacy (código en migración) */
+  --color-bronze: var(--color-tier-bronce);
+  --color-bronze-2: var(--color-tier-bronce-deep);
+  --color-silver: var(--color-tier-plata);
+  --color-silver-2: var(--color-tier-plata-deep);
+  --color-gold: var(--color-tier-oro);
+  --color-gold-2: var(--color-tier-oro-deep);
+  --color-platinum: var(--color-tier-platino);
+  --color-emerald: var(--color-tier-esmeralda);
+  --color-diamond: var(--color-tier-diamante);
+  --color-diamond-2: var(--color-tier-diamante-deep);
+  --color-challenger: var(--color-tier-retador);
+  --color-challenger-2: var(--color-tier-retador-deep);
+
+  /* Superficies: base azul-acero frío para que los acentos cálidos respiren */
+  --color-surface-0: oklch(0.11 0.012 260);
+  --color-surface-1: oklch(0.145 0.012 260);
+  --color-surface-2: oklch(0.18 0.012 260);
+  --color-surface-3: oklch(0.22 0.012 260);
+  --color-border-subtle: oklch(0.26 0.012 260);
+  --color-fg: oklch(0.96 0.005 260);
+  --color-fg-muted: oklch(0.68 0.01 260);
+  --color-fg-dim: oklch(0.48 0.01 260);
+
+  /* Escala tipográfica fluida */
+  --text-display: clamp(2.5rem, 4.5vw + 1rem, 4.25rem);
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.03em;
+  --text-h1: clamp(1.75rem, 2.5vw + 0.5rem, 2.5rem);
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: clamp(1.25rem, 1.5vw + 0.5rem, 1.625rem);
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.01em;
+
+  /* Radios */
+  --radius-card: 1rem;
+  --radius-sheet: 1.5rem;
+
+  /* Sombras (highlight interior superior = profundidad sin bordes) */
+  --shadow-card:
+    inset 0 1px 0 0 oklch(1 0 0 / 0.05), 0 8px 24px -12px oklch(0 0 0 / 0.6);
+  --shadow-card-hover:
+    inset 0 1px 0 0 oklch(1 0 0 / 0.07), 0 16px 32px -12px oklch(0 0 0 / 0.7);
+  --shadow-glow-tier: 0 0 32px -8px var(--tier-glow);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+/* ====================================================================
+   ACENTO DE TIER EN RUNTIME
+   App.tsx fija <html data-tier="oro"> según el rango global del usuario;
+   todo lo demás es CSS puro derivado de --tier.
+   ==================================================================== */
+:root {
+  --tier: var(--color-tier-bronce);
+  --tier-deep: var(--color-tier-bronce-deep);
+}
+:root[data-tier="bronce"] {
+  --tier: var(--color-tier-bronce);
+  --tier-deep: var(--color-tier-bronce-deep);
+}
+:root[data-tier="plata"] {
+  --tier: var(--color-tier-plata);
+  --tier-deep: var(--color-tier-plata-deep);
+}
+:root[data-tier="oro"] {
+  --tier: var(--color-tier-oro);
+  --tier-deep: var(--color-tier-oro-deep);
+}
+:root[data-tier="platino"] {
+  --tier: var(--color-tier-platino);
+  --tier-deep: var(--color-tier-platino-deep);
+}
+:root[data-tier="esmeralda"] {
+  --tier: var(--color-tier-esmeralda);
+  --tier-deep: var(--color-tier-esmeralda-deep);
+}
+:root[data-tier="diamante"] {
+  --tier: var(--color-tier-diamante);
+  --tier-deep: var(--color-tier-diamante-deep);
+}
+:root[data-tier="retador"] {
+  --tier: var(--color-tier-retador);
+  --tier-deep: var(--color-tier-retador-deep);
+}
+
+:root {
+  /* Derivados ambientales del tier (sustituyen los hacks `${color}1A`) */
+  --tier-glow: color-mix(in oklab, var(--tier) 40%, transparent);
+  --tier-soft: color-mix(in oklab, var(--tier) 12%, transparent);
+  --tier-softer: color-mix(in oklab, var(--tier) 6%, transparent);
+  --tier-border: color-mix(in oklab, var(--tier) 30%, transparent);
+  --tier-gradient: linear-gradient(135deg, var(--tier-deep), var(--tier));
+  --tier-contrast: oklch(0.13 0.01 260);
+
+  /* Variables CSS legacy (compatibilidad con primitivas ui/) */
+  --background: var(--color-surface-0);
+  --foreground: var(--color-fg);
+  --card: var(--color-surface-1);
+  --card-foreground: var(--color-fg);
+  --popover: var(--color-surface-2);
+  --popover-foreground: var(--color-fg);
+  --primary: var(--color-brand-500);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: var(--color-surface-2);
+  --secondary-foreground: var(--color-fg);
+  --muted: var(--color-surface-2);
+  --muted-foreground: var(--color-fg-muted);
+  --accent: var(--color-surface-3);
+  --accent-foreground: var(--color-fg);
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: var(--color-border-subtle);
+  --input: var(--color-surface-2);
+  --ring: var(--color-brand-500);
+  --radius: 0.5rem;
+  --sidebar: oklch(0.125 0.012 260);
+  --sidebar-foreground: var(--color-fg);
+  --sidebar-primary: var(--color-brand-500);
+  --sidebar-border: var(--color-border-subtle);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
-  background: var(--background);
-  color: var(--foreground);
+  font-family: var(--font-sans);
+  background: var(--color-surface-0);
+  color: var(--color-fg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;
 }
 
-/* Focus ring */
+button,
+a,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  user-select: none;
+}
+
+/* Utilidades de tipografía */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+.font-condensed {
+  font-family: var(--font-condensed);
+  letter-spacing: 0.08em;
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Focus ring accesible */
 *:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid var(--tier);
   outline-offset: 2px;
-  border-radius: var(--radius);
+  border-radius: 0.375rem;
 }
 
-/* Cards */
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: calc(var(--radius) + 2px);
+/* Scrollbar custom */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-fg-dim);
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+@layer components {
+  /* Card base: sustituye a MagicCard en toda la app */
+  .card {
+    background: var(--color-surface-1);
+    border: 1px solid color-mix(in oklab, white 7%, transparent);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
 
-/* Animations */
+  /* Card con acento ambiental del tier */
+  .card-accent {
+    background:
+      radial-gradient(
+        120% 80% at 15% 0%,
+        var(--tier-soft),
+        transparent 55%
+      ),
+      var(--color-surface-1);
+    border: 1px solid var(--tier-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* EL único acento condensado permitido: eyebrow de sección */
+  .eyebrow {
+    font-family: var(--font-condensed);
+    font-size: 0.6875rem; /* 11px — mínimo absoluto de la app */
+    letter-spacing: 0.14em;
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+  }
+
+  .tier-text {
+    color: var(--tier);
+  }
+
+  .tier-gradient-text {
+    background: linear-gradient(
+      120deg,
+      var(--tier) 20%,
+      color-mix(in oklab, var(--tier) 55%, white) 50%,
+      var(--tier) 80%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Textura de ruido sutil (data-URI, coste de red cero) */
+  .bg-noise {
+    position: relative;
+  }
+  .bg-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Safe areas (requiere viewport-fit=cover) */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  /* Área táctil mínima accesible */
+  .tap-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Skeleton de carga */
+  .skeleton {
+    background: var(--color-surface-2);
+    border-radius: var(--radius-card);
+    animation: skeleton-pulse 1.6s ease-in-out infinite;
+  }
+
+  /* Máscara de fade en bordes para filas con scroll horizontal */
+  .scroll-fade-x {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 16px,
+      black calc(100% - 16px),
+      transparent
+    );
+  }
+}
+
+/* Animaciones base */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.animate-in { animation: fadeIn 0.3s ease-out; }
-@media (min-width: 768px) { .main-content { margin-left: 240px; } }
+
+.animate-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes emblem-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Kill-switch global de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

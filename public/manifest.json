@@ -1,9 +1,38 @@
 {
-  "name": "IronRank",
+  "name": "IronRank · Gym Tracker",
   "short_name": "IronRank",
-  "start_url": "/",
+  "description": "Tracker de gym gamificado con sistema ranked tipo LoL. 7 tiers, 100% offline-first PWA.",
+  "lang": "es-ES",
+  "dir": "ltr",
+  "start_url": "/ironrank/",
+  "scope": "/ironrank/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
+  "orientation": "portrait-primary",
   "background_color": "#0f0f0f",
-  "theme_color": "#f97316",
-  "icons": []
+  "theme_color": "#FF7A1A",
+  "categories": ["health", "fitness", "lifestyle", "sports"],
+  "icons": [
+    {
+      "src": "/ironrank/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/ironrank/icons.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Nuevo workout",
+      "short_name": "Workout",
+      "description": "Empezar un workout ahora",
+      "url": "/ironrank/?start=1",
+      "icons": [{ "src": "/ironrank/favicon.svg", "sizes": "any" }]
+    }
+  ]
 }

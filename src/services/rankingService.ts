@@ -8,10 +8,10 @@ interface Threshold {
 
 export function getThresholds(exerciseName: string, gender: string, age: number): Threshold[] {
   const defaultThresholds: Threshold[] = [
-    { tier: 'Bronze', minRatio: 0 },
-    { tier: 'Prata', minRatio: 0.6 },
-    { tier: 'Ouro', minRatio: 0.8 },
-    { tier: 'Platina', minRatio: 1.0 },
+    { tier: 'Bronce', minRatio: 0 },
+    { tier: 'Plata', minRatio: 0.6 },
+    { tier: 'Oro', minRatio: 0.8 },
+    { tier: 'Platino', minRatio: 1.0 },
     { tier: 'Esmeralda', minRatio: 1.2 },
     { tier: 'Diamante', minRatio: 1.4 },
     { tier: 'Retador', minRatio: 1.6 },
@@ -25,7 +25,7 @@ export function tierFor(rm: number, bodyweight: number, gender: string, age: num
   for (let i = thresholds.length - 1; i >= 0; i--) {
     if (rel >= thresholds[i].minRatio) return thresholds[i].tier
   }
-  return 'Bronze'
+  return 'Bronce'
 }
 
 export function nextMilestone(rm: number, bodyweight: number, gender: string, age: number, exerciseName: string): { nextTier: Tier; weightNeeded: number } | null {
@@ -52,7 +52,7 @@ export function rankedScore(benchRM: number, squatRM: number, deadliftRM: number
 export function tierFromScore(score: number): Tier {
   const map: [Tier, number][] = [
     ['Retador', 0.95], ['Diamante', 0.80], ['Esmeralda', 0.65],
-    ['Platina', 0.50], ['Ouro', 0.35], ['Prata', 0.20], ['Bronze', 0]
+    ['Platino', 0.50], ['Oro', 0.35], ['Plata', 0.20], ['Bronce', 0]
   ]
   return map.find(([_, min]) => score >= min)![0]
 }

@@ -2,14 +2,82 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="theme-color" content="#0f0f0f" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link rel="manifest" href="/manifest.json" />
-    <title>IronRank - Gym Tracker</title>
+    <meta name="apple-mobile-web-app-title" content="IronRank" />
+
+    <title>IronRank · Gym Tracker con sistema Ranked</title>
+    <meta
+      name="description"
+      content="IronRank: tracker de gym con sistema ranked tipo LoL. Registra workouts, sube de tier (Bronce → Retador) y compite contigo mismo. 100% offline, sin cuentas, sin nube."
+    />
+    <meta name="keywords" content="gym, tracker, fitness, ranked, league, league of legends, workout, training, PR, fuerza, 1RM" />
+    <meta name="author" content="IronRank" />
+    <meta name="theme-color" content="#C08445" />
+    <link rel="canonical" href="https://rafagandia.com/ironrank/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://rafagandia.com/ironrank/" />
+    <meta property="og:title" content="IronRank · Gym Tracker con sistema Ranked" />
+    <meta property="og:description" content="Tracker de gym gamificado. Sube de tier con cada PR. 7 rangos, de Bronce a Retador. 100% offline." />
+    <meta property="og:image" content="https://rafagandia.com/ironrank/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="IronRank - Tracker de gym con sistema ranked" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="IronRank" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://rafagandia.com/ironrank/" />
+    <meta name="twitter:title" content="IronRank · Gym Tracker con sistema Ranked" />
+    <meta name="twitter:description" content="Tracker de gym gamificado. Sube de tier con cada PR. 7 rangos, de Bronce a Retador." />
+    <meta name="twitter:image" content="https://rafagandia.com/ironrank/og-image.png" />
+
+    <meta name="application-name" content="IronRank" />
+    <meta name="apple-mobile-web-app-title" content="IronRank" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <link rel="manifest" href="/ironrank/manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="/ironrank/favicon.svg" />
+    <link rel="apple-touch-icon" href="/ironrank/icons.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "IronRank",
+        "description": "Gym tracker gamificado con sistema ranked tipo LoL. 7 tiers, 100% offline-first PWA.",
+        "url": "https://rafagandia.com/ironrank/",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires modern browser with IndexedDB support",
+        "inLanguage": "es-ES",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        }
+      }
+    </script>
   </head>
   <body>
+    <noscript>
+      <div style="padding:2rem;text-align:center;font-family:system-ui,sans-serif;background:#0f0f0f;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column">
+        <h1 style="color:#FF7A1A">IronRank</h1>
+        <p>Necesitas JavaScript habilitado para usar IronRank. Es una PWA offline-first.</p>
+        <p>Enable JavaScript to use IronRank. It's an offline-first PWA.</p>
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

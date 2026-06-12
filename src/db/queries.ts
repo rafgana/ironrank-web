@@ -1,4 +1,5 @@
 import { db } from './database'
+import { estimatedMax } from '../utils/estimators'
 
 export async function getLastSetsForExercise(exerciseId: number, limit = 5): Promise<import('../models/types').SetEntry[]> {
   const wes = await db.workoutExercises.where('exerciseId').equals(exerciseId).toArray()
@@ -28,7 +29,6 @@ export async function bestSetForExercise(exerciseId: number): Promise<import('..
   }
   if (!allSets.length) return null
   return allSets.reduce((best, s) => {
-    const { estimatedMax } = require('../utils/estimators')
     return estimatedMax(s.weight, s.reps, s.rir) > estimatedMax(best.weight, best.reps, best.rir) ? s : best
   })
 }
