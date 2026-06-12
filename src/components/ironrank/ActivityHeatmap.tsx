@@ -133,37 +133,33 @@ export function ActivityHeatmap({ data, weeks = 26, className }: HeatmapProps) {
         </div>
       </div>
 
-      {/* Heatmap */}
-      <div className="overflow-x-auto -mx-2 px-2 pb-2">
-        <div className="inline-block">
-          {/* Month labels */}
-          <div className="flex mb-1 ml-6">
+      {/* Heatmap fluido: llena el ancho del contenedor */}
+      <div className="pb-1">
+        <div>
+          {/* Month labels (posicionadas por porcentaje) */}
+          <div className="relative mb-1 ml-6 h-4">
             {monthMarkers.map((m) => (
-              <div
+              <span
                 key={m.week}
-                className="text-[11px] text-[var(--color-fg-dim)]"
-                style={{
-                  width: 13,
-                  position: "relative",
-                  left: m.week === 0 ? 0 : m.week * 13 - (monthMarkers.findIndex((x) => x.week === m.week) * 0),
-                }}
+                className="absolute text-[11px] text-[var(--color-fg-dim)]"
+                style={{ left: `${(m.week / weeks) * 100}%` }}
               >
                 {MONTH_LABELS[m.month]}
-              </div>
+              </span>
             ))}
           </div>
 
           <div className="flex">
             {/* Day labels */}
-            <div className="flex flex-col justify-between mr-1.5 text-[10px] text-[var(--color-fg-dim)] py-[1px]">
+            <div
+              className="mr-1.5 grid w-4.5 shrink-0 text-[10px] text-[var(--color-fg-dim)]"
+              style={{ gridTemplateRows: "repeat(7, 1fr)", gap: 2 }}
+            >
               {DAY_LABELS.map((d, i) => (
                 <div
                   key={d}
-                  style={{
-                    height: 11,
-                    lineHeight: "11px",
-                    opacity: i % 2 === 1 ? 1 : 0,
-                  }}
+                  className="flex items-center"
+                  style={{ opacity: i % 2 === 1 ? 1 : 0 }}
                 >
                   {d}
                 </div>
@@ -171,9 +167,19 @@ export function ActivityHeatmap({ data, weeks = 26, className }: HeatmapProps) {
             </div>
 
             {/* Grid */}
-            <div className="flex gap-[2px]">
+            <div
+              className="grid min-w-0 flex-1"
+              style={{
+                gridTemplateColumns: `repeat(${weeks}, minmax(0, 1fr))`,
+                gap: 2,
+              }}
+            >
               {grid.map((col, ci) => (
-                <div key={ci} className="flex flex-col gap-[2px]">
+                <div
+                  key={ci}
+                  className="grid"
+                  style={{ gridTemplateRows: "repeat(7, 1fr)", gap: 2 }}
+                >
                   {col.map((cell, di) => {
                     const intensity =
                       cell.count < 0
@@ -201,7 +207,7 @@ export function ActivityHeatmap({ data, weeks = 26, className }: HeatmapProps) {
                           day: "numeric",
                           month: "short",
                         })} · ${cell.count} workout${cell.count !== 1 ? "s" : ""}${cell.volume > 0 ? ` · ${cell.volume}kg` : ""}`}
-                        className="size-[11px] rounded-sm cursor-pointer"
+                        className="aspect-square w-full cursor-pointer rounded-sm"
                         style={{
                           background:
                             intensity < 0

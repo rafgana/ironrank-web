@@ -1,7 +1,12 @@
-import { useEffect, useMemo, lazy, Suspense } from "react";
+import { useEffect, useMemo, useState, lazy, Suspense } from "react";
 import { motion } from "motion/react";
 import { useWorkoutStore } from "../store/workoutStore";
+import { useProfileStore } from "../store/profileStore";
 import { useOverallTier } from "../hooks/useOverallTier";
+import { db } from "../db/database";
+import { bestSetForExercise } from "../db/queries";
+import { estimatedMax } from "../utils/estimators";
+import { tierFor } from "../services/rankingService";
 import { TierEmblem } from "../components/ironrank/TierEmblem";
 import { TierProgression } from "../components/ironrank/TierProgression";
 import { SectionHeader } from "../components/ui/SectionHeader";
@@ -9,7 +14,7 @@ import { TierProgressBar } from "../components/ui/TierProgressBar";
 import { Button } from "../components/ui/button";
 import { NumberTicker } from "../components/magicui/number-ticker";
 import { enterItem, enterStagger } from "../lib/motionTokens";
-import { TIER_VARS } from "../models/types";
+import { TIER_VARS, tierAlpha, type Tier } from "../models/types";
 import {
   Dumbbell,
   Flame,
@@ -20,6 +25,7 @@ import {
   User,
   TrendingUp,
   Check,
+  Lock,
   type LucideIcon,
 } from "lucide-react";
 
@@ -33,14 +39,60 @@ interface DashboardProps {
   onStartWorkout: () => void;
 }
 
+interface BigLift {
+  name: string;
+  rm: number | null;
+  tier: Tier | null;
+}
+
+const BIG_LIFTS = ["Press Banca", "Sentadilla", "Peso Muerto"];
+
 export function Dashboard({ onStartWorkout }: DashboardProps) {
   const ws = useWorkoutStore();
+  const ps = useProfileStore();
   const overall = useOverallTier();
+  const [bigLifts, setBigLifts] = useState<BigLift[]>(
+    BIG_LIFTS.map((name) => ({ name, rm: null, tier: null })),
+  );
 
   useEffect(() => {
     ws.loadWorkouts();
     ws.loadProfile();
   }, []);
+
+  useEffect(() => {
+    if (!ps.profile) return;
+    let cancelled = false;
+    (async () => {
+      const lifts: BigLift[] = [];
+      for (const name of BIG_LIFTS) {
+        const e = await db.exercises
+          .filter((x) => x.name.toLowerCase().includes(name.toLowerCase()))
+          .first();
+        const best = e ? await bestSetForExercise(e.id!) : null;
+        if (best) {
+          const rm = estimatedMax(best.weight, best.reps, best.rir);
+          lifts.push({
+            name,
+            rm,
+            tier: tierFor(
+              rm,
+              ps.profile!.bodyweight,
+              ps.profile!.gender,
+              ps.profile!.age,
+              name,
+            ),
+          });
+        } else {
+          lifts.push({ name, rm: null, tier: null });
+        }
+      }
+      if (!cancelled) setBigLifts(lifts);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [ps.profile, ws.workouts]);
 
   const totalWorkouts = ws.workouts.length;
   const weekWorkouts = ws.workouts.filter((w) => {
@@ -73,81 +125,75 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
     [ws.workouts],
   );
 
-  const recent = ws.workouts.slice(0, 6);
+  const recent = ws.workouts.slice(0, 5);
 
   return (
     <motion.div
       variants={enterStagger}
       initial="hidden"
       animate="show"
-      className="grid gap-4 md:gap-5 lg:grid-cols-12"
+      className="grid auto-rows-min gap-4 lg:grid-cols-12"
     >
-      {/* ══ HERO: identidad ranked + stats integradas ══ */}
+      {/* ══ HERO VERTICAL: identidad ranked (columna izquierda, 2 filas) ══ */}
       <motion.section
         variants={enterItem}
-        className="min-w-0 card-accent hud bg-noise relative overflow-hidden lg:col-span-12"
+        className="card-accent hud bg-noise relative min-w-0 overflow-hidden lg:col-span-4 lg:row-span-2"
       >
-        {/* Línea de energía superior */}
         <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,transparent,var(--tier),transparent)] opacity-70" />
-
-        <div className="relative z-10 grid items-center gap-6 p-6 md:grid-cols-[auto_1fr_auto] md:gap-10 md:p-8">
-          {/* Emblema */}
-          <div className="flex justify-center">
-            <TierEmblem
-              tier={overall.tier}
-              size="xl"
-              animated
-              ringProgress={overall.hasData ? overall.score : undefined}
-            />
+        <div className="relative z-10 flex h-full flex-col items-center gap-4 p-6 text-center lg:p-7">
+          <div className="eyebrow text-(--tier)">
+            Rango actual · Temporada 2026
           </div>
+          <TierEmblem
+            tier={overall.tier}
+            size="xl"
+            animated
+            ringProgress={overall.hasData ? overall.score : undefined}
+          />
+          <h1 className="font-display tier-gradient-text text-display leading-none font-bold">
+            {overall.tier}
+          </h1>
 
-          {/* Rango + progreso */}
-          <div className="space-y-3 text-center md:text-left">
-            <div className="eyebrow text-(--tier)">
-              Rango actual · Temporada 2026
-            </div>
-            <h1 className="font-display tier-gradient-text text-display font-bold">
-              {overall.tier}
-            </h1>
-            {overall.hasData ? (
-              <div className="max-w-md space-y-2 max-md:mx-auto">
-                <div className="flex justify-between text-sm text-fg-muted">
-                  <span>
-                    Progreso a{" "}
-                    <span
-                      className="font-semibold"
-                      style={{
-                        color: TIER_VARS[overall.nextTier ?? overall.tier],
-                      }}
-                    >
-                      {overall.nextTier ?? "MAX"}
-                    </span>
+          {overall.hasData ? (
+            <div className="w-full max-w-xs space-y-2">
+              <div className="flex justify-between text-sm text-fg-muted">
+                <span>
+                  Progreso a{" "}
+                  <span
+                    className="font-semibold"
+                    style={{
+                      color: TIER_VARS[overall.nextTier ?? overall.tier],
+                    }}
+                  >
+                    {overall.nextTier ?? "MAX"}
                   </span>
-                  <span className="font-mono tabular-nums">
-                    {overall.score}%
-                  </span>
-                </div>
-                <TierProgressBar value={overall.score} />
+                </span>
+                <span className="font-mono tabular-nums">{overall.score}%</span>
               </div>
-            ) : (
-              <p className="mx-auto max-w-md text-sm text-fg-muted md:mx-0">
-                Registra tu primer{" "}
-                <span className="font-semibold text-fg">Press Banca</span>,{" "}
-                <span className="font-semibold text-fg">Sentadilla</span> o{" "}
-                <span className="font-semibold text-fg">Peso Muerto</span> para
-                desbloquear tu rango real.
-              </p>
-            )}
-            <div className="flex flex-wrap justify-center gap-2 pt-1 md:justify-start">
-              <Button variant="tier" size="md" onClick={onStartWorkout}>
-                <Zap size={15} strokeWidth={2.5} />
-                {totalWorkouts ? "Nuevo workout" : "Empezar primer workout"}
-              </Button>
+              <TierProgressBar value={overall.score} />
             </div>
-          </div>
+          ) : (
+            <p className="max-w-xs text-sm text-fg-muted">
+              Registra tu primer{" "}
+              <span className="font-semibold text-fg">Press Banca</span>,{" "}
+              <span className="font-semibold text-fg">Sentadilla</span> o{" "}
+              <span className="font-semibold text-fg">Peso Muerto</span> para
+              desbloquear tu rango real.
+            </p>
+          )}
 
-          {/* Stats integradas */}
-          <div className="grid grid-cols-2 gap-x-8 gap-y-5 border-t border-(--tier-border) pt-5 max-md:mt-1 md:border-t-0 md:border-l md:pt-0 md:pl-10">
+          <Button
+            variant="tier"
+            size="lg"
+            onClick={onStartWorkout}
+            className="w-full max-w-xs"
+          >
+            <Zap size={16} strokeWidth={2.5} />
+            {totalWorkouts ? "Nuevo workout" : "Empezar primer workout"}
+          </Button>
+
+          {/* Stats integradas al pie del hero */}
+          <div className="mt-auto grid w-full grid-cols-2 gap-x-6 gap-y-4 border-t border-(--tier-border) pt-5 text-left">
             <HeroStat icon={Dumbbell} value={totalWorkouts} label="Entrenos" />
             <HeroStat
               icon={Flame}
@@ -171,52 +217,20 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
         </div>
       </motion.section>
 
-      {/* ══ QUEST LOG: primeros pasos (solo sin datos de rango) ══ */}
-      {!overall.hasData && (
-        <motion.section variants={enterItem} className="min-w-0 card p-5 lg:col-span-12">
-          <SectionHeader
-            eyebrow="Misiones"
-            title="Primeros pasos"
-            action={
-              <span className="font-mono text-sm tabular-nums text-fg-dim">
-                {(ws.profile ? 1 : 0) + (totalWorkouts > 0 ? 1 : 0)}/3
-              </span>
-            }
-          />
-          <div className="grid gap-2.5 md:grid-cols-3">
-            <Quest
-              n={1}
-              done={!!ws.profile}
-              icon={User}
-              title="Configura tu perfil"
-              desc="Peso corporal, edad y descanso por defecto"
-            />
-            <Quest
-              n={2}
-              done={totalWorkouts > 0}
-              icon={Dumbbell}
-              title="Completa un workout"
-              desc="Registra tus primeras series"
-            />
-            <Quest
-              n={3}
-              done={false}
-              icon={TrendingUp}
-              title="Desbloquea tu rango"
-              desc="Registra los 3 grandes levantamientos"
-            />
-          </div>
-        </motion.section>
-      )}
-
-      {/* ══ CAMINO AL RETADOR: siempre visible, da identidad ══ */}
-      <motion.section variants={enterItem} className="min-w-0 card p-5 md:p-6 lg:col-span-12">
+      {/* ══ CAMINO AL RETADOR ══ */}
+      <motion.section
+        variants={enterItem}
+        className="card min-w-0 p-5 lg:col-span-8"
+      >
         <SectionHeader eyebrow="Clasificatoria" title="Camino al Retador" />
         <TierProgression currentTier={overall.tier} />
       </motion.section>
 
-      {/* ══ MAPA DE ACTIVIDAD: siempre visible (grid vacío estilo GitHub) ══ */}
-      <motion.section variants={enterItem} className="min-w-0 card p-5 md:p-6 lg:col-span-8">
+      {/* ══ MAPA DE ACTIVIDAD ══ */}
+      <motion.section
+        variants={enterItem}
+        className="card min-w-0 p-5 lg:col-span-8"
+      >
         <SectionHeader eyebrow="Consistencia" title="Mapa de actividad" />
         <Suspense fallback={<div className="skeleton h-32" />}>
           <ActivityHeatmap data={heatmapData} weeks={26} />
@@ -226,7 +240,7 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
       {/* ══ ACTIVIDAD RECIENTE ══ */}
       <motion.aside
         variants={enterItem}
-        className="min-w-0 card flex flex-col p-5 lg:col-span-4"
+        className="card flex min-w-0 flex-col p-5 lg:col-span-4"
       >
         <SectionHeader eyebrow="Historial" title="Actividad reciente" />
         {recent.length > 0 ? (
@@ -281,6 +295,111 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
           Nuevo workout
         </Button>
       </motion.aside>
+
+      {/* ══ LOS 3 GRANDES: slots bloqueados/desbloqueados ══ */}
+      <motion.section
+        variants={enterItem}
+        className="card min-w-0 p-5 lg:col-span-8"
+      >
+        <SectionHeader
+          eyebrow="Big three"
+          title="Los 3 grandes"
+          action={
+            <span className="font-mono text-sm tabular-nums text-fg-dim">
+              {bigLifts.filter((l) => l.rm).length}/3
+            </span>
+          }
+        />
+        <div className="grid gap-3 sm:grid-cols-3">
+          {bigLifts.map((l) =>
+            l.rm && l.tier ? (
+              <div
+                key={l.name}
+                className="flex items-center gap-3 rounded-xl border p-3.5"
+                style={{
+                  borderColor: tierAlpha(l.tier, 30),
+                  background: tierAlpha(l.tier, 6),
+                }}
+              >
+                <TierEmblem tier={l.tier} size="sm" />
+                <div className="min-w-0">
+                  <div className="truncate text-sm font-semibold">{l.name}</div>
+                  <div
+                    className="font-display text-xl font-bold tabular-nums"
+                    style={{ color: TIER_VARS[l.tier] }}
+                  >
+                    {l.rm.toFixed(1)}
+                    <span className="ml-0.5 text-xs font-normal text-fg-muted">
+                      kg
+                    </span>
+                  </div>
+                  <div className="text-xs" style={{ color: TIER_VARS[l.tier] }}>
+                    {l.tier}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div
+                key={l.name}
+                className="flex items-center gap-3 rounded-xl border border-dashed border-border-subtle bg-surface-2/50 p-3.5"
+              >
+                <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-surface-3 text-fg-dim">
+                  <Lock size={18} />
+                </span>
+                <div className="min-w-0">
+                  <div className="truncate text-sm font-semibold text-fg-muted">
+                    {l.name}
+                  </div>
+                  <div className="text-xs text-fg-dim">
+                    Bloqueado · sin registro
+                  </div>
+                </div>
+              </div>
+            ),
+          )}
+        </div>
+      </motion.section>
+
+      {/* ══ QUEST LOG (solo sin rango desbloqueado) ══ */}
+      {!overall.hasData && (
+        <motion.section
+          variants={enterItem}
+          className="card min-w-0 p-5 lg:col-span-12"
+        >
+          <SectionHeader
+            eyebrow="Misiones"
+            title="Primeros pasos"
+            action={
+              <span className="font-mono text-sm tabular-nums text-fg-dim">
+                {(ws.profile ? 1 : 0) + (totalWorkouts > 0 ? 1 : 0)}/3
+              </span>
+            }
+          />
+          <div className="grid gap-2.5 md:grid-cols-3">
+            <Quest
+              n={1}
+              done={!!ws.profile}
+              icon={User}
+              title="Configura tu perfil"
+              desc="Peso corporal, edad y descanso por defecto"
+            />
+            <Quest
+              n={2}
+              done={totalWorkouts > 0}
+              icon={Dumbbell}
+              title="Completa un workout"
+              desc="Registra tus primeras series"
+            />
+            <Quest
+              n={3}
+              done={false}
+              icon={TrendingUp}
+              title="Desbloquea tu rango"
+              desc="Registra los 3 grandes levantamientos"
+            />
+          </div>
+        </motion.section>
+      )}
     </motion.div>
   );
 }
@@ -300,20 +419,20 @@ function HeroStat({
   accent?: string;
 }) {
   return (
-    <div className="min-w-24">
+    <div className="min-w-0">
       <div className="mb-1 flex items-center gap-1.5" style={{ color: accent }}>
         <Icon size={14} />
         <span className="eyebrow !text-[11px] !text-fg-muted">{label}</span>
       </div>
       {valueStr !== undefined ? (
         <div
-          className="font-display text-xl font-bold tracking-tight"
+          className="font-display truncate text-xl font-bold tracking-tight"
           style={{ color: accent }}
         >
           {valueStr}
         </div>
       ) : (
-        <div className="font-display text-3xl font-bold tracking-tight tabular-nums">
+        <div className="font-display text-2xl font-bold tracking-tight tabular-nums">
           <NumberTicker value={value ?? 0} />
         </div>
       )}
@@ -354,7 +473,10 @@ function Quest({
       </span>
       <div className="min-w-0">
         <div className="flex items-center gap-1.5 text-sm font-semibold">
-          <Icon size={13} className={done ? "text-(--tier)" : "text-fg-muted"} />
+          <Icon
+            size={13}
+            className={done ? "text-(--tier)" : "text-fg-muted"}
+          />
           <span className={done ? "text-(--tier)" : undefined}>{title}</span>
         </div>
         <div className="mt-0.5 text-xs text-fg-muted">{desc}</div>

@@ -264,7 +264,7 @@ export default function App() {
         </header>
 
         <div className="px-4 py-6 pb-32 md:px-8 md:py-8 md:pb-12 lg:px-10">
-          <div className="mx-auto max-w-7xl">
+          <div className="mx-auto max-w-[1600px]">
             <AnimatePresence mode="wait" initial={false} custom={direction.current}>
               <motion.div
                 key={tab}
