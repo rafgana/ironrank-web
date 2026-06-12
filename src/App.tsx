@@ -35,30 +35,40 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] text-white flex flex-col md:flex-row">
-      {/* Sidebar nav - desktop */}
-      <nav className="hidden md:flex md:flex-col md:w-64 md:min-h-screen md:border-r md:border-white/10 md:bg-zinc-950 md:p-4 md:gap-1 md:fixed md:left-0 md:top-0 md:z-30">
-        <div className="text-orange-400 font-bold text-xl px-2 py-4 mb-3 border-b border-white/5 flex items-center gap-2">
-          <span className="text-2xl">🏆</span> IronRank
+    <div className="min-h-screen flex flex-col md:flex-row" style={{ background: 'var(--background)' }}>
+      {/* Desktop sidebar */}
+      <nav className="hidden md:flex md:flex-col md:w-60 md:min-h-screen md:border-r md:z-30 md:fixed md:left-0 md:top-0"
+        style={{ background: 'var(--card)', borderColor: 'var(--border)' }}>
+        <div className="px-4 py-5 border-b" style={{ borderColor: 'var(--border)' }}>
+          <div className="text-xl font-bold flex items-center gap-2" style={{ color: 'var(--primary)' }}>
+            <span>🏆</span> <span>IronRank</span>
+          </div>
         </div>
-        <div className="text-xs text-gray-500 uppercase tracking-wider px-2 py-1 mt-2 mb-1">Menu</div>
-        {tabs.map(t => (
-          <button key={t.key} onClick={() => setTab(t.key)}
-            className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm transition-colors text-left w-full ${
-              tab === t.key ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20' : 'text-gray-400 hover:bg-white/5 hover:text-white'
-            }`}>
-            <span className="text-xl">{t.icon}</span>
-            <span className="font-medium">{t.label}</span>
-          </button>
-        ))}
-        <div className="mt-auto pt-4 border-t border-white/5">
-          <div className="text-xs text-gray-600 px-2">v1.0 · Offline-first</div>
+        <div className="flex-1 px-2 py-3 space-y-0.5">
+          {tabs.map(t => {
+            const active = tab === t.key
+            return (
+              <button key={t.key} onClick={() => setTab(t.key)}
+                className="flex items-center gap-3 px-3 py-2.5 w-full text-left text-sm rounded-md transition-colors"
+                style={{
+                  color: active ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
+                  background: active ? 'var(--primary)' : 'transparent',
+                  fontWeight: active ? 600 : 400,
+                }}>
+                <span className="text-base">{t.icon}</span>
+                <span>{t.label}</span>
+              </button>
+            )
+          })}
+        </div>
+        <div className="px-4 py-3 border-t" style={{ borderColor: 'var(--border)' }}>
+          <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>v1.0</span>
         </div>
       </nav>
 
-      {/* Main content */}
-      <div className="flex-1 md:ml-64 overflow-auto">
-        <div className="max-w-4xl mx-auto">
+      {/* Content */}
+      <div className="flex-1 min-h-screen main-content">
+        <div className="max-w-3xl mx-auto px-4 md:px-8 py-6 md:py-10">
           {tab === 'home' && <Dashboard onStartWorkout={startWorkout} />}
           {tab === 'workout' && <WorkoutList onStart={startWorkout} />}
           {tab === 'progress' && <Progress />}
@@ -69,17 +79,20 @@ export default function App() {
         <div className="h-20 md:hidden" />
       </div>
 
-      {/* Bottom nav - mobile */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-zinc-900/90 backdrop-blur border-t border-white/10 px-2 py-2 flex justify-around z-40">
-        {tabs.map(t => (
-          <button key={t.key} onClick={() => setTab(t.key)}
-            className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg text-xs transition-colors ${
-              tab === t.key ? 'text-orange-400' : 'text-gray-500'
-            }`}>
-            <span className="text-lg">{t.icon}</span>
-            <span>{t.label}</span>
-          </button>
-        ))}
+      {/* Mobile bottom nav */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 px-2 py-2 flex justify-around border-t"
+        style={{ background: 'oklch(0.18 0 0 / 0.95)', borderColor: 'var(--border)', backdropFilter: 'blur(12px)' }}>
+        {tabs.map(t => {
+          const active = tab === t.key
+          return (
+            <button key={t.key} onClick={() => setTab(t.key)}
+              className="flex flex-col items-center gap-0.5 px-2 py-1 rounded-md text-xs transition-colors"
+              style={{ color: active ? 'var(--primary)' : 'var(--muted-foreground)' }}>
+              <span className="text-lg">{t.icon}</span>
+              <span>{t.label}</span>
+            </button>
+          )
+        })}
       </nav>
     </div>
   )

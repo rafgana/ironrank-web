@@ -4,25 +4,18 @@ import { db } from '../db/database'
 import { tierFromScore, rankedScore } from '../services/rankingService'
 import { bestSetForExercise } from '../db/queries'
 import { estimatedMax } from '../utils/estimators'
-import { TierCard } from '../components/TierCard'
-import { fmt } from '../utils/format'
 import type { Tier } from '../models/types'
+import { TIER_ICONS, TIER_COLORS } from '../models/types'
 
 export function Dashboard({ onStartWorkout }: { onStartWorkout: () => void }) {
-  const store = useWorkoutStore()
+  const ws = useWorkoutStore()
   const [tier, setTier] = useState<Tier>('Bronze')
-  const [streak, setStreak] = useState(0)
 
-  useEffect(() => { store.loadWorkouts(); store.loadProfile() }, [])
-
-  useEffect(() => {
-    if (!store.workouts.length || !store.profile) return
-    calcTier()
-    calcStreak()
-  }, [store.workouts, store.profile])
+  useEffect(() => { ws.loadWorkouts(); ws.loadProfile() }, [])
+  useEffect(() => { if (ws.workouts.length && ws.profile) calcTier() }, [ws.workouts, ws.profile])
 
   const calcTier = async () => {
-    const p = store.profile!
+    const p = ws.profile!
     const bench = await bestSetForName('Press Banca')
     const squat = await bestSetForName('Sentadilla')
     const dl = await bestSetForName('Peso Muerto')
@@ -41,58 +34,55 @@ export function Dashboard({ onStartWorkout }: { onStartWorkout: () => void }) {
     return bestSetForExercise(exercises[0].id!)
   }
 
-  const calcStreak = () => {
-    const sorted = [...store.workouts].sort((a, b) => +b.date - +a.date)
-    let s = 0
-    let current = new Date()
-    for (const w of sorted) {
-      const d = new Date(w.date)
-      if (d.toDateString() === current.toDateString()) { s++; current = new Date(current.getTime() - 86400000) }
-      else if (d < new Date(current.getTime() - 86400000)) break
-    }
-    setStreak(s)
-  }
-
-  const lastWorkout = store.workouts[0]
+  const lastWorkout = ws.workouts[0]
 
   return (
-    <div className="px-4 md:px-6 pt-4 md:pt-8 pb-4 space-y-5">
-      <div className="text-center max-w-sm mx-auto">
-        <TierCard tier={tier} large />
-        <div className="text-xs text-gray-500 mt-1">Rango General</div>
+    <div className="space-y-6">
+      {/* Tier card */}
+      <div className="rounded-xl p-6 text-center" style={{ background: TIER_COLORS[tier] + '15', border: '1px solid ' + TIER_COLORS[tier] + '30' }}>
+        <div className="text-5xl mb-2">{TIER_ICONS[tier]}</div>
+        <div className="text-xl font-bold" style={{ color: TIER_COLORS[tier] }}>{tier}</div>
+        <div className="text-xs text-muted-foreground mt-1">Rango General</div>
       </div>
 
+      {/* Stats grid */}
+      <div className="grid grid-cols-3 gap-3">
+        <StatBox value={String(ws.workouts.length)} label="Entrenos" />
+        <StatBox value="-" label="Racha" />
+        <StatBox value="-" label="Vol. Sem." />
+      </div>
+
+      {/* Last workout */}
       {lastWorkout && (
-        <div className="bg-white/5 rounded-xl p-4 max-w-sm mx-auto">
-          <div className="text-xs text-gray-400 mb-1">Ultimo Entreno</div>
+        <div className="rounded-lg border p-4 text-sm" style={{ borderColor: 'var(--border)' }}>
+          <div className="text-xs text-muted-foreground mb-1">Ultimo entreno</div>
           <div className="flex justify-between">
-            <span className="font-medium">{fmt.date(lastWorkout.date)} {fmt.time(lastWorkout.date)}</span>
-            <span className="text-sm text-gray-400">{fmt.duration(lastWorkout.duration)}</span>
+            <span className="font-medium">
+              {new Date(lastWorkout.date).toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' })}
+            </span>
+            <span className="text-muted-foreground">
+              {Math.floor(lastWorkout.duration / 60)}m {lastWorkout.duration % 60}s
+            </span>
           </div>
         </div>
       )}
 
-      <div className="grid grid-cols-3 gap-3 max-w-sm mx-auto">
-        <StatBox value={String(store.workouts.length)} label="Entrenos" />
-        <StatBox value={String(streak)} label="Racha" />
-        <StatBox value="—" label="Vol. Sem." />
-      </div>
-
-      <div className="max-w-sm mx-auto">
-        <button onClick={onStartWorkout}
-          className="w-full bg-orange-500 text-white py-3 rounded-xl font-bold text-lg hover:bg-orange-600 transition-colors">
-          Nuevo Workout
-        </button>
-      </div>
+      {/* Start button */}
+      <button
+        onClick={onStartWorkout}
+        className="w-full py-3 rounded-lg text-sm font-semibold transition-colors"
+        style={{ background: 'var(--primary)', color: 'var(--primary-foreground)' }}>
+        Nuevo Workout
+      </button>
     </div>
   )
 }
 
 function StatBox({ value, label }: { value: string; label: string }) {
   return (
-    <div className="bg-white/5 rounded-xl p-3 text-center">
+    <div className="rounded-lg border p-3 text-center text-sm" style={{ borderColor: 'var(--border)' }}>
       <div className="text-xl font-bold">{value}</div>
-      <div className="text-xs text-gray-400">{label}</div>
+      <div className="text-xs text-muted-foreground">{label}</div>
     </div>
   )
 }
