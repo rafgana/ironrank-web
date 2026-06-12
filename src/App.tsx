@@ -37,21 +37,27 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-white flex flex-col md:flex-row">
       {/* Sidebar nav - desktop */}
-      <nav className="hidden md:flex md:flex-col md:w-56 md:min-h-screen md:border-r md:border-white/10 md:bg-zinc-950 md:p-3 md:gap-1 md:fixed md:left-0 md:top-0">
-        <div className="text-orange-400 font-bold text-lg px-3 py-3 mb-2">IronRank</div>
+      <nav className="hidden md:flex md:flex-col md:w-64 md:min-h-screen md:border-r md:border-white/10 md:bg-zinc-950 md:p-4 md:gap-1 md:fixed md:left-0 md:top-0 md:z-30">
+        <div className="text-orange-400 font-bold text-xl px-2 py-4 mb-3 border-b border-white/5 flex items-center gap-2">
+          <span className="text-2xl">🏆</span> IronRank
+        </div>
+        <div className="text-xs text-gray-500 uppercase tracking-wider px-2 py-1 mt-2 mb-1">Menu</div>
         {tabs.map(t => (
           <button key={t.key} onClick={() => setTab(t.key)}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors text-left w-full ${
-              tab === t.key ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20' : 'text-gray-400 hover:bg-white/5'
+            className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm transition-colors text-left w-full ${
+              tab === t.key ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20' : 'text-gray-400 hover:bg-white/5 hover:text-white'
             }`}>
-            <span className="text-lg">{t.icon}</span>
-            <span>{t.label}</span>
+            <span className="text-xl">{t.icon}</span>
+            <span className="font-medium">{t.label}</span>
           </button>
         ))}
+        <div className="mt-auto pt-4 border-t border-white/5">
+          <div className="text-xs text-gray-600 px-2">v1.0 · Offline-first</div>
+        </div>
       </nav>
 
       {/* Main content */}
-      <div className="flex-1 md:ml-56 overflow-auto">
+      <div className="flex-1 md:ml-64 overflow-auto">
         <div className="max-w-4xl mx-auto">
           {tab === 'home' && <Dashboard onStartWorkout={startWorkout} />}
           {tab === 'workout' && <WorkoutList onStart={startWorkout} />}
