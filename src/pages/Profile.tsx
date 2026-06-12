@@ -1,51 +1,62 @@
 import { useProfileStore } from '../store/profileStore'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 export function Profile() {
-  const store = useProfileStore()
-  const [dark, setDark] = useState(false)
+  const s = useProfileStore()
+  useEffect(() => { s.load() }, [])
+  const p = s.profile
+  if (!p) return null
 
-  useEffect(() => { store.load() }, [])
-
-  if (!store.profile) return <div className="p-4">Cargando...</div>
-
-  const p = store.profile
+  const Row = ({ label, children }: { label: string; children: React.ReactNode }) => (
+    <div className="flex items-center justify-between py-3 border-b" style={{ borderColor: 'var(--border)' }}>
+      <span className="text-sm">{label}</span>
+      {children}
+    </div>
+  )
 
   return (
-    <div className="px-4 md:px-6 pt-4 md:pt-8 pb-4 max-w-lg">
-      <h2 className="text-lg font-bold md:text-2xl mb-4">Perfil</h2>
+    <div className="space-y-6 animate-in">
+      <h1 className="text-2xl font-extrabold tracking-tight">Perfil</h1>
 
-      <div className="space-y-3">
-        <div className="flex justify-between items-center">
-          <span className="text-sm">Edad</span>
-          <input type="number" value={p.age} onChange={e => store.update({ age: +e.target.value })}
-            className="w-20 text-sm text-right" />
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-sm">Genero</span>
-          <select value={p.gender} onChange={e => store.update({ gender: e.target.value as any })}
-            className="w-28 text-sm">
+      <div className="card">
+        <Row label="Edad">
+          <input type="number" value={p.age} onChange={e => s.update({ age: +e.target.value })}
+            className="w-16 text-sm text-right font-semibold"
+            style={{ background: 'transparent', color: 'var(--foreground)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '4px 8px' }} />
+        </Row>
+        <Row label="Genero">
+          <select value={p.gender} onChange={e => s.update({ gender: e.target.value as any })}
+            className="text-sm font-semibold"
+            style={{ background: 'var(--secondary)', color: 'var(--foreground)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '4px 8px' }}>
             <option value="male">Hombre</option>
             <option value="female">Mujer</option>
           </select>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-sm">Peso (kg)</span>
-          <input type="number" value={p.bodyweight} onChange={e => store.update({ bodyweight: +e.target.value })}
-            className="w-20 text-sm text-right" />
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-sm">Descanso (seg)</span>
-          <input type="number" value={p.restTimerDefault} onChange={e => store.update({ restTimerDefault: +e.target.value })}
-            className="w-20 text-sm text-right" />
-        </div>
+        </Row>
+        <Row label="Peso corporal">
+          <input type="number" value={p.bodyweight} onChange={e => s.update({ bodyweight: +e.target.value })}
+            className="w-16 text-sm text-right font-semibold"
+            style={{ background: 'transparent', color: 'var(--foreground)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '4px 8px' }} />
+          <span className="text-sm ml-1" style={{ color: 'var(--muted-foreground)' }}>kg</span>
+        </Row>
+        <Row label="Descanso">
+          <input type="number" value={p.restTimerDefault} onChange={e => s.update({ restTimerDefault: +e.target.value })}
+            className="w-16 text-sm text-right font-semibold"
+            style={{ background: 'transparent', color: 'var(--foreground)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '4px 8px' }} />
+          <span className="text-sm ml-1" style={{ color: 'var(--muted-foreground)' }}>seg</span>
+        </Row>
+        <Row label="Altura">
+          <input type="number" value={p.height} onChange={e => s.update({ height: +e.target.value })}
+            className="w-16 text-sm text-right font-semibold"
+            style={{ background: 'transparent', color: 'var(--foreground)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '4px 8px' }} />
+          <span className="text-sm ml-1" style={{ color: 'var(--muted-foreground)' }}>cm</span>
+        </Row>
       </div>
 
-      <div className="pt-4">
-        <label className="flex items-center justify-between cursor-pointer">
-          <span className="text-sm">Modo Oscuro</span>
-          <input type="checkbox" checked={dark} onChange={e => setDark(e.target.checked)} className="w-5 h-5" />
-        </label>
+      <div className="card p-4 text-center">
+        <div className="text-3xl font-extrabold tabular-nums" style={{ color: 'var(--primary)' }}>🏆</div>
+        <div className="text-xs mt-1" style={{ color: 'var(--muted-foreground)' }}>
+          Tus datos se usan para calcular tu rango en el sistema ranked
+        </div>
       </div>
     </div>
   )
