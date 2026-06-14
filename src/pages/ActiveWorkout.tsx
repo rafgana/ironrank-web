@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useWorkoutStore } from "../store/workoutStore";
 import { useProfileStore } from "../store/profileStore";
+import { useStandardsStore } from "../store/standardsStore";
 import { SetRow } from "../components/SetRow";
 import { AddSetSheet } from "../components/AddSetSheet";
 import { BottomSheet } from "../components/ui/BottomSheet";
@@ -21,9 +22,9 @@ import { Button } from "../components/ui/button";
 import { springUI } from "../lib/motionTokens";
 import { type Exercise, type Tier } from "../models/types";
 import { estimatedMax } from "../utils/estimators";
-import { tierFromScore, rankedScore } from "../services/rankingService";
+import { tierFromScore, rankedScore, type Gender } from "../services/rankingService";
 import { db } from "../db/database";
-import { bestSetForExercise } from "../db/queries";
+import { bestSetPerExercise } from "../db/queries";
 
 const RestTimer = lazy(() =>
   import("../components/RestTimer").then((m) => ({ default: m.RestTimer })),
@@ -35,8 +36,10 @@ const PRBadge = lazy(() =>
 export function ActiveWorkout({ onComplete }: { onComplete: () => void }) {
   const s = useWorkoutStore();
   const p = useProfileStore();
+  const std = useStandardsStore();
   const [sheetOpen, setSheetOpen] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [addedTime, setAddedTime] = useState(0);
   const [history, setHistory] = useState<Record<number, string>>({});
   const [suggestions, setSuggestions] = useState<Record<number, string>>({});
   const [elapsed, setElapsed] = useState(0);
@@ -81,18 +84,22 @@ export function ActiveWorkout({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
     (async () => {
       if (!p.profile) return;
-      const find = async (name: string) => {
-        const e = await db.exercises
-          .filter((x) => x.name.toLowerCase().includes(name.toLowerCase()))
-          .first();
-        if (!e) return 0;
-        const best = await bestSetForExercise(e.id!);
-        return best ? estimatedMax(best.weight, best.reps, best.rir) : 0;
-      };
-      const benchR = await find("Press Banca");
-      const squatR = await find("Sentadilla");
-      const deadR = await find("Peso Muerto");
-      const score = rankedScore(benchR, squatR, deadR, p.profile.bodyweight);
+      const bests = await bestSetPerExercise();
+      if (!std.standards) return;
+      const gender: Gender = p.profile.gender === 'female' ? 'mujer' : 'hombre';
+      const exercises = bests
+        .map((b) => ({
+          rm: estimatedMax(b.set.weight, b.set.reps, b.set.rir),
+          name: b.exerciseName,
+        }))
+        .filter((e) => e.rm > 0);
+      const score = rankedScore(
+        exercises,
+        p.profile.bodyweight,
+        gender,
+        p.profile.age,
+        std.standards,
+      );
       setTier(tierFromScore(score));
     })();
   }, [p.profile, s.activeExercises]);
@@ -222,14 +229,31 @@ export function ActiveWorkout({ onComplete }: { onComplete: () => void }) {
                         Sin series todavía
                       </div>
                     ) : (
-                      e.sets.map((set, setIdx) => (
-                        <SetRow
-                          key={set.id}
-                          set={set}
-                          index={setIdx}
-                          onToggle={() => s.toggleSet(set.id!)}
-                        />
-                      ))
+                      e.sets.map((set, setIdx) => {
+                        // PR detection: si el e1RM de este set es el mayor histórico del ejercicio,
+                        // calculamos el delta sobre el segundo mejor.
+                        const allE1rm = e.sets.map((s) =>
+                          estimatedMax(s.weight, s.reps, s.rir),
+                        );
+                        const currentE1rm = allE1rm[setIdx];
+                        const otherMax = Math.max(
+                          ...allE1rm.filter((_, i) => i !== setIdx),
+                          0,
+                        );
+                        const isPR = currentE1rm > otherMax && otherMax > 0;
+                        const prDelta = isPR ? currentE1rm - otherMax : 0;
+                        return (
+                          <SetRow
+                            key={set.id}
+                            set={set}
+                            index={setIdx}
+                            onToggle={() => s.toggleSet(set.id!)}
+                            onRemove={() => s.removeSet(set.id!)}
+                            isPR={isPR}
+                            prDelta={prDelta}
+                          />
+                        );
+                      })
                     )}
                   </div>
                 </motion.div>
@@ -272,6 +296,12 @@ export function ActiveWorkout({ onComplete }: { onComplete: () => void }) {
           onClose={() => setSheetOpen(false)}
           history={history[current.exercise.id!]}
           suggestion={suggestions[current.exercise.id!] ?? null}
+          prefill={(() => {
+            const sets = current.sets;
+            if (!sets.length) return null;
+            const last = sets[sets.length - 1];
+            return { weight: last.weight, reps: last.reps, rir: last.rir };
+          })()}
           defaultRest={restSeconds}
           barWeight={20}
           availablePlates={
@@ -290,15 +320,22 @@ export function ActiveWorkout({ onComplete }: { onComplete: () => void }) {
         }}
       />
 
-      {/* Timer de descanso */}
-      {s.isResting && s.restTimer > 0 && (
+      {/* Timer de descanso — pill flotante en bottom (no modal) */}
+      {s.isResting && s.restStartTimestamp && s.restDuration > 0 && (
         <Suspense fallback={null}>
           <RestTimer
-            startTime={s.restTimer}
-            duration={restSeconds}
-            onComplete={() => s.stopRestTimer()}
-            onSkip={() => s.stopRestTimer()}
-            onAddTime={() => {}}
+            key={s.restStartTimestamp}
+            startTime={s.restStartTimestamp}
+            duration={s.restDuration + addedTime}
+            onComplete={() => {
+              s.stopRestTimer();
+              setAddedTime(0);
+            }}
+            onSkip={() => {
+              s.stopRestTimer();
+              setAddedTime(0);
+            }}
+            onAddTime={(sec) => setAddedTime((t) => t + sec)}
           />
         </Suspense>
       )}

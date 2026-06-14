@@ -1,19 +1,20 @@
 import { useEffect, useMemo, useState, lazy, Suspense } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { useWorkoutStore } from "../store/workoutStore";
 import { useProfileStore } from "../store/profileStore";
+import { useStandardsStore } from "../store/standardsStore";
 import { useOverallTier } from "../hooks/useOverallTier";
 import { db } from "../db/database";
-import { bestSetForExercise } from "../db/queries";
+import { bestSetPerExercise } from "../db/queries";
 import { estimatedMax } from "../utils/estimators";
-import { tierFor } from "../services/rankingService";
+import { tierFor, exerciseScore } from "../services/rankingService";
 import { TierEmblem } from "../components/ironrank/TierEmblem";
 import { TierProgression } from "../components/ironrank/TierProgression";
-import { SectionHeader } from "../components/ui/SectionHeader";
-import { TierProgressBar } from "../components/ui/TierProgressBar";
 import { Button } from "../components/ui/button";
+import { Card } from "../components/ui/card";
 import { NumberTicker } from "../components/magicui/number-ticker";
 import { enterItem, enterStagger } from "../lib/motionTokens";
+import { ShareCard } from "../components/ShareCard";
 import { TIER_VARS, tierAlpha, type Tier } from "../models/types";
 import {
   Dumbbell,
@@ -25,7 +26,8 @@ import {
   User,
   TrendingUp,
   Check,
-  Lock,
+  Target,
+  Share2,
   type LucideIcon,
 } from "lucide-react";
 
@@ -43,17 +45,21 @@ interface BigLift {
   name: string;
   rm: number | null;
   tier: Tier | null;
+  history: string;
 }
-
-const BIG_LIFTS = ["Press Banca", "Sentadilla", "Peso Muerto"];
 
 export function Dashboard({ onStartWorkout }: DashboardProps) {
   const ws = useWorkoutStore();
   const ps = useProfileStore();
+  const std = useStandardsStore();
   const overall = useOverallTier();
-  const [bigLifts, setBigLifts] = useState<BigLift[]>(
-    BIG_LIFTS.map((name) => ({ name, rm: null, tier: null })),
-  );
+  const [topLifts, setTopLifts] = useState<BigLift[]>([]);
+  const [activeQuests, setActiveQuests] = useState({
+    profile: false,
+    workout: false,
+    ranked: false,
+  });
+  const [showShare, setShowShare] = useState(false);
 
   useEffect(() => {
     ws.loadWorkouts();
@@ -64,43 +70,68 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
     if (!ps.profile) return;
     let cancelled = false;
     (async () => {
-      const lifts: BigLift[] = [];
-      for (const name of BIG_LIFTS) {
-        const e = await db.exercises
-          .filter((x) => x.name.toLowerCase().includes(name.toLowerCase()))
-          .first();
-        const best = e ? await bestSetForExercise(e.id!) : null;
-        if (best) {
-          const rm = estimatedMax(best.weight, best.reps, best.rir);
-          lifts.push({
-            name,
-            rm,
-            tier: tierFor(
-              rm,
-              ps.profile!.bodyweight,
-              ps.profile!.gender,
-              ps.profile!.age,
-              name,
-            ),
-          });
-        } else {
-          lifts.push({ name, rm: null, tier: null });
-        }
+      // Top ejercicios del usuario por score contra su tier Retador.
+      // Sin hardcodear nombres: usa los 3 mejores de los que tenga data,
+      // y rellena hasta 3 con placeholders "registra otro ejercicio".
+      const all = await bestSetPerExercise();
+      const ranked = all
+        .map((b) => {
+          const rm = estimatedMax(b.set.weight, b.set.reps, b.set.rir);
+          const tier = std.standards
+            ? tierFor(
+                rm,
+                ps.profile!.bodyweight,
+                ps.profile!.gender,
+                ps.profile!.age,
+                b.exerciseName,
+                std.standards,
+              )
+            : "Bronce";
+          const score = std.standards
+            ? exerciseScore(
+                rm,
+                ps.profile!.bodyweight,
+                ps.profile!.gender,
+                ps.profile!.age,
+                b.exerciseName,
+                std.standards,
+              )
+            : 0;
+          return { name: b.exerciseName, rm, tier, history: "", score };
+        })
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 3);
+      if (!cancelled) {
+        setTopLifts(ranked);
+        setActiveQuests({
+          profile: true,
+          workout: ws.workouts.length > 0,
+          ranked: ranked.length >= 3,
+        });
       }
-      if (!cancelled) setBigLifts(lifts);
     })();
     return () => {
       cancelled = true;
     };
-  }, [ps.profile, ws.workouts]);
+  }, [ps.profile, ws.workouts, std.standards]);
 
   const totalWorkouts = ws.workouts.length;
-  const weekWorkouts = ws.workouts.filter((w) => {
-    const diff = (Date.now() - new Date(w.date).getTime()) / 86400000;
-    return diff <= 7;
-  }).length;
 
-  /* Racha: días naturales consecutivos con ≥1 entreno (hoy o ayer cuentan como inicio) */
+  // Cuántos workouts esta semana (lunes a domingo)
+  const weekWorkouts = useMemo(() => {
+    const now = new Date();
+    const dow = (now.getDay() + 6) % 7; // 0=Lun, 6=Dom
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - dow);
+    monday.setHours(0, 0, 0, 0);
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 7);
+    return ws.workouts.filter((w) => {
+      const d = new Date(w.date);
+      return d >= monday && d < sunday;
+    }).length;
+  }, [ws.workouts]);
+
   const streak = useMemo(() => {
     const days = new Set(
       ws.workouts.map((w) => new Date(w.date).toDateString()),
@@ -125,323 +156,357 @@ export function Dashboard({ onStartWorkout }: DashboardProps) {
     [ws.workouts],
   );
 
-  const recent = ws.workouts.slice(0, 5);
-
   return (
     <motion.div
       variants={enterStagger}
       initial="hidden"
       animate="show"
-      className="grid auto-rows-min gap-4 md:gap-5 lg:grid-cols-12"
+      className="space-y-5"
     >
-      {/* ══ HERO VERTICAL: identidad ranked (columna izquierda, 2 filas) ══ */}
+      {/* ═══ HERO BANNER — full-width, horizontal, dense ═══ */}
       <motion.section
         variants={enterItem}
-        className="card-accent hud bg-noise relative min-w-0 overflow-hidden lg:col-span-4 lg:row-span-2"
+        className="card card-tier hud bg-noise relative min-w-0 overflow-hidden"
       >
-        <div className="absolute inset-x-0 top-0 h-[2px] bg-[linear-gradient(90deg,transparent,var(--tier),transparent)] opacity-70" />
-        <div className="relative z-10 flex h-full flex-col items-center gap-4 p-6 text-center lg:p-7">
-          <div className="eyebrow text-(--tier)">
-            Rango actual · Temporada 2026
-          </div>
-          <TierEmblem
-            tier={overall.tier}
-            size="xl"
-            animated
-            ringProgress={overall.hasData ? overall.score : undefined}
-          />
-          <h1 className="font-display tier-gradient-text text-display leading-none font-bold">
-            {overall.tier}
-          </h1>
-
-          {overall.hasData ? (
-            <div className="w-full max-w-xs space-y-2">
-              <div className="flex justify-between text-sm text-fg-muted">
-                <span>
-                  Progreso a{" "}
-                  <span
-                    className="font-semibold"
-                    style={{
-                      color: TIER_VARS[overall.nextTier ?? overall.tier],
-                    }}
-                  >
-                    {overall.nextTier ?? "MAX"}
-                  </span>
-                </span>
-                <span className="font-mono tabular-nums">{overall.score}%</span>
-              </div>
-              <TierProgressBar value={overall.score} />
+        <div
+          className="absolute inset-x-0 top-0 h-[2px]"
+          style={{ background: "linear-gradient(90deg, transparent, var(--tier) 50%, transparent)" }}
+        />
+        <div className="relative z-10 grid items-center gap-4 p-5 md:gap-6 md:p-7 lg:grid-cols-[auto_1fr_auto]">
+          <div className="flex items-center gap-4 md:gap-5">
+            <TierEmblem
+              tier={overall.tier}
+              size="lg"
+              animated
+              ringProgress={overall.hasData ? overall.score : undefined}
+            />
+            <div className="md:hidden">
+              <div className="eyebrow-bracket eyebrow text-(--tier)">rango</div>
+              <h1 className="display tier-gradient-text text-4xl font-bold leading-none">
+                {overall.tier}
+              </h1>
             </div>
-          ) : (
-            <p className="max-w-xs text-sm text-fg-muted">
-              Registra tu primer{" "}
-              <span className="font-semibold text-fg">Press Banca</span>,{" "}
-              <span className="font-semibold text-fg">Sentadilla</span> o{" "}
-              <span className="font-semibold text-fg">Peso Muerto</span> para
-              desbloquear tu rango real.
+          </div>
+          <div className="min-w-0 space-y-2.5">
+            <div className="hidden md:flex items-center gap-2">
+              <span className="eyebrow-bracket eyebrow text-(--tier)">rango actual</span>
+              <span className="eyebrow text-fg-dim">/</span>
+              <span className="eyebrow text-fg-dim">Temporada · 2026</span>
+            </div>
+            <div className="hidden md:block">
+              <h1
+                className="display tier-gradient-text font-bold leading-[0.92] tracking-[-0.02em]"
+                style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}
+              >
+                {overall.tier}
+                <span className="serif-italic text-(--tier) opacity-80">.</span>
+              </h1>
+            </div>
+            <p className="text-sm text-fg-muted max-w-[58ch] text-pretty">
+              {overall.hasData
+                ? `Score ${overall.score}/100 · ${overall.exerciseCount} ${overall.exerciseCount === 1 ? "ejercicio" : "ejercicios"}. ${overall.nextTier ? `Próximo: ${overall.nextTier}.` : "Rango máximo alcanzado."}`
+                : "Registra tu primer ejercicio para desbloquear tu rango real."}
             </p>
-          )}
-
-          <Button
-            variant="tier"
-            size="lg"
-            onClick={onStartWorkout}
-            className="w-full max-w-xs"
-          >
-            <Zap size={16} strokeWidth={2.5} />
-            {totalWorkouts ? "Nuevo workout" : "Empezar primer workout"}
-          </Button>
-
-          {/* Stats integradas al pie del hero */}
-          <div className="mt-auto grid w-full grid-cols-2 gap-x-6 gap-y-4 border-t border-(--tier-border) pt-5 text-left">
-            <HeroStat icon={Dumbbell} value={totalWorkouts} label="Entrenos" />
-            <HeroStat
-              icon={Flame}
-              value={streak}
-              label="Racha de días"
-              accent="var(--color-brand-500)"
-            />
-            <HeroStat
-              icon={Calendar}
-              value={weekWorkouts}
-              label="Esta semana"
-              accent="var(--color-tier-esmeralda)"
-            />
-            <HeroStat
-              icon={Trophy}
-              valueStr={overall.tier}
-              label="Rango"
-              accent={TIER_VARS[overall.tier]}
-            />
+            {overall.hasData && overall.nextTier && (
+              <div className="space-y-1.5 max-w-md pt-1">
+                <div
+                  className="relative h-1.5 rounded-full overflow-hidden"
+                  style={{ background: "var(--color-surface-3)" }}
+                >
+                  <div
+                    className="h-full rounded-full tier-glow"
+                    style={{
+                      width: `${overall.score}%`,
+                      background: "var(--tier-gradient)",
+                    }}
+                  />
+                </div>
+                <div className="flex justify-between text-[9px] font-mono text-fg-dim tabular-nums uppercase tracking-[0.14em]">
+                  <span>bronce</span>
+                  <span style={{ color: "var(--tier)" }}>{overall.score}%</span>
+                  <span>retador</span>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setShowShare(true)}
+              className="h-12 px-4 max-md:hidden"
+            >
+              <Share2 size={14} />
+              Compartir
+            </Button>
+            <Button onClick={onStartWorkout} className="h-12 px-5">
+              <Zap size={16} strokeWidth={2.5} fill="currentColor" />
+              {totalWorkouts ? "Nuevo workout" : "Empezar primer workout"}
+            </Button>
           </div>
         </div>
       </motion.section>
 
-      {/* ══ CAMINO AL RETADOR ══ */}
+      {/* ═══ STATS — 4 compact tiles ═══ */}
       <motion.section
         variants={enterItem}
-        className="card min-w-0 p-6 lg:col-span-8"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-3"
       >
-        <SectionHeader eyebrow="Clasificatoria" title="Camino al Retador" />
-        <TierProgression currentTier={overall.tier} />
+        <StatTile
+          icon={Calendar}
+          label="Esta semana"
+          value={weekWorkouts}
+          hint={
+            ps.profile?.weeklyWorkoutsGoal && ps.profile.weeklyWorkoutsGoal > 0
+              ? `/ ${ps.profile.weeklyWorkoutsGoal} workouts`
+              : "workouts"
+          }
+          accent="var(--color-tier-esmeralda)"
+        />
+        <StatTile
+          icon={Flame}
+          label="Racha"
+          value={streak}
+          hint={streak === 1 ? "día" : "días"}
+          accent="var(--color-brand-500)"
+        />
+        <StatTile
+          icon={Trophy}
+          label="Rango"
+          valueStr={overall.tier}
+          hint="7 niveles"
+          accent={TIER_VARS[overall.tier]}
+        />
+        <StatTile
+          icon={Dumbbell}
+          label="Total"
+          value={totalWorkouts}
+          hint="workouts"
+        />
       </motion.section>
 
-      {/* ══ MAPA DE ACTIVIDAD ══ */}
+      {/* ═══ CAMINO AL RETADOR + MAPA DE ACTIVIDAD — 2 cols ═══ */}
       <motion.section
         variants={enterItem}
-        className="card min-w-0 p-6 lg:col-span-8"
+        className="grid gap-4 lg:grid-cols-2 items-start"
       >
-        <SectionHeader eyebrow="Consistencia" title="Mapa de actividad" />
-        <Suspense fallback={<div className="skeleton h-32" />}>
-          <ActivityHeatmap data={heatmapData} weeks={26} />
-        </Suspense>
+        <div className="card p-5">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <div className="eyebrow">Clasificatoria</div>
+              <h2 className="font-display text-lg font-semibold tracking-tight mt-0.5">
+                Camino al Retador
+              </h2>
+            </div>
+            <span
+              className="font-condensed tracking-widest text-[10px] px-2 py-1 rounded-md"
+              style={{
+                background: "var(--tier-softer)",
+                color: "var(--tier)",
+                border: "1px solid var(--tier-border)",
+              }}
+            >
+              7 TIERS
+            </span>
+          </div>
+          <TierProgression currentTier={overall.tier} />
+        </div>
+
+        <div className="card p-5">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <div className="eyebrow">Consistencia</div>
+              <h2 className="font-display text-lg font-semibold tracking-tight mt-0.5">
+                Mapa de actividad
+              </h2>
+            </div>
+            <div className="hidden md:flex items-center gap-3 text-[11px] text-fg-muted">
+              <span className="flex items-center gap-1.5">
+                <Flame
+                  size={11}
+                  style={{ color: "var(--color-brand-500)" }}
+                />
+                <span className="tabular-nums font-mono">{streak}</span>
+              </span>
+              <span className="text-fg-dim">·</span>
+              <span className="font-mono tabular-nums">{totalWorkouts}</span>
+            </div>
+          </div>
+          <Suspense
+            fallback={<div className="skeleton h-32" />}
+          >
+            <ActivityHeatmap data={heatmapData} weeks={20} />
+          </Suspense>
+        </div>
       </motion.section>
 
-      {/* ══ ACTIVIDAD RECIENTE ══ */}
-      <motion.aside
+      {/* ═══ TUS EJERCICIOS TOP — los 3 mejores por score ═══ */}
+      <motion.section
         variants={enterItem}
-        className="card flex min-w-0 flex-col p-6 lg:col-span-4"
+        className="card p-5"
       >
-        <SectionHeader eyebrow="Historial" title="Actividad reciente" />
-        {recent.length > 0 ? (
-          <ul className="flex-1 space-y-2">
-            {recent.map((w) => (
-              <li
-                key={w.id}
-                className="flex items-center justify-between rounded-lg border border-[color-mix(in_oklab,white_5%,transparent)] bg-surface-2 px-3 py-2.5"
-              >
-                <span className="flex items-center gap-2.5 text-sm">
-                  <Calendar size={14} className="text-(--tier)" />
-                  {new Date(w.date).toLocaleDateString("es-ES", {
-                    weekday: "short",
-                    day: "numeric",
-                    month: "short",
-                  })}
-                </span>
-                <span className="flex items-center gap-1 font-mono text-sm tabular-nums text-fg-muted">
-                  <Clock size={12} />
-                  {Math.floor(w.duration / 60)}m
-                </span>
-              </li>
-            ))}
-          </ul>
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <div className="eyebrow">Top ejercicios</div>
+            <h2 className="font-display text-lg font-semibold tracking-tight mt-0.5">
+              {topLifts.length > 0
+                ? "Tus 3 mejores"
+                : "Tus ejercicios top"}
+            </h2>
+          </div>
+          <span className="font-mono text-[10px] text-fg-dim tabular-nums">
+            {topLifts.length} {topLifts.length === 1 ? "ejercicio" : "ejercicios"}
+          </span>
+        </div>
+        {topLifts.length === 0 ? (
+          <div className="text-sm text-fg-muted py-4 text-center">
+            Registra tu primer ejercicio para verlo aquí con su tier.
+          </div>
         ) : (
-          <div className="flex-1 space-y-2">
-            {[0.45, 0.3, 0.18].map((op, i) => (
-              <div
-                key={i}
-                className="flex items-center justify-between rounded-lg border border-dashed border-border-subtle px-3 py-2.5"
-                style={{ opacity: op }}
-              >
-                <span className="flex items-center gap-2.5 text-sm text-fg-dim">
-                  <Calendar size={14} />
-                  Próximo entreno
-                </span>
-                <span className="font-mono text-sm text-fg-dim">—</span>
-              </div>
-            ))}
-            <p className="pt-1 text-xs text-fg-dim">
-              Tus workouts aparecerán aquí.
-            </p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {topLifts.map((l) =>
+              l.rm != null && l.tier ? (
+                <div
+                  key={l.name}
+                  className="flex items-center gap-3 rounded-xl border p-4"
+                  style={{
+                    borderColor: tierAlpha(l.tier, 30),
+                    background: tierAlpha(l.tier, 6),
+                  }}
+                >
+                  <TierEmblem tier={l.tier} size="sm" />
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-sm font-semibold">
+                      {l.name}
+                    </div>
+                    <div
+                      className="font-display text-2xl font-bold tabular-nums leading-none mt-1"
+                      style={{ color: TIER_VARS[l.tier] }}
+                    >
+                      {l.rm.toFixed(1)}
+                      <span className="ml-0.5 text-[10px] font-normal text-fg-muted">
+                        kg
+                      </span>
+                    </div>
+                    <div
+                      className="text-[10px] font-condensed tracking-widest mt-1"
+                      style={{ color: TIER_VARS[l.tier] }}
+                    >
+                      {l.tier.toUpperCase()}
+                    </div>
+                  </div>
+                </div>
+              ) : null,
+            )}
           </div>
         )}
-        <Button
-          variant="outline"
-          size="md"
-          className="mt-4 w-full"
-          onClick={onStartWorkout}
-        >
-          <Zap size={14} strokeWidth={2.5} />
-          Nuevo workout
-        </Button>
-      </motion.aside>
-
-      {/* ══ LOS 3 GRANDES: slots bloqueados/desbloqueados ══ */}
-      <motion.section
-        variants={enterItem}
-        className="card min-w-0 p-6 lg:col-span-8"
-      >
-        <SectionHeader
-          eyebrow="Big three"
-          title="Los 3 grandes"
-          action={
-            <span className="font-mono text-sm tabular-nums text-fg-dim">
-              {bigLifts.filter((l) => l.rm).length}/3
-            </span>
-          }
-        />
-        <div className="grid gap-3 sm:grid-cols-3">
-          {bigLifts.map((l) =>
-            l.rm && l.tier ? (
-              <div
-                key={l.name}
-                className="flex items-center gap-3 rounded-xl border p-3.5"
-                style={{
-                  borderColor: tierAlpha(l.tier, 30),
-                  background: tierAlpha(l.tier, 6),
-                }}
-              >
-                <TierEmblem tier={l.tier} size="sm" />
-                <div className="min-w-0">
-                  <div className="truncate text-sm font-semibold">{l.name}</div>
-                  <div
-                    className="font-display text-xl font-bold tabular-nums"
-                    style={{ color: TIER_VARS[l.tier] }}
-                  >
-                    {l.rm.toFixed(1)}
-                    <span className="ml-0.5 text-xs font-normal text-fg-muted">
-                      kg
-                    </span>
-                  </div>
-                  <div className="text-xs" style={{ color: TIER_VARS[l.tier] }}>
-                    {l.tier}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div
-                key={l.name}
-                className="flex items-center gap-3 rounded-xl border border-dashed border-border-subtle bg-surface-2/50 p-3.5"
-              >
-                <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-surface-3 text-fg-dim">
-                  <Lock size={18} />
-                </span>
-                <div className="min-w-0">
-                  <div className="truncate text-sm font-semibold text-fg-muted">
-                    {l.name}
-                  </div>
-                  <div className="text-xs text-fg-dim">
-                    Bloqueado · sin registro
-                  </div>
-                </div>
-              </div>
-            ),
-          )}
-        </div>
       </motion.section>
 
-      {/* ══ QUEST LOG (solo sin rango desbloqueado) ══ */}
-      {!overall.hasData && (
-        <motion.section
-          variants={enterItem}
-          className="card min-w-0 p-6 lg:col-span-12"
-        >
-          <SectionHeader
-            eyebrow="Misiones"
-            title="Primeros pasos"
-            action={
-              <span className="font-mono text-sm tabular-nums text-fg-dim">
-                {(ws.profile ? 1 : 0) + (totalWorkouts > 0 ? 1 : 0)}/3
-              </span>
-            }
-          />
-          <div className="grid gap-2.5 md:grid-cols-3">
-            <Quest
+      {/* ═══ QUEST LOG — primeros pasos ═══ */}
+      {!activeQuests.ranked && (
+        <motion.section variants={enterItem} className="card p-5">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <div className="eyebrow">Misiones</div>
+              <h2 className="font-display text-lg font-semibold tracking-tight mt-0.5">
+                Primeros pasos
+              </h2>
+            </div>
+            <div className="font-mono text-[10px] text-fg-dim tabular-nums">
+              {Object.values(activeQuests).filter(Boolean).length}/3
+            </div>
+          </div>
+          <div className="grid gap-2 md:grid-cols-3">
+            <QuestRow
               n={1}
-              done={!!ws.profile}
+              done={activeQuests.profile}
               icon={User}
               title="Configura tu perfil"
-              desc="Peso corporal, edad y descanso por defecto"
+              desc="Peso, edad y descanso por defecto"
             />
-            <Quest
+            <QuestRow
               n={2}
-              done={totalWorkouts > 0}
+              done={activeQuests.workout}
               icon={Dumbbell}
               title="Completa un workout"
               desc="Registra tus primeras series"
             />
-            <Quest
+            <QuestRow
               n={3}
-              done={false}
+              done={activeQuests.ranked}
               icon={TrendingUp}
               title="Desbloquea tu rango"
-              desc="Registra los 3 grandes levantamientos"
+              desc="Registra 3 ejercicios para ver tu tier combinado"
             />
           </div>
         </motion.section>
       )}
+
+      {/* Share card modal */}
+      <AnimatePresence>
+        {showShare && (
+          <ShareCard
+            open={showShare}
+            onClose={() => setShowShare(false)}
+            tier={overall.tier}
+            stats={{
+              totalWorkouts: ws.workouts.length,
+              streak: streak,
+              bestLift: topLifts.find((l) => l.rm != null && l.rm > 0)
+                ? {
+                    name: topLifts.find((l) => l.rm != null && l.rm > 0)!.name,
+                    weight: Math.round((topLifts.find((l) => l.rm != null && l.rm > 0)!.rm ?? 0) * 10) / 10,
+                    reps: 1,
+                  }
+                : undefined,
+            }}
+          />
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
 
-/** Stat compacta integrada en el hero */
-function HeroStat({
+function StatTile({
   icon: Icon,
+  label,
   value,
   valueStr,
-  label,
+  hint,
   accent = "var(--tier)",
 }: {
   icon: LucideIcon;
+  label: string;
   value?: number;
   valueStr?: string;
-  label: string;
+  hint?: string;
   accent?: string;
 }) {
   return (
-    <div className="min-w-0">
-      <div className="mb-1 flex items-center gap-1.5" style={{ color: accent }}>
-        <Icon size={14} />
-        <span className="eyebrow !text-[11px] !text-fg-muted">{label}</span>
+    <div className="card p-4">
+      <div className="flex items-center justify-between mb-2">
+        <Icon size={14} style={{ color: "var(--color-fg-muted)" }} />
+        <span className="eyebrow !text-fg-dim">{label}</span>
       </div>
-      {valueStr !== undefined ? (
-        <div
-          className="font-display truncate text-xl font-bold tracking-tight"
-          style={{ color: accent }}
-        >
-          {valueStr}
-        </div>
-      ) : (
-        <div className="font-display text-2xl font-bold tracking-tight tabular-nums">
+      <div
+        className="font-display text-3xl font-bold leading-none tabular-nums"
+        style={{ color: accent }}
+      >
+        {valueStr !== undefined ? (
+          valueStr
+        ) : (
           <NumberTicker value={value ?? 0} />
+        )}
+      </div>
+      {hint && (
+        <div className="text-[10px] font-mono text-fg-dim mt-2 truncate">
+          {hint}
         </div>
       )}
     </div>
   );
 }
 
-/** Misión del quest-log inicial */
-function Quest({
+function QuestRow({
   n,
   done,
   icon: Icon,
@@ -456,30 +521,38 @@ function Quest({
 }) {
   return (
     <div
-      className={
-        done
-          ? "flex items-center gap-3 rounded-xl border border-(--tier-border) bg-(--tier-softer) p-3.5"
-          : "flex items-center gap-3 rounded-xl border border-border-subtle bg-surface-2 p-3.5"
-      }
+      className="flex items-center gap-3 p-3 rounded-lg transition-colors"
+      style={{
+        background: done
+          ? "var(--tier-softer)"
+          : "var(--color-surface-2)",
+        border: `1px solid ${done ? "var(--tier-border)" : "transparent"}`,
+      }}
     >
-      <span
-        className={
+      <div
+        className="size-9 rounded-full flex items-center justify-center shrink-0 font-mono text-sm font-bold"
+        style={
           done
-            ? "flex size-9 shrink-0 items-center justify-center rounded-full bg-(--tier) text-(--tier-contrast)"
-            : "flex size-9 shrink-0 items-center justify-center rounded-full bg-surface-3 font-mono text-sm font-bold text-fg-muted"
+            ? {
+                background: "var(--tier)",
+                color: "var(--tier-contrast)",
+              }
+            : {
+                background: "var(--color-surface-3)",
+                color: "var(--color-fg-muted)",
+              }
         }
       >
-        {done ? <Check size={16} strokeWidth={3} /> : n}
-      </span>
-      <div className="min-w-0">
-        <div className="flex items-center gap-1.5 text-sm font-semibold">
-          <Icon
-            size={13}
-            className={done ? "text-(--tier)" : "text-fg-muted"}
-          />
-          <span className={done ? "text-(--tier)" : undefined}>{title}</span>
+        {done ? <Check size={15} strokeWidth={3} /> : n}
+      </div>
+      <div className="min-w-0 flex-1">
+        <div
+          className="text-sm font-semibold"
+          style={done ? { color: "var(--tier)" } : undefined}
+        >
+          {title}
         </div>
-        <div className="mt-0.5 text-xs text-fg-muted">{desc}</div>
+        <div className="text-[11px] text-fg-muted leading-snug">{desc}</div>
       </div>
     </div>
   );

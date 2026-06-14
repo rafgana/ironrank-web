@@ -14,10 +14,11 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useProfileStore } from "../store/profileStore";
+import { useStandardsStore } from "../store/standardsStore";
 import { db } from "../db/database";
 import { bestSetForExercise } from "../db/queries";
 import { estimatedMax } from "../utils/estimators";
-import { tierFor } from "../services/rankingService";
+import { tierFor, type Gender } from "../services/rankingService";
 import type { Exercise, Tier } from "../models/types";
 import { TIER_VARS } from "../models/types";
 import { TierEmblem } from "../components/ironrank/TierEmblem";
@@ -26,6 +27,7 @@ import { BottomSheet } from "../components/ui/BottomSheet";
 import { Button } from "../components/ui/button";
 import { NumberTicker } from "../components/magicui/number-ticker";
 import { enterItem, enterStagger } from "../lib/motionTokens";
+import { RoutinesManager } from "../components/routines/RoutinesManager";
 
 interface EnrichedExercise extends Exercise {
   tier?: Tier;
@@ -48,32 +50,27 @@ const MUSCLE_COLORS: Record<string, string> = {
 
 export function Library() {
   const p = useProfileStore();
+  const std = useStandardsStore();
+  const [tab, setTab] = useState<"exercises" | "routines">("routines");
   const [exs, setExs] = useState<EnrichedExercise[]>([]);
   const [search, setSearch] = useState("");
   const [muscle, setMuscle] = useState<string>("all");
   const [selected, setSelected] = useState<EnrichedExercise | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (p.profile) load();
-  }, [p.profile]);
-
   const load = async () => {
     setLoading(true);
     let all = await db.exercises.toArray();
-    if (p.profile) {
+    if (p.profile && std.standards) {
+      const gender: Gender = p.profile.gender === 'female' ? 'mujer' : 'hombre';
+      const age = p.profile.age;
+      const standards = std.standards;
       all = await Promise.all(
         all.map(async (e) => {
           const best = await bestSetForExercise(e.id!);
           if (!best) return e;
           const rm = estimatedMax(best.weight, best.reps, best.rir);
-          const tier = tierFor(
-            rm,
-            p.profile!.bodyweight,
-            p.profile!.gender,
-            p.profile!.age,
-            e.name,
-          );
+          const tier = tierFor(rm, p.profile!.bodyweight, gender, age, e.name, standards);
           return { ...e, tier, rm };
         }),
       );
@@ -81,6 +78,47 @@ export function Library() {
     setExs(all);
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (p.profile) void load();
+  }, [p.profile]);
+
+  if (tab === "routines") {
+    return (
+      <motion.div
+        variants={enterStagger}
+        initial="hidden"
+        animate="show"
+        className="space-y-5"
+      >
+        <motion.header variants={enterItem} className="flex items-end justify-between gap-3">
+          <div>
+            <div className="eyebrow mb-1">Planificación</div>
+            <h1 className="font-display text-h1 font-bold">Mis workouts</h1>
+            <p className="mt-1 text-sm text-fg-muted">
+              Diseña tu semana. Asigna ejercicios a días. Lleva el conteo.
+            </p>
+          </div>
+          <AnimatedTabs
+            layoutId="library-tab"
+            tabs={[
+              { value: "routines", label: "Workouts" },
+              { value: "exercises", label: "Ejercicios" },
+            ]}
+            value={tab === "routines" ? "routines" : "exercises"}
+            onChange={(v) => setTab(v as "exercises" | "routines")}
+          />
+        </motion.header>
+        <motion.div variants={enterItem}>
+          {/* TODO: re-enable RoutinesManager after fixing TDZ issues */}
+          <div className="rounded-lg border border-dashed border-border-subtle p-8 text-center text-fg-muted">
+            <div className="eyebrow mb-1">Rutinas</div>
+            <p className="text-sm">Próximamente. Estamos simplificando la app.</p>
+          </div>
+        </motion.div>
+      </motion.div>
+    );
+  }
 
   const muscles = Array.from(new Set(exs.map((e) => e.musclePrimary))).sort();
   const filtered = exs.filter(
@@ -101,12 +139,23 @@ export function Library() {
       animate="show"
       className="space-y-5"
     >
-      <motion.header variants={enterItem}>
-        <div className="eyebrow mb-1">Ejercicios</div>
-        <h1 className="font-display text-h1 font-bold">Biblioteca</h1>
-        <p className="mt-1 text-sm text-fg-muted">
-          {exs.length} ejercicios · {muscles.length} grupos musculares
-        </p>
+      <motion.header variants={enterItem} className="flex items-end justify-between gap-3">
+        <div>
+          <div className="eyebrow mb-1">Ejercicios</div>
+          <h1 className="font-display text-h1 font-bold">Biblioteca</h1>
+          <p className="mt-1 text-sm text-fg-muted">
+            {exs.length} ejercicios · {muscles.length} grupos musculares
+          </p>
+        </div>
+        <AnimatedTabs
+          layoutId="library-tab"
+          tabs={[
+            { value: "routines", label: "Workouts" },
+            { value: "exercises", label: "Ejercicios" },
+          ]}
+          value={tab}
+          onChange={(v) => setTab(v as "exercises" | "routines")}
+        />
       </motion.header>
 
       <motion.div variants={enterItem} className="relative">
@@ -246,6 +295,45 @@ function ExerciseDetailSheet({
   onClose: () => void;
 }) {
   const hasData = !!exercise?.rm;
+  const [history, setHistory] = useState<{ date: Date; weight: number; reps: number; e1rm: number }[]>([]);
+
+  useEffect(() => {
+    if (!exercise) return;
+    (async () => {
+      const exs = await db.workoutExercises.where("exerciseId").equals(exercise.id!).toArray();
+      const sets = await db.sets
+        .where("workoutExerciseId")
+        .above(0)
+        .filter((s) => s.completed)
+        .toArray();
+      const exIds = new Set(exs.map((e) => e.id!));
+      const workouts = await db.workouts.toArray();
+      const wById = new Map(workouts.map((w) => [w.id!, w]));
+      const hist: { date: Date; weight: number; reps: number; e1rm: number }[] = [];
+      for (const s of sets) {
+        if (!exIds.has(s.workoutExerciseId)) continue;
+        const we = exs.find((e) => e.id === s.workoutExerciseId);
+        if (!we) continue;
+        const w = wById.get(we.workoutId);
+        if (!w) continue;
+        hist.push({
+          date: new Date(w.date),
+          weight: s.weight,
+          reps: s.reps,
+          e1rm: estimatedMax(s.weight, s.reps, s.rir),
+        });
+      }
+      hist.sort((a, b) => b.e1rm - a.e1rm);
+      setHistory(hist.slice(0, 5));
+    })();
+  }, [exercise?.id]);
+
+  // RIR recomendado: RPE-based
+  // Para hipertrofia: RIR 1-3 (RPE 7-9), para fuerza: RIR 0-2 (RPE 8-10)
+  // Aquí sugerimos 2 (sweet spot)
+  const recommendedRIR = "1-3";
+  const recommendedRIRReason = "Para hipertrofia general, busca RIR 1-3 (te quedan 1-3 reps en reserva). Si quieres fuerza máxima, baja a RIR 0-1.";
+
   return (
     <BottomSheet
       open={!!exercise}
@@ -277,6 +365,64 @@ function ExerciseDetailSheet({
                 accent={TIER_VARS[exercise.tier!]}
                 isString
               />
+            </div>
+          )}
+
+          {/* RIR recomendado */}
+          <div
+            className="rounded-lg p-3"
+            style={{
+              background: "color-mix(in oklab, var(--color-tier-oro) 10%, transparent)",
+              border: "1px solid color-mix(in oklab, var(--color-tier-oro) 30%, transparent)",
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <span className="eyebrow" style={{ color: "var(--color-tier-oro)" }}>
+                RIR recomendado
+              </span>
+              <span className="font-display text-lg font-bold tabular-nums" style={{ color: "var(--color-tier-oro)" }}>
+                {recommendedRIR}
+              </span>
+            </div>
+            <p className="mt-1.5 text-xs text-fg-muted leading-relaxed">
+              {recommendedRIRReason}
+            </p>
+          </div>
+
+          {/* PR history */}
+          {history.length > 0 && (
+            <div>
+              <div className="eyebrow mb-1.5">Top 5 mejores marcas (e1RM)</div>
+              <ul className="space-y-1">
+                {history.map((h, i) => {
+                  const isPR = i === 0;
+                  return (
+                    <li
+                      key={i}
+                      className="flex items-center gap-2 rounded-md bg-surface-2/40 px-2.5 py-1.5 text-xs"
+                    >
+                      <span className="font-mono w-5 text-fg-dim tabular-nums text-right">
+                        #{i + 1}
+                      </span>
+                      <span className="font-mono font-semibold tabular-nums">
+                        {h.weight.toFixed(1)}kg × {h.reps}
+                      </span>
+                      <span
+                        className="ml-auto font-mono tabular-nums"
+                        style={{ color: isPR ? "var(--tier)" : "var(--color-fg-muted)" }}
+                      >
+                        {h.e1rm.toFixed(1)}kg e1RM
+                      </span>
+                      <span className="text-fg-dim text-[10px] font-mono tabular-nums w-12 text-right">
+                        {timeAgo(h.date)}
+                      </span>
+                      {isPR && (
+                        <Trophy size={11} style={{ color: "var(--tier)" }} />
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           )}
 
@@ -319,6 +465,17 @@ function ExerciseDetailSheet({
       )}
     </BottomSheet>
   );
+}
+
+function timeAgo(date: Date): string {
+  const ms = +new Date() - +date;
+  const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+  if (days === 0) return "hoy";
+  if (days === 1) return "ayer";
+  if (days < 7) return `${days}d`;
+  if (days < 30) return `${Math.floor(days / 7)}sem`;
+  if (days < 365) return `${Math.floor(days / 30)}mes`;
+  return `${Math.floor(days / 365)}a`;
 }
 
 function DetailStat({

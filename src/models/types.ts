@@ -3,6 +3,8 @@ export interface Workout {
   date: Date
   duration: number
   notes: string
+  restStartTimestamp?: number | null
+  restDuration?: number
 }
 
 export interface WorkoutExercise {
@@ -35,10 +37,114 @@ export interface Exercise {
   alternatives: string[]
 }
 
+export type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6; // 0=Dom, 1=Lun, ..., 6=Sáb
+
+/**
+ * Log de acciones del usuario — para análisis con IA.
+ * Cada acción captura: qué pasó + contexto del usuario al momento.
+ * Persiste en IndexedDB; rotación FIFO a 5000 entries.
+ */
+export type ActionKind =
+  | "workout_started"
+  | "workout_completed"
+  | "workout_abandoned"
+  | "set_logged"
+  | "pr_set"
+  | "tier_up"
+  | "routine_created"
+  | "routine_updated"
+  | "routine_deleted"
+  | "routine_exercise_added"
+  | "routine_exercise_removed"
+  | "profile_updated"
+  | "goal_updated"
+  | "theme_changed"
+  | "export_data"
+  | "import_data"
+  | "wipe_data"
+  | "onboarding_completed"
+  | "onboarding_skipped"
+  | "app_installed"
+  | "command_palette_opened"
+  | "share_card_generated"
+  | "error_caught"
+  | "login_started"
+  | "login_skipped"
+  | "login_screen_shown"
+  | "login_mode_switch"
+  | "signup_started"
+  | "logout_clicked"
+  | "logout_completed"
+  | "cloud_sync_offer_clicked"
+  | "auth_guard_passed"
+  | "sync_completed"
+  | "sync_failed"
+  | "sync_skipped"
+  | "sync_full_on_login"
+  | "sync_failed_on_login"
+  | "sync_conflicts_detected"
+  | "sync_conflict_resolved"
+  | "sync_conflict_resolve_failed"
+  | "sync_conflicts_dismissed"
+  | "network_back_online"
+  | "network_offline"
+  | "auto_sync_on_network_recovery"
+  | "schema_migrated"
+  | "routine_create_validation_failed"
+  | "token_refreshed"
+  | "user_updated"
+  | "auto_backup_created"
+  | "auto_backup_downloaded"
+  | "auto_backup_dismissed"
+  | "auto_backup_failed"
+  | "realtime_change_received"
+  | "realtime_subscribed"
+  | "realtime_unsubscribed"
+  | "realtime_channel_error"
+  | "realtime_applied"
+  | "realtime_apply_failed"
+  | "realtime_delete_skipped"
+  | "sync_manual_triggered"
+  | "account_deleted"
+  | "account_deleted_completed";
+
+export interface ActionLog {
+  id?: number;
+  /** ISO timestamp */
+  timestamp: string;
+  /** Categoría de acción */
+  kind: ActionKind;
+  /** Subtipo: workout_started → "press_banca"; routine_updated → "days" */
+  category?: string;
+  /** Payload específico: { weight: 100, reps: 5, exercise: "Press Banca" } */
+  payload?: Record<string, string | number | boolean | null | undefined>;
+  /** Contexto automático */
+  context: {
+    tier?: string;
+    streakDays?: number;
+    totalWorkouts?: number;
+    sessionId?: string;
+    appVersion?: string;
+    viewport?: { w: number; h: number };
+    online?: boolean;
+  };
+}
+export const WEEK_DAY_LABELS: Record<WeekDay, string> = {
+  0: "Dom", 1: "Lun", 2: "Mar", 3: "Mié", 4: "Jue", 5: "Vie", 6: "Sáb",
+};
+export const WEEK_DAY_NAMES: Record<WeekDay, string> = {
+  0: "Domingo", 1: "Lunes", 2: "Martes", 3: "Miércoles",
+  4: "Jueves", 5: "Viernes", 6: "Sábado",
+};
+
 export interface Routine {
   id?: number
   name: string
   createdAt: Date
+  /** Días de la semana en que se debe hacer este workout (0-6). Vacío = "cuando sea". */
+  days: WeekDay[]
+  /** Notas opcionales del usuario sobre este workout. */
+  notes?: string
 }
 
 export interface RoutineExercise {
@@ -46,6 +152,14 @@ export interface RoutineExercise {
   routineId: number
   exerciseId: number
   order: number
+  /** Sets objetivo para este ejercicio (ej: "3x8", "4x10-12"). Opcional. */
+  targetSets?: number
+  /** Reps objetivo (ej: "8", "10-12"). Opcional. */
+  targetReps?: string
+  /** Peso objetivo (kg). Opcional, sugerencias inteligentes después. */
+  targetWeight?: number
+  /** Descanso objetivo en segundos (override del default). */
+  targetRest?: number
 }
 
 export interface UserProfile {
@@ -57,6 +171,12 @@ export interface UserProfile {
   restTimerDefault: number
   useKg: boolean
   availablePlates: number[]
+  /** Objetivo de volumen semanal en kg. 0 = sin objetivo. */
+  weeklyVolumeGoal?: number
+  /** Cuántos workouts por semana quiere hacer el usuario. 0 = sin objetivo. */
+  weeklyWorkoutsGoal?: number
+  /** Meta del usuario (fuerza, músculo, general, rendimiento). */
+  goal?: 'strength' | 'muscle' | 'general' | 'performance'
 }
 
 export type Tier =

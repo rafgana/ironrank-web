@@ -12,6 +12,8 @@ interface AddSetSheetProps {
   open: boolean;
   history?: string;
   suggestion?: string | null;
+  /** Último set del ejercicio (si existe). Se usa como smart default. */
+  prefill?: { weight: number; reps: number; rir: number | null } | null;
   defaultRest?: number;
   barWeight?: number;
   availablePlates?: number[];
@@ -23,6 +25,8 @@ export function AddSetSheet({
   open,
   history,
   suggestion,
+  prefill = null,
+  defaultRest = 90,
   barWeight = 20,
   availablePlates = [25, 20, 15, 10, 5, 2.5, 1.25],
   onAdd,
@@ -42,8 +46,13 @@ export function AddSetSheet({
       setReps("");
       setRIR(null);
       setJustAdded(false);
+    } else if (prefill) {
+      // Pre-rellenar con el último set del mismo ejercicio (smart default)
+      setWeight(String(prefill.weight));
+      setReps(String(prefill.reps));
+      setRIR(prefill.rir);
     }
-  }, [open]);
+  }, [open, prefill?.weight, prefill?.reps, prefill?.rir]);
 
   const adjust = (field: "weight" | "reps", delta: number) => {
     if (field === "weight") {

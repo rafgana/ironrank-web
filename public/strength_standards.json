@@ -2,44 +2,7021 @@
   "press_banca": {
     "entries": {
       "hombre": [
-        {"ageMin": 18, "ageMax": 29, "bronze": 0.6, "prata": 0.8, "ouro": 1.0, "platina": 1.2, "esmeralda": 1.4, "diamante": 1.6},
-        {"ageMin": 30, "ageMax": 39, "bronze": 0.55, "prata": 0.75, "ouro": 0.95, "platina": 1.15, "esmeralda": 1.35, "diamante": 1.55},
-        {"ageMin": 40, "ageMax": 49, "bronze": 0.5, "prata": 0.7, "ouro": 0.9, "platina": 1.1, "esmeralda": 1.3, "diamante": 1.5},
-        {"ageMin": 50, "ageMax": 99, "bronze": 0.45, "prata": 0.65, "ouro": 0.85, "platina": 1.05, "esmeralda": 1.25, "diamante": 1.45}
+        {
+          "ageMin": 18,
+          "ageMax": 29,
+          "bronze": 0.6,
+          "plata": 0.8,
+          "oro": 1.0,
+          "platino": 1.2,
+          "esmeralda": 1.4,
+          "diamante": 1.6,
+          "retador": 1.84
+        },
+        {
+          "ageMin": 30,
+          "ageMax": 39,
+          "bronze": 0.55,
+          "plata": 0.75,
+          "oro": 0.95,
+          "platino": 1.15,
+          "esmeralda": 1.35,
+          "diamante": 1.55,
+          "retador": 1.78
+        },
+        {
+          "ageMin": 40,
+          "ageMax": 49,
+          "bronze": 0.5,
+          "plata": 0.7,
+          "oro": 0.9,
+          "platino": 1.1,
+          "esmeralda": 1.3,
+          "diamante": 1.5,
+          "retador": 1.72
+        },
+        {
+          "ageMin": 50,
+          "ageMax": 99,
+          "bronze": 0.45,
+          "plata": 0.65,
+          "oro": 0.85,
+          "platino": 1.05,
+          "esmeralda": 1.25,
+          "diamante": 1.45,
+          "retador": 1.67
+        }
       ],
       "mujer": [
-        {"ageMin": 18, "ageMax": 29, "bronze": 0.35, "prata": 0.5, "ouro": 0.65, "platina": 0.8, "esmeralda": 0.95, "diamante": 1.1},
-        {"ageMin": 30, "ageMax": 39, "bronze": 0.3, "prata": 0.45, "ouro": 0.6, "platina": 0.75, "esmeralda": 0.9, "diamante": 1.05},
-        {"ageMin": 40, "ageMax": 99, "bronze": 0.25, "prata": 0.4, "ouro": 0.55, "platina": 0.7, "esmeralda": 0.85, "diamante": 1.0}
+        {
+          "ageMin": 18,
+          "ageMax": 29,
+          "bronze": 0.35,
+          "plata": 0.5,
+          "oro": 0.65,
+          "platino": 0.8,
+          "esmeralda": 0.95,
+          "diamante": 1.1,
+          "retador": 1.27
+        },
+        {
+          "ageMin": 30,
+          "ageMax": 39,
+          "bronze": 0.3,
+          "plata": 0.45,
+          "oro": 0.6,
+          "platino": 0.75,
+          "esmeralda": 0.9,
+          "diamante": 1.05,
+          "retador": 1.21
+        },
+        {
+          "ageMin": 40,
+          "ageMax": 99,
+          "bronze": 0.25,
+          "plata": 0.4,
+          "oro": 0.55,
+          "platino": 0.7,
+          "esmeralda": 0.85,
+          "diamante": 1.0,
+          "retador": 1.15
+        }
       ]
     }
   },
   "sentadilla": {
     "entries": {
       "hombre": [
-        {"ageMin": 18, "ageMax": 29, "bronze": 0.8, "prata": 1.0, "ouro": 1.25, "platina": 1.5, "esmeralda": 1.75, "diamante": 2.0},
-        {"ageMin": 30, "ageMax": 39, "bronze": 0.75, "prata": 0.95, "ouro": 1.2, "platina": 1.45, "esmeralda": 1.7, "diamante": 1.95},
-        {"ageMin": 40, "ageMax": 99, "bronze": 0.7, "prata": 0.9, "ouro": 1.15, "platina": 1.4, "esmeralda": 1.65, "diamante": 1.9}
+        {
+          "ageMin": 18,
+          "ageMax": 29,
+          "bronze": 0.85,
+          "plata": 1.15,
+          "oro": 1.4,
+          "platino": 1.65,
+          "esmeralda": 1.9,
+          "diamante": 2.15,
+          "retador": 2.47
+        },
+        {
+          "ageMin": 30,
+          "ageMax": 39,
+          "bronze": 0.8,
+          "plata": 1.05,
+          "oro": 1.3,
+          "platino": 1.55,
+          "esmeralda": 1.8,
+          "diamante": 2.05,
+          "retador": 2.36
+        },
+        {
+          "ageMin": 40,
+          "ageMax": 99,
+          "bronze": 0.7,
+          "plata": 0.95,
+          "oro": 1.2,
+          "platino": 1.45,
+          "esmeralda": 1.7,
+          "diamante": 1.95,
+          "retador": 2.24
+        }
       ],
       "mujer": [
-        {"ageMin": 18, "ageMax": 29, "bronze": 0.5, "prata": 0.7, "ouro": 0.9, "platina": 1.1, "esmeralda": 1.3, "diamante": 1.5},
-        {"ageMin": 30, "ageMax": 39, "bronze": 0.45, "prata": 0.65, "ouro": 0.85, "platina": 1.05, "esmeralda": 1.25, "diamante": 1.45},
-        {"ageMin": 40, "ageMax": 99, "bronze": 0.4, "prata": 0.6, "ouro": 0.8, "platina": 1.0, "esmeralda": 1.2, "diamante": 1.4}
+        {
+          "ageMin": 18,
+          "ageMax": 29,
+          "bronze": 0.5,
+          "plata": 0.7,
+          "oro": 0.9,
+          "platino": 1.1,
+          "esmeralda": 1.3,
+          "diamante": 1.5,
+          "retador": 1.73
+        },
+        {
+          "ageMin": 30,
+          "ageMax": 39,
+          "bronze": 0.45,
+          "plata": 0.65,
+          "oro": 0.85,
+          "platino": 1.05,
+          "esmeralda": 1.25,
+          "diamante": 1.45,
+          "retador": 1.67
+        },
+        {
+          "ageMin": 40,
+          "ageMax": 99,
+          "bronze": 0.4,
+          "plata": 0.6,
+          "oro": 0.8,
+          "platino": 1.0,
+          "esmeralda": 1.2,
+          "diamante": 1.4,
+          "retador": 1.61
+        }
       ]
     }
   },
   "peso_muerto": {
     "entries": {
       "hombre": [
-        {"ageMin": 18, "ageMax": 29, "bronze": 0.9, "prata": 1.2, "ouro": 1.5, "platina": 1.8, "esmeralda": 2.1, "diamante": 2.4},
-        {"ageMin": 30, "ageMax": 39, "bronze": 0.85, "prata": 1.15, "ouro": 1.45, "platina": 1.75, "esmeralda": 2.05, "diamante": 2.35},
-        {"ageMin": 40, "ageMax": 99, "bronze": 0.8, "prata": 1.1, "ouro": 1.4, "platina": 1.7, "esmeralda": 2.0, "diamante": 2.3}
+        {
+          "ageMin": 18,
+          "ageMax": 29,
+          "bronze": 1.0,
+          "plata": 1.3,
+          "oro": 1.6,
+          "platino": 1.9,
+          "esmeralda": 2.2,
+          "diamante": 2.5,
+          "retador": 2.88
+        },
+        {
+          "ageMin": 30,
+          "ageMax": 39,
+          "bronze": 0.95,
+          "plata": 1.2,
+          "oro": 1.5,
+          "platino": 1.8,
+          "esmeralda": 2.1,
+          "diamante": 2.4,
+          "retador": 2.76
+        },
+        {
+          "ageMin": 40,
+          "ageMax": 99,
+          "bronze": 0.85,
+          "plata": 1.1,
+          "oro": 1.4,
+          "platino": 1.7,
+          "esmeralda": 2.0,
+          "diamante": 2.3,
+          "retador": 2.65
+        }
       ],
       "mujer": [
-        {"ageMin": 18, "ageMax": 29, "bronze": 0.55, "prata": 0.75, "ouro": 1.0, "platina": 1.2, "esmeralda": 1.4, "diamante": 1.6},
-        {"ageMin": 30, "ageMax": 39, "bronze": 0.5, "prata": 0.7, "ouro": 0.95, "platina": 1.15, "esmeralda": 1.35, "diamante": 1.55},
-        {"ageMin": 40, "ageMax": 99, "bronze": 0.45, "prata": 0.65, "ouro": 0.9, "platina": 1.1, "esmeralda": 1.3, "diamante": 1.5}
+        {
+          "ageMin": 18,
+          "ageMax": 29,
+          "bronze": 0.6,
+          "plata": 0.8,
+          "oro": 1.0,
+          "platino": 1.2,
+          "esmeralda": 1.4,
+          "diamante": 1.6,
+          "retador": 1.84
+        },
+        {
+          "ageMin": 30,
+          "ageMax": 39,
+          "bronze": 0.55,
+          "plata": 0.75,
+          "oro": 0.95,
+          "platino": 1.15,
+          "esmeralda": 1.35,
+          "diamante": 1.55,
+          "retador": 1.78
+        },
+        {
+          "ageMin": 40,
+          "ageMax": 99,
+          "bronze": 0.5,
+          "plata": 0.7,
+          "oro": 0.9,
+          "platino": 1.1,
+          "esmeralda": 1.3,
+          "diamante": 1.5,
+          "retador": 1.73
+        }
       ]
     }
+  },
+  "press_inclinado": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.51,
+          "plata": 0.68,
+          "oro": 0.85,
+          "platino": 1.02,
+          "esmeralda": 1.19,
+          "diamante": 1.36,
+          "retador": 1.56,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.44,
+          "plata": 0.61,
+          "oro": 0.77,
+          "platino": 0.93,
+          "esmeralda": 1.09,
+          "diamante": 1.25,
+          "retador": 1.44,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.37,
+          "plata": 0.52,
+          "oro": 0.67,
+          "platino": 0.81,
+          "esmeralda": 0.96,
+          "diamante": 1.11,
+          "retador": 1.27,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.29,
+          "plata": 0.43,
+          "oro": 0.56,
+          "platino": 0.69,
+          "esmeralda": 0.82,
+          "diamante": 0.95,
+          "retador": 1.09,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.16,
+          "plata": 0.23,
+          "oro": 0.3,
+          "platino": 0.37,
+          "esmeralda": 0.44,
+          "diamante": 0.51,
+          "retador": 0.59,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.2,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.4,
+          "diamante": 0.47,
+          "retador": 0.54,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.16,
+          "oro": 0.22,
+          "platino": 0.28,
+          "esmeralda": 0.35,
+          "diamante": 0.41,
+          "retador": 0.47,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "press_banca_declinado": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.57,
+          "plata": 0.76,
+          "oro": 0.95,
+          "platino": 1.14,
+          "esmeralda": 1.33,
+          "diamante": 1.52,
+          "retador": 1.75,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.5,
+          "plata": 0.68,
+          "oro": 0.86,
+          "platino": 1.04,
+          "esmeralda": 1.22,
+          "diamante": 1.4,
+          "retador": 1.61,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.41,
+          "plata": 0.58,
+          "oro": 0.74,
+          "platino": 0.91,
+          "esmeralda": 1.07,
+          "diamante": 1.24,
+          "retador": 1.42,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.33,
+          "plata": 0.48,
+          "oro": 0.62,
+          "platino": 0.77,
+          "esmeralda": 0.91,
+          "diamante": 1.06,
+          "retador": 1.22,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.18,
+          "plata": 0.26,
+          "oro": 0.34,
+          "platino": 0.42,
+          "esmeralda": 0.5,
+          "diamante": 0.57,
+          "retador": 0.66,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.15,
+          "plata": 0.22,
+          "oro": 0.3,
+          "platino": 0.37,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.6,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.18,
+          "oro": 0.25,
+          "platino": 0.32,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.52,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "press_mancuerna": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.48,
+          "plata": 0.64,
+          "oro": 0.8,
+          "platino": 0.96,
+          "esmeralda": 1.12,
+          "diamante": 1.28,
+          "retador": 1.47,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.42,
+          "plata": 0.57,
+          "oro": 0.72,
+          "platino": 0.87,
+          "esmeralda": 1.03,
+          "diamante": 1.18,
+          "retador": 1.35,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.35,
+          "plata": 0.49,
+          "oro": 0.63,
+          "platino": 0.77,
+          "esmeralda": 0.9,
+          "diamante": 1.04,
+          "retador": 1.2,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.28,
+          "plata": 0.4,
+          "oro": 0.52,
+          "platino": 0.65,
+          "esmeralda": 0.77,
+          "diamante": 0.89,
+          "retador": 1.03,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.15,
+          "plata": 0.22,
+          "oro": 0.29,
+          "platino": 0.35,
+          "esmeralda": 0.42,
+          "diamante": 0.48,
+          "retador": 0.56,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.19,
+          "oro": 0.25,
+          "platino": 0.31,
+          "esmeralda": 0.38,
+          "diamante": 0.44,
+          "retador": 0.51,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.21,
+          "platino": 0.27,
+          "esmeralda": 0.33,
+          "diamante": 0.38,
+          "retador": 0.44,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "press_banca_mancuerna": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.48,
+          "plata": 0.64,
+          "oro": 0.8,
+          "platino": 0.96,
+          "esmeralda": 1.12,
+          "diamante": 1.28,
+          "retador": 1.47,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.42,
+          "plata": 0.57,
+          "oro": 0.72,
+          "platino": 0.87,
+          "esmeralda": 1.03,
+          "diamante": 1.18,
+          "retador": 1.35,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.35,
+          "plata": 0.49,
+          "oro": 0.63,
+          "platino": 0.77,
+          "esmeralda": 0.9,
+          "diamante": 1.04,
+          "retador": 1.2,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.28,
+          "plata": 0.4,
+          "oro": 0.52,
+          "platino": 0.65,
+          "esmeralda": 0.77,
+          "diamante": 0.89,
+          "retador": 1.03,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.15,
+          "plata": 0.22,
+          "oro": 0.29,
+          "platino": 0.35,
+          "esmeralda": 0.42,
+          "diamante": 0.48,
+          "retador": 0.56,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.19,
+          "oro": 0.25,
+          "platino": 0.31,
+          "esmeralda": 0.38,
+          "diamante": 0.44,
+          "retador": 0.51,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.21,
+          "platino": 0.27,
+          "esmeralda": 0.33,
+          "diamante": 0.38,
+          "retador": 0.44,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "aperturas": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.21,
+          "plata": 0.28,
+          "oro": 0.35,
+          "platino": 0.42,
+          "esmeralda": 0.49,
+          "diamante": 0.56,
+          "retador": 0.64,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.18,
+          "plata": 0.25,
+          "oro": 0.32,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.59,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.15,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.4,
+          "diamante": 0.46,
+          "retador": 0.52,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.12,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.28,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.07,
+          "plata": 0.1,
+          "oro": 0.13,
+          "platino": 0.15,
+          "esmeralda": 0.18,
+          "diamante": 0.21,
+          "retador": 0.24,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.14,
+          "esmeralda": 0.16,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.12,
+          "esmeralda": 0.14,
+          "diamante": 0.17,
+          "retador": 0.19,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "aperturas_polea": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.19,
+          "plata": 0.26,
+          "oro": 0.32,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.51,
+          "retador": 0.59,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.23,
+          "oro": 0.29,
+          "platino": 0.35,
+          "esmeralda": 0.41,
+          "diamante": 0.47,
+          "retador": 0.54,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.19,
+          "oro": 0.25,
+          "platino": 0.31,
+          "esmeralda": 0.36,
+          "diamante": 0.42,
+          "retador": 0.48,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.16,
+          "oro": 0.21,
+          "platino": 0.26,
+          "esmeralda": 0.31,
+          "diamante": 0.36,
+          "retador": 0.41,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.11,
+          "platino": 0.14,
+          "esmeralda": 0.17,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.1,
+          "platino": 0.13,
+          "esmeralda": 0.15,
+          "diamante": 0.18,
+          "retador": 0.2,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.08,
+          "platino": 0.11,
+          "esmeralda": 0.13,
+          "diamante": 0.15,
+          "retador": 0.18,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "cruce_poleas": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.18,
+          "plata": 0.24,
+          "oro": 0.3,
+          "platino": 0.36,
+          "esmeralda": 0.42,
+          "diamante": 0.48,
+          "retador": 0.55,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.16,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.38,
+          "diamante": 0.44,
+          "retador": 0.51,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.29,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.29,
+          "diamante": 0.33,
+          "retador": 0.39,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.06,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.13,
+          "esmeralda": 0.16,
+          "diamante": 0.18,
+          "retador": 0.21,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.12,
+          "esmeralda": 0.14,
+          "diamante": 0.16,
+          "retador": 0.19,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.08,
+          "platino": 0.1,
+          "esmeralda": 0.12,
+          "diamante": 0.14,
+          "retador": 0.17,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "fondos": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.54,
+          "plata": 0.72,
+          "oro": 0.9,
+          "platino": 1.08,
+          "esmeralda": 1.26,
+          "diamante": 1.44,
+          "retador": 1.66,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.47,
+          "plata": 0.64,
+          "oro": 0.81,
+          "platino": 0.98,
+          "esmeralda": 1.15,
+          "diamante": 1.33,
+          "retador": 1.52,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.39,
+          "plata": 0.55,
+          "oro": 0.7,
+          "platino": 0.86,
+          "esmeralda": 1.02,
+          "diamante": 1.17,
+          "retador": 1.35,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.31,
+          "plata": 0.45,
+          "oro": 0.59,
+          "platino": 0.73,
+          "esmeralda": 0.87,
+          "diamante": 1.0,
+          "retador": 1.16,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.16,
+          "plata": 0.23,
+          "oro": 0.29,
+          "platino": 0.36,
+          "esmeralda": 0.43,
+          "diamante": 0.5,
+          "retador": 0.57,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.19,
+          "oro": 0.26,
+          "platino": 0.32,
+          "esmeralda": 0.38,
+          "diamante": 0.45,
+          "retador": 0.52,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.16,
+          "oro": 0.22,
+          "platino": 0.27,
+          "esmeralda": 0.33,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "pullover": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.3,
+          "plata": 0.4,
+          "oro": 0.5,
+          "platino": 0.6,
+          "esmeralda": 0.7,
+          "diamante": 0.8,
+          "retador": 0.92,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.26,
+          "plata": 0.36,
+          "oro": 0.45,
+          "platino": 0.55,
+          "esmeralda": 0.64,
+          "diamante": 0.74,
+          "retador": 0.85,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.22,
+          "plata": 0.3,
+          "oro": 0.39,
+          "platino": 0.48,
+          "esmeralda": 0.57,
+          "diamante": 0.65,
+          "retador": 0.75,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.25,
+          "oro": 0.33,
+          "platino": 0.4,
+          "esmeralda": 0.48,
+          "diamante": 0.56,
+          "retador": 0.64,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.1,
+          "plata": 0.14,
+          "oro": 0.18,
+          "platino": 0.22,
+          "esmeralda": 0.26,
+          "diamante": 0.3,
+          "retador": 0.35,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.08,
+          "plata": 0.12,
+          "oro": 0.16,
+          "platino": 0.2,
+          "esmeralda": 0.24,
+          "diamante": 0.27,
+          "retador": 0.32,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.1,
+          "oro": 0.13,
+          "platino": 0.17,
+          "esmeralda": 0.2,
+          "diamante": 0.24,
+          "retador": 0.28,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "aperturas_inclinadas": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.21,
+          "plata": 0.28,
+          "oro": 0.35,
+          "platino": 0.42,
+          "esmeralda": 0.49,
+          "diamante": 0.56,
+          "retador": 0.64,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.18,
+          "plata": 0.25,
+          "oro": 0.32,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.59,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.15,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.4,
+          "diamante": 0.46,
+          "retador": 0.52,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.12,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.28,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.07,
+          "plata": 0.1,
+          "oro": 0.13,
+          "platino": 0.15,
+          "esmeralda": 0.18,
+          "diamante": 0.21,
+          "retador": 0.24,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.14,
+          "esmeralda": 0.16,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.12,
+          "esmeralda": 0.14,
+          "diamante": 0.17,
+          "retador": 0.19,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "flexiones": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.33,
+          "plata": 0.44,
+          "oro": 0.55,
+          "platino": 0.66,
+          "esmeralda": 0.77,
+          "diamante": 0.88,
+          "retador": 1.01,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.29,
+          "plata": 0.39,
+          "oro": 0.5,
+          "platino": 0.6,
+          "esmeralda": 0.71,
+          "diamante": 0.81,
+          "retador": 0.93,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.24,
+          "plata": 0.33,
+          "oro": 0.43,
+          "platino": 0.53,
+          "esmeralda": 0.62,
+          "diamante": 0.72,
+          "retador": 0.82,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.19,
+          "plata": 0.28,
+          "oro": 0.36,
+          "platino": 0.44,
+          "esmeralda": 0.53,
+          "diamante": 0.61,
+          "retador": 0.71,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.11,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.29,
+          "diamante": 0.33,
+          "retador": 0.38,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.09,
+          "plata": 0.13,
+          "oro": 0.17,
+          "platino": 0.22,
+          "esmeralda": 0.26,
+          "diamante": 0.3,
+          "retador": 0.35,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.07,
+          "plata": 0.11,
+          "oro": 0.14,
+          "platino": 0.18,
+          "esmeralda": 0.22,
+          "diamante": 0.26,
+          "retador": 0.3,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "peso_muerto_rumano": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.85,
+          "plata": 1.1,
+          "oro": 1.36,
+          "platino": 1.61,
+          "esmeralda": 1.87,
+          "diamante": 2.12,
+          "retador": 2.45,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.77,
+          "plata": 0.97,
+          "oro": 1.21,
+          "platino": 1.45,
+          "esmeralda": 1.7,
+          "diamante": 1.94,
+          "retador": 2.23,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.63,
+          "plata": 0.81,
+          "oro": 1.04,
+          "platino": 1.26,
+          "esmeralda": 1.48,
+          "diamante": 1.7,
+          "retador": 1.96,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.33,
+          "plata": 0.44,
+          "oro": 0.55,
+          "platino": 0.66,
+          "esmeralda": 0.77,
+          "diamante": 0.88,
+          "retador": 1.02,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.29,
+          "plata": 0.39,
+          "oro": 0.5,
+          "platino": 0.6,
+          "esmeralda": 0.71,
+          "diamante": 0.81,
+          "retador": 0.93,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.24,
+          "plata": 0.34,
+          "oro": 0.43,
+          "platino": 0.53,
+          "esmeralda": 0.62,
+          "diamante": 0.72,
+          "retador": 0.83,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "peso_muerto_sumo": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.9,
+          "plata": 1.17,
+          "oro": 1.44,
+          "platino": 1.71,
+          "esmeralda": 1.98,
+          "diamante": 2.25,
+          "retador": 2.59,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.81,
+          "plata": 1.03,
+          "oro": 1.28,
+          "platino": 1.54,
+          "esmeralda": 1.8,
+          "diamante": 2.05,
+          "retador": 2.36,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.67,
+          "plata": 0.86,
+          "oro": 1.1,
+          "platino": 1.33,
+          "esmeralda": 1.57,
+          "diamante": 1.8,
+          "retador": 2.07,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.35,
+          "plata": 0.47,
+          "oro": 0.59,
+          "platino": 0.7,
+          "esmeralda": 0.82,
+          "diamante": 0.94,
+          "retador": 1.08,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.31,
+          "plata": 0.42,
+          "oro": 0.53,
+          "platino": 0.64,
+          "esmeralda": 0.75,
+          "diamante": 0.86,
+          "retador": 0.99,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.25,
+          "plata": 0.36,
+          "oro": 0.46,
+          "platino": 0.56,
+          "esmeralda": 0.66,
+          "diamante": 0.76,
+          "retador": 0.88,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "remo_barra": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.51,
+          "plata": 0.68,
+          "oro": 0.85,
+          "platino": 1.02,
+          "esmeralda": 1.19,
+          "diamante": 1.36,
+          "retador": 1.56,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.44,
+          "plata": 0.61,
+          "oro": 0.77,
+          "platino": 0.93,
+          "esmeralda": 1.09,
+          "diamante": 1.25,
+          "retador": 1.44,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.37,
+          "plata": 0.52,
+          "oro": 0.67,
+          "platino": 0.81,
+          "esmeralda": 0.96,
+          "diamante": 1.11,
+          "retador": 1.27,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.29,
+          "plata": 0.43,
+          "oro": 0.56,
+          "platino": 0.69,
+          "esmeralda": 0.82,
+          "diamante": 0.95,
+          "retador": 1.09,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.19,
+          "plata": 0.28,
+          "oro": 0.36,
+          "platino": 0.44,
+          "esmeralda": 0.52,
+          "diamante": 0.61,
+          "retador": 0.7,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.16,
+          "plata": 0.24,
+          "oro": 0.31,
+          "platino": 0.39,
+          "esmeralda": 0.47,
+          "diamante": 0.55,
+          "retador": 0.64,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.12,
+          "plata": 0.19,
+          "oro": 0.26,
+          "platino": 0.34,
+          "esmeralda": 0.41,
+          "diamante": 0.48,
+          "retador": 0.55,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "remo_mancuerna": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.48,
+          "plata": 0.64,
+          "oro": 0.8,
+          "platino": 0.96,
+          "esmeralda": 1.12,
+          "diamante": 1.28,
+          "retador": 1.47,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.42,
+          "plata": 0.57,
+          "oro": 0.72,
+          "platino": 0.87,
+          "esmeralda": 1.03,
+          "diamante": 1.18,
+          "retador": 1.35,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.35,
+          "plata": 0.49,
+          "oro": 0.63,
+          "platino": 0.77,
+          "esmeralda": 0.9,
+          "diamante": 1.04,
+          "retador": 1.2,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.28,
+          "plata": 0.4,
+          "oro": 0.52,
+          "platino": 0.65,
+          "esmeralda": 0.77,
+          "diamante": 0.89,
+          "retador": 1.03,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.18,
+          "plata": 0.26,
+          "oro": 0.34,
+          "platino": 0.42,
+          "esmeralda": 0.49,
+          "diamante": 0.57,
+          "retador": 0.66,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.15,
+          "plata": 0.22,
+          "oro": 0.3,
+          "platino": 0.37,
+          "esmeralda": 0.44,
+          "diamante": 0.52,
+          "retador": 0.6,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.18,
+          "oro": 0.25,
+          "platino": 0.32,
+          "esmeralda": 0.38,
+          "diamante": 0.45,
+          "retador": 0.52,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "jalones": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.45,
+          "plata": 0.6,
+          "oro": 0.75,
+          "platino": 0.9,
+          "esmeralda": 1.05,
+          "diamante": 1.2,
+          "retador": 1.38,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.39,
+          "plata": 0.53,
+          "oro": 0.68,
+          "platino": 0.82,
+          "esmeralda": 0.96,
+          "diamante": 1.1,
+          "retador": 1.27,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.33,
+          "plata": 0.46,
+          "oro": 0.59,
+          "platino": 0.72,
+          "esmeralda": 0.85,
+          "diamante": 0.98,
+          "retador": 1.12,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.26,
+          "plata": 0.38,
+          "oro": 0.49,
+          "platino": 0.61,
+          "esmeralda": 0.72,
+          "diamante": 0.84,
+          "retador": 0.96,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.17,
+          "plata": 0.24,
+          "oro": 0.32,
+          "platino": 0.39,
+          "esmeralda": 0.46,
+          "diamante": 0.54,
+          "retador": 0.62,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.21,
+          "oro": 0.28,
+          "platino": 0.35,
+          "esmeralda": 0.42,
+          "diamante": 0.49,
+          "retador": 0.56,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.17,
+          "oro": 0.23,
+          "platino": 0.3,
+          "esmeralda": 0.36,
+          "diamante": 0.42,
+          "retador": 0.49,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "dominadas": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.6,
+          "plata": 0.8,
+          "oro": 1.0,
+          "platino": 1.2,
+          "esmeralda": 1.4,
+          "diamante": 1.6,
+          "retador": 1.84,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.52,
+          "plata": 0.71,
+          "oro": 0.9,
+          "platino": 1.09,
+          "esmeralda": 1.28,
+          "diamante": 1.47,
+          "retador": 1.69,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.43,
+          "plata": 0.61,
+          "oro": 0.78,
+          "platino": 0.96,
+          "esmeralda": 1.13,
+          "diamante": 1.3,
+          "retador": 1.5,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.35,
+          "plata": 0.5,
+          "oro": 0.65,
+          "platino": 0.81,
+          "esmeralda": 0.96,
+          "diamante": 1.12,
+          "retador": 1.29,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.16,
+          "plata": 0.23,
+          "oro": 0.29,
+          "platino": 0.36,
+          "esmeralda": 0.43,
+          "diamante": 0.5,
+          "retador": 0.57,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.19,
+          "oro": 0.26,
+          "platino": 0.32,
+          "esmeralda": 0.38,
+          "diamante": 0.45,
+          "retador": 0.52,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.16,
+          "oro": 0.22,
+          "platino": 0.27,
+          "esmeralda": 0.33,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "remo_polea": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.48,
+          "plata": 0.64,
+          "oro": 0.8,
+          "platino": 0.96,
+          "esmeralda": 1.12,
+          "diamante": 1.28,
+          "retador": 1.47,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.42,
+          "plata": 0.57,
+          "oro": 0.72,
+          "platino": 0.87,
+          "esmeralda": 1.03,
+          "diamante": 1.18,
+          "retador": 1.35,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.35,
+          "plata": 0.49,
+          "oro": 0.63,
+          "platino": 0.77,
+          "esmeralda": 0.9,
+          "diamante": 1.04,
+          "retador": 1.2,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.28,
+          "plata": 0.4,
+          "oro": 0.52,
+          "platino": 0.65,
+          "esmeralda": 0.77,
+          "diamante": 0.89,
+          "retador": 1.03,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.18,
+          "plata": 0.26,
+          "oro": 0.34,
+          "platino": 0.42,
+          "esmeralda": 0.49,
+          "diamante": 0.57,
+          "retador": 0.66,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.15,
+          "plata": 0.22,
+          "oro": 0.3,
+          "platino": 0.37,
+          "esmeralda": 0.44,
+          "diamante": 0.52,
+          "retador": 0.6,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.18,
+          "oro": 0.25,
+          "platino": 0.32,
+          "esmeralda": 0.38,
+          "diamante": 0.45,
+          "retador": 0.52,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "face_pull": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.18,
+          "plata": 0.24,
+          "oro": 0.3,
+          "platino": 0.36,
+          "esmeralda": 0.42,
+          "diamante": 0.48,
+          "retador": 0.55,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.16,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.38,
+          "diamante": 0.44,
+          "retador": 0.51,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.29,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.29,
+          "diamante": 0.33,
+          "retador": 0.39,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.07,
+          "plata": 0.1,
+          "oro": 0.14,
+          "platino": 0.17,
+          "esmeralda": 0.2,
+          "diamante": 0.23,
+          "retador": 0.27,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.12,
+          "platino": 0.15,
+          "esmeralda": 0.18,
+          "diamante": 0.21,
+          "retador": 0.24,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.07,
+          "oro": 0.1,
+          "platino": 0.13,
+          "esmeralda": 0.16,
+          "diamante": 0.18,
+          "retador": 0.21,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "hiperextensiones": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.33,
+          "plata": 0.44,
+          "oro": 0.55,
+          "platino": 0.66,
+          "esmeralda": 0.77,
+          "diamante": 0.88,
+          "retador": 1.01,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.29,
+          "plata": 0.39,
+          "oro": 0.5,
+          "platino": 0.6,
+          "esmeralda": 0.71,
+          "diamante": 0.81,
+          "retador": 0.93,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.24,
+          "plata": 0.33,
+          "oro": 0.43,
+          "platino": 0.53,
+          "esmeralda": 0.62,
+          "diamante": 0.72,
+          "retador": 0.82,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.19,
+          "plata": 0.28,
+          "oro": 0.36,
+          "platino": 0.44,
+          "esmeralda": 0.53,
+          "diamante": 0.61,
+          "retador": 0.71,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.12,
+          "plata": 0.17,
+          "oro": 0.21,
+          "platino": 0.26,
+          "esmeralda": 0.31,
+          "diamante": 0.36,
+          "retador": 0.42,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.09,
+          "plata": 0.14,
+          "oro": 0.19,
+          "platino": 0.24,
+          "esmeralda": 0.28,
+          "diamante": 0.33,
+          "retador": 0.38,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.07,
+          "plata": 0.11,
+          "oro": 0.16,
+          "platino": 0.2,
+          "esmeralda": 0.24,
+          "diamante": 0.29,
+          "retador": 0.33,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "remo_t": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.51,
+          "plata": 0.68,
+          "oro": 0.85,
+          "platino": 1.02,
+          "esmeralda": 1.19,
+          "diamante": 1.36,
+          "retador": 1.56,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.44,
+          "plata": 0.61,
+          "oro": 0.77,
+          "platino": 0.93,
+          "esmeralda": 1.09,
+          "diamante": 1.25,
+          "retador": 1.44,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.37,
+          "plata": 0.52,
+          "oro": 0.67,
+          "platino": 0.81,
+          "esmeralda": 0.96,
+          "diamante": 1.11,
+          "retador": 1.27,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.29,
+          "plata": 0.43,
+          "oro": 0.56,
+          "platino": 0.69,
+          "esmeralda": 0.82,
+          "diamante": 0.95,
+          "retador": 1.09,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.19,
+          "plata": 0.28,
+          "oro": 0.36,
+          "platino": 0.44,
+          "esmeralda": 0.52,
+          "diamante": 0.61,
+          "retador": 0.7,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.16,
+          "plata": 0.24,
+          "oro": 0.31,
+          "platino": 0.39,
+          "esmeralda": 0.47,
+          "diamante": 0.55,
+          "retador": 0.64,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.12,
+          "plata": 0.19,
+          "oro": 0.26,
+          "platino": 0.34,
+          "esmeralda": 0.41,
+          "diamante": 0.48,
+          "retador": 0.55,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "jalones_agarre_estrecho": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.45,
+          "plata": 0.6,
+          "oro": 0.75,
+          "platino": 0.9,
+          "esmeralda": 1.05,
+          "diamante": 1.2,
+          "retador": 1.38,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.39,
+          "plata": 0.53,
+          "oro": 0.68,
+          "platino": 0.82,
+          "esmeralda": 0.96,
+          "diamante": 1.1,
+          "retador": 1.27,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.33,
+          "plata": 0.46,
+          "oro": 0.59,
+          "platino": 0.72,
+          "esmeralda": 0.85,
+          "diamante": 0.98,
+          "retador": 1.12,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.26,
+          "plata": 0.38,
+          "oro": 0.49,
+          "platino": 0.61,
+          "esmeralda": 0.72,
+          "diamante": 0.84,
+          "retador": 0.96,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.17,
+          "plata": 0.24,
+          "oro": 0.32,
+          "platino": 0.39,
+          "esmeralda": 0.46,
+          "diamante": 0.54,
+          "retador": 0.62,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.21,
+          "oro": 0.28,
+          "platino": 0.35,
+          "esmeralda": 0.42,
+          "diamante": 0.49,
+          "retador": 0.56,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.17,
+          "oro": 0.23,
+          "platino": 0.3,
+          "esmeralda": 0.36,
+          "diamante": 0.42,
+          "retador": 0.49,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "dominadas_asistidas": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.48,
+          "plata": 0.64,
+          "oro": 0.8,
+          "platino": 0.96,
+          "esmeralda": 1.12,
+          "diamante": 1.28,
+          "retador": 1.47,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.42,
+          "plata": 0.57,
+          "oro": 0.72,
+          "platino": 0.87,
+          "esmeralda": 1.03,
+          "diamante": 1.18,
+          "retador": 1.35,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.35,
+          "plata": 0.49,
+          "oro": 0.63,
+          "platino": 0.77,
+          "esmeralda": 0.9,
+          "diamante": 1.04,
+          "retador": 1.2,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.28,
+          "plata": 0.4,
+          "oro": 0.52,
+          "platino": 0.65,
+          "esmeralda": 0.77,
+          "diamante": 0.89,
+          "retador": 1.03,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.14,
+          "plata": 0.2,
+          "oro": 0.26,
+          "platino": 0.32,
+          "esmeralda": 0.38,
+          "diamante": 0.44,
+          "retador": 0.51,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.17,
+          "oro": 0.23,
+          "platino": 0.29,
+          "esmeralda": 0.34,
+          "diamante": 0.4,
+          "retador": 0.46,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.09,
+          "plata": 0.14,
+          "oro": 0.19,
+          "platino": 0.24,
+          "esmeralda": 0.3,
+          "diamante": 0.35,
+          "retador": 0.4,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "peso_muerto_rack": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 1.05,
+          "plata": 1.37,
+          "oro": 1.68,
+          "platino": 1.99,
+          "esmeralda": 2.31,
+          "diamante": 2.62,
+          "retador": 3.02,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.95,
+          "plata": 1.2,
+          "oro": 1.5,
+          "platino": 1.8,
+          "esmeralda": 2.09,
+          "diamante": 2.39,
+          "retador": 2.75,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.78,
+          "plata": 1.0,
+          "oro": 1.28,
+          "platino": 1.55,
+          "esmeralda": 1.83,
+          "diamante": 2.1,
+          "retador": 2.42,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.41,
+          "plata": 0.55,
+          "oro": 0.68,
+          "platino": 0.82,
+          "esmeralda": 0.96,
+          "diamante": 1.09,
+          "retador": 1.26,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.36,
+          "plata": 0.49,
+          "oro": 0.62,
+          "platino": 0.75,
+          "esmeralda": 0.88,
+          "diamante": 1.0,
+          "retador": 1.15,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.3,
+          "plata": 0.42,
+          "oro": 0.53,
+          "platino": 0.65,
+          "esmeralda": 0.77,
+          "diamante": 0.89,
+          "retador": 1.03,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "remo_pendlay": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.57,
+          "plata": 0.76,
+          "oro": 0.95,
+          "platino": 1.14,
+          "esmeralda": 1.33,
+          "diamante": 1.52,
+          "retador": 1.75,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.5,
+          "plata": 0.68,
+          "oro": 0.86,
+          "platino": 1.04,
+          "esmeralda": 1.22,
+          "diamante": 1.4,
+          "retador": 1.61,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.41,
+          "plata": 0.58,
+          "oro": 0.74,
+          "platino": 0.91,
+          "esmeralda": 1.07,
+          "diamante": 1.24,
+          "retador": 1.42,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.33,
+          "plata": 0.48,
+          "oro": 0.62,
+          "platino": 0.77,
+          "esmeralda": 0.91,
+          "diamante": 1.06,
+          "retador": 1.22,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.22,
+          "plata": 0.31,
+          "oro": 0.4,
+          "platino": 0.49,
+          "esmeralda": 0.59,
+          "diamante": 0.68,
+          "retador": 0.78,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.18,
+          "plata": 0.26,
+          "oro": 0.35,
+          "platino": 0.44,
+          "esmeralda": 0.53,
+          "diamante": 0.62,
+          "retador": 0.71,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.21,
+          "oro": 0.3,
+          "platino": 0.38,
+          "esmeralda": 0.46,
+          "diamante": 0.54,
+          "retador": 0.62,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "press_militar": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.39,
+          "plata": 0.52,
+          "oro": 0.65,
+          "platino": 0.78,
+          "esmeralda": 0.91,
+          "diamante": 1.04,
+          "retador": 1.2,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.34,
+          "plata": 0.46,
+          "oro": 0.59,
+          "platino": 0.71,
+          "esmeralda": 0.83,
+          "diamante": 0.96,
+          "retador": 1.1,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.28,
+          "plata": 0.4,
+          "oro": 0.51,
+          "platino": 0.62,
+          "esmeralda": 0.74,
+          "diamante": 0.85,
+          "retador": 0.97,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.23,
+          "plata": 0.33,
+          "oro": 0.43,
+          "platino": 0.53,
+          "esmeralda": 0.63,
+          "diamante": 0.73,
+          "retador": 0.84,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.29,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.25,
+          "esmeralda": 0.31,
+          "diamante": 0.36,
+          "retador": 0.41,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.08,
+          "plata": 0.12,
+          "oro": 0.17,
+          "platino": 0.22,
+          "esmeralda": 0.26,
+          "diamante": 0.31,
+          "retador": 0.36,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "press_arnold": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.33,
+          "plata": 0.44,
+          "oro": 0.55,
+          "platino": 0.66,
+          "esmeralda": 0.77,
+          "diamante": 0.88,
+          "retador": 1.01,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.29,
+          "plata": 0.39,
+          "oro": 0.5,
+          "platino": 0.6,
+          "esmeralda": 0.71,
+          "diamante": 0.81,
+          "retador": 0.93,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.24,
+          "plata": 0.33,
+          "oro": 0.43,
+          "platino": 0.53,
+          "esmeralda": 0.62,
+          "diamante": 0.72,
+          "retador": 0.82,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.19,
+          "plata": 0.28,
+          "oro": 0.36,
+          "platino": 0.44,
+          "esmeralda": 0.53,
+          "diamante": 0.61,
+          "retador": 0.71,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.11,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.29,
+          "diamante": 0.33,
+          "retador": 0.38,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.09,
+          "plata": 0.13,
+          "oro": 0.17,
+          "platino": 0.22,
+          "esmeralda": 0.26,
+          "diamante": 0.3,
+          "retador": 0.35,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.07,
+          "plata": 0.11,
+          "oro": 0.14,
+          "platino": 0.18,
+          "esmeralda": 0.22,
+          "diamante": 0.26,
+          "retador": 0.3,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "elevaciones_laterales": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.15,
+          "plata": 0.2,
+          "oro": 0.25,
+          "platino": 0.3,
+          "esmeralda": 0.35,
+          "diamante": 0.4,
+          "retador": 0.46,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.27,
+          "esmeralda": 0.32,
+          "diamante": 0.37,
+          "retador": 0.42,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.28,
+          "diamante": 0.33,
+          "retador": 0.37,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.09,
+          "plata": 0.13,
+          "oro": 0.16,
+          "platino": 0.2,
+          "esmeralda": 0.24,
+          "diamante": 0.28,
+          "retador": 0.32,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.05,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.11,
+          "esmeralda": 0.13,
+          "diamante": 0.15,
+          "retador": 0.17,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.08,
+          "platino": 0.1,
+          "esmeralda": 0.12,
+          "diamante": 0.14,
+          "retador": 0.16,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.03,
+          "plata": 0.05,
+          "oro": 0.07,
+          "platino": 0.08,
+          "esmeralda": 0.1,
+          "diamante": 0.12,
+          "retador": 0.14,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "elevaciones_frontales": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.18,
+          "plata": 0.24,
+          "oro": 0.3,
+          "platino": 0.36,
+          "esmeralda": 0.42,
+          "diamante": 0.48,
+          "retador": 0.55,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.16,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.38,
+          "diamante": 0.44,
+          "retador": 0.51,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.29,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.29,
+          "diamante": 0.33,
+          "retador": 0.39,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.06,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.13,
+          "esmeralda": 0.16,
+          "diamante": 0.18,
+          "retador": 0.21,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.12,
+          "esmeralda": 0.14,
+          "diamante": 0.16,
+          "retador": 0.19,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.08,
+          "platino": 0.1,
+          "esmeralda": 0.12,
+          "diamante": 0.14,
+          "retador": 0.17,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "pajaro": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.12,
+          "plata": 0.16,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.28,
+          "diamante": 0.32,
+          "retador": 0.37,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.14,
+          "oro": 0.18,
+          "platino": 0.22,
+          "esmeralda": 0.26,
+          "diamante": 0.29,
+          "retador": 0.34,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.09,
+          "plata": 0.12,
+          "oro": 0.16,
+          "platino": 0.19,
+          "esmeralda": 0.23,
+          "diamante": 0.26,
+          "retador": 0.3,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.07,
+          "plata": 0.1,
+          "oro": 0.13,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.22,
+          "retador": 0.26,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.07,
+          "platino": 0.09,
+          "esmeralda": 0.1,
+          "diamante": 0.12,
+          "retador": 0.14,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.03,
+          "plata": 0.05,
+          "oro": 0.06,
+          "platino": 0.08,
+          "esmeralda": 0.09,
+          "diamante": 0.11,
+          "retador": 0.13,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.02,
+          "plata": 0.04,
+          "oro": 0.05,
+          "platino": 0.07,
+          "esmeralda": 0.08,
+          "diamante": 0.1,
+          "retador": 0.11,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "press_militar_sentado": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.39,
+          "plata": 0.52,
+          "oro": 0.65,
+          "platino": 0.78,
+          "esmeralda": 0.91,
+          "diamante": 1.04,
+          "retador": 1.2,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.34,
+          "plata": 0.46,
+          "oro": 0.59,
+          "platino": 0.71,
+          "esmeralda": 0.83,
+          "diamante": 0.96,
+          "retador": 1.1,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.28,
+          "plata": 0.4,
+          "oro": 0.51,
+          "platino": 0.62,
+          "esmeralda": 0.74,
+          "diamante": 0.85,
+          "retador": 0.97,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.23,
+          "plata": 0.33,
+          "oro": 0.43,
+          "platino": 0.53,
+          "esmeralda": 0.63,
+          "diamante": 0.73,
+          "retador": 0.84,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.29,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.25,
+          "esmeralda": 0.31,
+          "diamante": 0.36,
+          "retador": 0.41,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.08,
+          "plata": 0.12,
+          "oro": 0.17,
+          "platino": 0.22,
+          "esmeralda": 0.26,
+          "diamante": 0.31,
+          "retador": 0.36,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "elevaciones_laterales_polea": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.15,
+          "plata": 0.2,
+          "oro": 0.25,
+          "platino": 0.3,
+          "esmeralda": 0.35,
+          "diamante": 0.4,
+          "retador": 0.46,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.27,
+          "esmeralda": 0.32,
+          "diamante": 0.37,
+          "retador": 0.42,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.28,
+          "diamante": 0.33,
+          "retador": 0.37,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.09,
+          "plata": 0.13,
+          "oro": 0.16,
+          "platino": 0.2,
+          "esmeralda": 0.24,
+          "diamante": 0.28,
+          "retador": 0.32,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.05,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.11,
+          "esmeralda": 0.13,
+          "diamante": 0.15,
+          "retador": 0.17,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.08,
+          "platino": 0.1,
+          "esmeralda": 0.12,
+          "diamante": 0.14,
+          "retador": 0.16,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.03,
+          "plata": 0.05,
+          "oro": 0.07,
+          "platino": 0.08,
+          "esmeralda": 0.1,
+          "diamante": 0.12,
+          "retador": 0.14,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "curl_barra": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.24,
+          "plata": 0.32,
+          "oro": 0.4,
+          "platino": 0.48,
+          "esmeralda": 0.56,
+          "diamante": 0.64,
+          "retador": 0.74,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.21,
+          "plata": 0.29,
+          "oro": 0.36,
+          "platino": 0.44,
+          "esmeralda": 0.51,
+          "diamante": 0.59,
+          "retador": 0.68,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.24,
+          "oro": 0.31,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.6,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.2,
+          "oro": 0.26,
+          "platino": 0.32,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.51,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.08,
+          "plata": 0.11,
+          "oro": 0.14,
+          "platino": 0.18,
+          "esmeralda": 0.21,
+          "diamante": 0.24,
+          "retador": 0.28,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.13,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.22,
+          "retador": 0.25,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.13,
+          "esmeralda": 0.16,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "curl_mancuerna": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.21,
+          "plata": 0.28,
+          "oro": 0.35,
+          "platino": 0.42,
+          "esmeralda": 0.49,
+          "diamante": 0.56,
+          "retador": 0.64,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.18,
+          "plata": 0.25,
+          "oro": 0.32,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.59,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.15,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.4,
+          "diamante": 0.46,
+          "retador": 0.52,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.12,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.28,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.07,
+          "plata": 0.1,
+          "oro": 0.13,
+          "platino": 0.15,
+          "esmeralda": 0.18,
+          "diamante": 0.21,
+          "retador": 0.24,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.14,
+          "esmeralda": 0.16,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.12,
+          "esmeralda": 0.14,
+          "diamante": 0.17,
+          "retador": 0.19,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "curl_martillo": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.23,
+          "plata": 0.3,
+          "oro": 0.38,
+          "platino": 0.46,
+          "esmeralda": 0.53,
+          "diamante": 0.61,
+          "retador": 0.7,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.2,
+          "plata": 0.27,
+          "oro": 0.34,
+          "platino": 0.42,
+          "esmeralda": 0.49,
+          "diamante": 0.56,
+          "retador": 0.64,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.23,
+          "oro": 0.3,
+          "platino": 0.36,
+          "esmeralda": 0.43,
+          "diamante": 0.5,
+          "retador": 0.57,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.19,
+          "oro": 0.25,
+          "platino": 0.31,
+          "esmeralda": 0.37,
+          "diamante": 0.42,
+          "retador": 0.49,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.07,
+          "plata": 0.1,
+          "oro": 0.14,
+          "platino": 0.17,
+          "esmeralda": 0.2,
+          "diamante": 0.23,
+          "retador": 0.27,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.12,
+          "platino": 0.15,
+          "esmeralda": 0.18,
+          "diamante": 0.21,
+          "retador": 0.24,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.07,
+          "oro": 0.1,
+          "platino": 0.13,
+          "esmeralda": 0.15,
+          "diamante": 0.18,
+          "retador": 0.21,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "curl_polea": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.24,
+          "plata": 0.32,
+          "oro": 0.4,
+          "platino": 0.48,
+          "esmeralda": 0.56,
+          "diamante": 0.64,
+          "retador": 0.74,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.21,
+          "plata": 0.29,
+          "oro": 0.36,
+          "platino": 0.44,
+          "esmeralda": 0.51,
+          "diamante": 0.59,
+          "retador": 0.68,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.24,
+          "oro": 0.31,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.6,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.2,
+          "oro": 0.26,
+          "platino": 0.32,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.51,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.08,
+          "plata": 0.11,
+          "oro": 0.14,
+          "platino": 0.18,
+          "esmeralda": 0.21,
+          "diamante": 0.24,
+          "retador": 0.28,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.13,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.22,
+          "retador": 0.25,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.13,
+          "esmeralda": 0.16,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "curl_concentrado": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.18,
+          "plata": 0.24,
+          "oro": 0.3,
+          "platino": 0.36,
+          "esmeralda": 0.42,
+          "diamante": 0.48,
+          "retador": 0.55,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.16,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.38,
+          "diamante": 0.44,
+          "retador": 0.51,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.29,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.29,
+          "diamante": 0.33,
+          "retador": 0.39,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.06,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.13,
+          "esmeralda": 0.16,
+          "diamante": 0.18,
+          "retador": 0.21,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.12,
+          "esmeralda": 0.14,
+          "diamante": 0.16,
+          "retador": 0.19,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.08,
+          "platino": 0.1,
+          "esmeralda": 0.12,
+          "diamante": 0.14,
+          "retador": 0.17,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "curl_inverso": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.21,
+          "plata": 0.28,
+          "oro": 0.35,
+          "platino": 0.42,
+          "esmeralda": 0.49,
+          "diamante": 0.56,
+          "retador": 0.64,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.18,
+          "plata": 0.25,
+          "oro": 0.32,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.59,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.15,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.4,
+          "diamante": 0.46,
+          "retador": 0.52,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.12,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.28,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.07,
+          "plata": 0.1,
+          "oro": 0.13,
+          "platino": 0.15,
+          "esmeralda": 0.18,
+          "diamante": 0.21,
+          "retador": 0.24,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.14,
+          "esmeralda": 0.16,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.12,
+          "esmeralda": 0.14,
+          "diamante": 0.17,
+          "retador": 0.19,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "curl_predicador": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.23,
+          "plata": 0.3,
+          "oro": 0.38,
+          "platino": 0.46,
+          "esmeralda": 0.53,
+          "diamante": 0.61,
+          "retador": 0.7,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.2,
+          "plata": 0.27,
+          "oro": 0.34,
+          "platino": 0.42,
+          "esmeralda": 0.49,
+          "diamante": 0.56,
+          "retador": 0.64,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.23,
+          "oro": 0.3,
+          "platino": 0.36,
+          "esmeralda": 0.43,
+          "diamante": 0.5,
+          "retador": 0.57,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.19,
+          "oro": 0.25,
+          "platino": 0.31,
+          "esmeralda": 0.37,
+          "diamante": 0.42,
+          "retador": 0.49,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.07,
+          "plata": 0.1,
+          "oro": 0.14,
+          "platino": 0.17,
+          "esmeralda": 0.2,
+          "diamante": 0.23,
+          "retador": 0.27,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.12,
+          "platino": 0.15,
+          "esmeralda": 0.18,
+          "diamante": 0.21,
+          "retador": 0.24,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.07,
+          "oro": 0.1,
+          "platino": 0.13,
+          "esmeralda": 0.15,
+          "diamante": 0.18,
+          "retador": 0.21,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "curl_araña": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.19,
+          "plata": 0.26,
+          "oro": 0.32,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.51,
+          "retador": 0.59,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.23,
+          "oro": 0.29,
+          "platino": 0.35,
+          "esmeralda": 0.41,
+          "diamante": 0.47,
+          "retador": 0.54,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.19,
+          "oro": 0.25,
+          "platino": 0.31,
+          "esmeralda": 0.36,
+          "diamante": 0.42,
+          "retador": 0.48,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.16,
+          "oro": 0.21,
+          "platino": 0.26,
+          "esmeralda": 0.31,
+          "diamante": 0.36,
+          "retador": 0.41,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.11,
+          "platino": 0.14,
+          "esmeralda": 0.17,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.1,
+          "platino": 0.13,
+          "esmeralda": 0.15,
+          "diamante": 0.18,
+          "retador": 0.2,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.08,
+          "platino": 0.11,
+          "esmeralda": 0.13,
+          "diamante": 0.15,
+          "retador": 0.18,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "curl_barra_w": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.24,
+          "plata": 0.32,
+          "oro": 0.4,
+          "platino": 0.48,
+          "esmeralda": 0.56,
+          "diamante": 0.64,
+          "retador": 0.74,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.21,
+          "plata": 0.29,
+          "oro": 0.36,
+          "platino": 0.44,
+          "esmeralda": 0.51,
+          "diamante": 0.59,
+          "retador": 0.68,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.24,
+          "oro": 0.31,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.6,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.2,
+          "oro": 0.26,
+          "platino": 0.32,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.51,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.08,
+          "plata": 0.11,
+          "oro": 0.14,
+          "platino": 0.18,
+          "esmeralda": 0.21,
+          "diamante": 0.24,
+          "retador": 0.28,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.13,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.22,
+          "retador": 0.25,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.13,
+          "esmeralda": 0.16,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "extensiones_triceps": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.21,
+          "plata": 0.28,
+          "oro": 0.35,
+          "platino": 0.42,
+          "esmeralda": 0.49,
+          "diamante": 0.56,
+          "retador": 0.64,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.18,
+          "plata": 0.25,
+          "oro": 0.32,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.59,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.15,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.4,
+          "diamante": 0.46,
+          "retador": 0.52,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.12,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.28,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.07,
+          "plata": 0.1,
+          "oro": 0.13,
+          "platino": 0.15,
+          "esmeralda": 0.18,
+          "diamante": 0.21,
+          "retador": 0.24,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.14,
+          "esmeralda": 0.16,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.12,
+          "esmeralda": 0.14,
+          "diamante": 0.17,
+          "retador": 0.19,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "press_frances": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.24,
+          "plata": 0.32,
+          "oro": 0.4,
+          "platino": 0.48,
+          "esmeralda": 0.56,
+          "diamante": 0.64,
+          "retador": 0.74,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.21,
+          "plata": 0.29,
+          "oro": 0.36,
+          "platino": 0.44,
+          "esmeralda": 0.51,
+          "diamante": 0.59,
+          "retador": 0.68,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.24,
+          "oro": 0.31,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.6,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.2,
+          "oro": 0.26,
+          "platino": 0.32,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.51,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.08,
+          "plata": 0.11,
+          "oro": 0.14,
+          "platino": 0.18,
+          "esmeralda": 0.21,
+          "diamante": 0.24,
+          "retador": 0.28,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.13,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.22,
+          "retador": 0.25,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.13,
+          "esmeralda": 0.16,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "patada_triceps": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.15,
+          "plata": 0.2,
+          "oro": 0.25,
+          "platino": 0.3,
+          "esmeralda": 0.35,
+          "diamante": 0.4,
+          "retador": 0.46,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.27,
+          "esmeralda": 0.32,
+          "diamante": 0.37,
+          "retador": 0.42,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.28,
+          "diamante": 0.33,
+          "retador": 0.37,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.09,
+          "plata": 0.13,
+          "oro": 0.16,
+          "platino": 0.2,
+          "esmeralda": 0.24,
+          "diamante": 0.28,
+          "retador": 0.32,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.05,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.11,
+          "esmeralda": 0.13,
+          "diamante": 0.15,
+          "retador": 0.17,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.08,
+          "platino": 0.1,
+          "esmeralda": 0.12,
+          "diamante": 0.14,
+          "retador": 0.16,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.03,
+          "plata": 0.05,
+          "oro": 0.07,
+          "platino": 0.08,
+          "esmeralda": 0.1,
+          "diamante": 0.12,
+          "retador": 0.14,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "fondos_triceps": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.33,
+          "plata": 0.44,
+          "oro": 0.55,
+          "platino": 0.66,
+          "esmeralda": 0.77,
+          "diamante": 0.88,
+          "retador": 1.01,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.29,
+          "plata": 0.39,
+          "oro": 0.5,
+          "platino": 0.6,
+          "esmeralda": 0.71,
+          "diamante": 0.81,
+          "retador": 0.93,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.24,
+          "plata": 0.33,
+          "oro": 0.43,
+          "platino": 0.53,
+          "esmeralda": 0.62,
+          "diamante": 0.72,
+          "retador": 0.82,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.19,
+          "plata": 0.28,
+          "oro": 0.36,
+          "platino": 0.44,
+          "esmeralda": 0.53,
+          "diamante": 0.61,
+          "retador": 0.71,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.1,
+          "plata": 0.14,
+          "oro": 0.18,
+          "platino": 0.22,
+          "esmeralda": 0.26,
+          "diamante": 0.3,
+          "retador": 0.35,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.08,
+          "plata": 0.12,
+          "oro": 0.16,
+          "platino": 0.2,
+          "esmeralda": 0.24,
+          "diamante": 0.27,
+          "retador": 0.32,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.1,
+          "oro": 0.13,
+          "platino": 0.17,
+          "esmeralda": 0.2,
+          "diamante": 0.24,
+          "retador": 0.28,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "cuerda_triceps": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.18,
+          "plata": 0.24,
+          "oro": 0.3,
+          "platino": 0.36,
+          "esmeralda": 0.42,
+          "diamante": 0.48,
+          "retador": 0.55,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.16,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.38,
+          "diamante": 0.44,
+          "retador": 0.51,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.29,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.29,
+          "diamante": 0.33,
+          "retador": 0.39,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.06,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.13,
+          "esmeralda": 0.16,
+          "diamante": 0.18,
+          "retador": 0.21,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.12,
+          "esmeralda": 0.14,
+          "diamante": 0.16,
+          "retador": 0.19,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.08,
+          "platino": 0.1,
+          "esmeralda": 0.12,
+          "diamante": 0.14,
+          "retador": 0.17,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "rompecraneos": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.24,
+          "plata": 0.32,
+          "oro": 0.4,
+          "platino": 0.48,
+          "esmeralda": 0.56,
+          "diamante": 0.64,
+          "retador": 0.74,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.21,
+          "plata": 0.29,
+          "oro": 0.36,
+          "platino": 0.44,
+          "esmeralda": 0.51,
+          "diamante": 0.59,
+          "retador": 0.68,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.24,
+          "oro": 0.31,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.6,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.2,
+          "oro": 0.26,
+          "platino": 0.32,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.51,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.08,
+          "plata": 0.11,
+          "oro": 0.14,
+          "platino": 0.18,
+          "esmeralda": 0.21,
+          "diamante": 0.24,
+          "retador": 0.28,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.13,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.22,
+          "retador": 0.25,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.13,
+          "esmeralda": 0.16,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "press_banca_close_grip": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.51,
+          "plata": 0.68,
+          "oro": 0.85,
+          "platino": 1.02,
+          "esmeralda": 1.19,
+          "diamante": 1.36,
+          "retador": 1.56,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.44,
+          "plata": 0.61,
+          "oro": 0.77,
+          "platino": 0.93,
+          "esmeralda": 1.09,
+          "diamante": 1.25,
+          "retador": 1.44,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.37,
+          "plata": 0.52,
+          "oro": 0.67,
+          "platino": 0.81,
+          "esmeralda": 0.96,
+          "diamante": 1.11,
+          "retador": 1.27,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.29,
+          "plata": 0.43,
+          "oro": 0.56,
+          "platino": 0.69,
+          "esmeralda": 0.82,
+          "diamante": 0.95,
+          "retador": 1.09,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.16,
+          "plata": 0.23,
+          "oro": 0.3,
+          "platino": 0.37,
+          "esmeralda": 0.44,
+          "diamante": 0.51,
+          "retador": 0.59,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.2,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.4,
+          "diamante": 0.47,
+          "retador": 0.54,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.16,
+          "oro": 0.22,
+          "platino": 0.28,
+          "esmeralda": 0.35,
+          "diamante": 0.41,
+          "retador": 0.47,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "extensiones_polea_tras_nuca": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.19,
+          "plata": 0.26,
+          "oro": 0.32,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.51,
+          "retador": 0.59,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.23,
+          "oro": 0.29,
+          "platino": 0.35,
+          "esmeralda": 0.41,
+          "diamante": 0.47,
+          "retador": 0.54,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.19,
+          "oro": 0.25,
+          "platino": 0.31,
+          "esmeralda": 0.36,
+          "diamante": 0.42,
+          "retador": 0.48,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.16,
+          "oro": 0.21,
+          "platino": 0.26,
+          "esmeralda": 0.31,
+          "diamante": 0.36,
+          "retador": 0.41,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.11,
+          "platino": 0.14,
+          "esmeralda": 0.17,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.1,
+          "platino": 0.13,
+          "esmeralda": 0.15,
+          "diamante": 0.18,
+          "retador": 0.2,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.08,
+          "platino": 0.11,
+          "esmeralda": 0.13,
+          "diamante": 0.15,
+          "retador": 0.18,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "sentadilla_frontal": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.77,
+          "plata": 1.03,
+          "oro": 1.26,
+          "platino": 1.48,
+          "esmeralda": 1.71,
+          "diamante": 1.94,
+          "retador": 2.22,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.68,
+          "plata": 0.9,
+          "oro": 1.11,
+          "platino": 1.33,
+          "esmeralda": 1.54,
+          "diamante": 1.75,
+          "retador": 2.02,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.55,
+          "plata": 0.74,
+          "oro": 0.94,
+          "platino": 1.14,
+          "esmeralda": 1.33,
+          "diamante": 1.53,
+          "retador": 1.75,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.27,
+          "plata": 0.38,
+          "oro": 0.49,
+          "platino": 0.59,
+          "esmeralda": 0.7,
+          "diamante": 0.81,
+          "retador": 0.93,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.23,
+          "plata": 0.33,
+          "oro": 0.44,
+          "platino": 0.54,
+          "esmeralda": 0.64,
+          "diamante": 0.74,
+          "retador": 0.86,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.19,
+          "plata": 0.28,
+          "oro": 0.38,
+          "platino": 0.47,
+          "esmeralda": 0.56,
+          "diamante": 0.66,
+          "retador": 0.76,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "prensa": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 1.1,
+          "plata": 1.49,
+          "oro": 1.82,
+          "platino": 2.15,
+          "esmeralda": 2.47,
+          "diamante": 2.79,
+          "retador": 3.21,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.99,
+          "plata": 1.3,
+          "oro": 1.61,
+          "platino": 1.91,
+          "esmeralda": 2.22,
+          "diamante": 2.53,
+          "retador": 2.91,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.79,
+          "plata": 1.07,
+          "oro": 1.36,
+          "platino": 1.64,
+          "esmeralda": 1.92,
+          "diamante": 2.21,
+          "retador": 2.53,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.39,
+          "plata": 0.55,
+          "oro": 0.7,
+          "platino": 0.86,
+          "esmeralda": 1.01,
+          "diamante": 1.17,
+          "retador": 1.35,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.33,
+          "plata": 0.48,
+          "oro": 0.63,
+          "platino": 0.78,
+          "esmeralda": 0.93,
+          "diamante": 1.07,
+          "retador": 1.24,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.27,
+          "plata": 0.41,
+          "oro": 0.54,
+          "platino": 0.68,
+          "esmeralda": 0.81,
+          "diamante": 0.95,
+          "retador": 1.09,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "sentadilla_bulgara": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.42,
+          "plata": 0.57,
+          "oro": 0.7,
+          "platino": 0.82,
+          "esmeralda": 0.95,
+          "diamante": 1.07,
+          "retador": 1.24,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.38,
+          "plata": 0.5,
+          "oro": 0.62,
+          "platino": 0.74,
+          "esmeralda": 0.85,
+          "diamante": 0.97,
+          "retador": 1.12,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.3,
+          "plata": 0.41,
+          "oro": 0.52,
+          "platino": 0.63,
+          "esmeralda": 0.74,
+          "diamante": 0.85,
+          "retador": 0.97,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.15,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.52,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.19,
+          "oro": 0.24,
+          "platino": 0.3,
+          "esmeralda": 0.36,
+          "diamante": 0.41,
+          "retador": 0.48,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.16,
+          "oro": 0.21,
+          "platino": 0.26,
+          "esmeralda": 0.31,
+          "diamante": 0.37,
+          "retador": 0.42,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "zancadas": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.47,
+          "plata": 0.63,
+          "oro": 0.77,
+          "platino": 0.91,
+          "esmeralda": 1.04,
+          "diamante": 1.18,
+          "retador": 1.36,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.42,
+          "plata": 0.55,
+          "oro": 0.68,
+          "platino": 0.81,
+          "esmeralda": 0.94,
+          "diamante": 1.07,
+          "retador": 1.23,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.33,
+          "plata": 0.45,
+          "oro": 0.57,
+          "platino": 0.69,
+          "esmeralda": 0.81,
+          "diamante": 0.93,
+          "retador": 1.07,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.17,
+          "plata": 0.23,
+          "oro": 0.3,
+          "platino": 0.36,
+          "esmeralda": 0.43,
+          "diamante": 0.49,
+          "retador": 0.57,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.2,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.52,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.17,
+          "oro": 0.23,
+          "platino": 0.29,
+          "esmeralda": 0.34,
+          "diamante": 0.4,
+          "retador": 0.46,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "peso_muerto_sumo_piernas": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.9,
+          "plata": 1.17,
+          "oro": 1.44,
+          "platino": 1.71,
+          "esmeralda": 1.98,
+          "diamante": 2.25,
+          "retador": 2.59,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.81,
+          "plata": 1.03,
+          "oro": 1.28,
+          "platino": 1.54,
+          "esmeralda": 1.8,
+          "diamante": 2.05,
+          "retador": 2.36,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.67,
+          "plata": 0.86,
+          "oro": 1.1,
+          "platino": 1.33,
+          "esmeralda": 1.57,
+          "diamante": 1.8,
+          "retador": 2.07,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.35,
+          "plata": 0.47,
+          "oro": 0.59,
+          "platino": 0.7,
+          "esmeralda": 0.82,
+          "diamante": 0.94,
+          "retador": 1.08,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.31,
+          "plata": 0.42,
+          "oro": 0.53,
+          "platino": 0.64,
+          "esmeralda": 0.75,
+          "diamante": 0.86,
+          "retador": 0.99,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.25,
+          "plata": 0.36,
+          "oro": 0.46,
+          "platino": 0.56,
+          "esmeralda": 0.66,
+          "diamante": 0.76,
+          "retador": 0.88,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "sentadilla_goblet": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.51,
+          "plata": 0.69,
+          "oro": 0.84,
+          "platino": 0.99,
+          "esmeralda": 1.14,
+          "diamante": 1.29,
+          "retador": 1.48,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.46,
+          "plata": 0.6,
+          "oro": 0.74,
+          "platino": 0.88,
+          "esmeralda": 1.03,
+          "diamante": 1.17,
+          "retador": 1.35,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.37,
+          "plata": 0.5,
+          "oro": 0.63,
+          "platino": 0.76,
+          "esmeralda": 0.89,
+          "diamante": 1.02,
+          "retador": 1.17,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.18,
+          "plata": 0.25,
+          "oro": 0.32,
+          "platino": 0.4,
+          "esmeralda": 0.47,
+          "diamante": 0.54,
+          "retador": 0.62,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.15,
+          "plata": 0.22,
+          "oro": 0.29,
+          "platino": 0.36,
+          "esmeralda": 0.43,
+          "diamante": 0.5,
+          "retador": 0.57,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.19,
+          "oro": 0.25,
+          "platino": 0.31,
+          "esmeralda": 0.38,
+          "diamante": 0.44,
+          "retador": 0.5,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "buenos_dias": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.55,
+          "plata": 0.75,
+          "oro": 0.91,
+          "platino": 1.07,
+          "esmeralda": 1.23,
+          "diamante": 1.4,
+          "retador": 1.61,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.49,
+          "plata": 0.65,
+          "oro": 0.8,
+          "platino": 0.96,
+          "esmeralda": 1.11,
+          "diamante": 1.27,
+          "retador": 1.46,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.4,
+          "plata": 0.54,
+          "oro": 0.68,
+          "platino": 0.82,
+          "esmeralda": 0.96,
+          "diamante": 1.1,
+          "retador": 1.27,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.2,
+          "plata": 0.27,
+          "oro": 0.35,
+          "platino": 0.43,
+          "esmeralda": 0.51,
+          "diamante": 0.59,
+          "retador": 0.67,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.24,
+          "oro": 0.31,
+          "platino": 0.39,
+          "esmeralda": 0.46,
+          "diamante": 0.54,
+          "retador": 0.62,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.2,
+          "oro": 0.27,
+          "platino": 0.34,
+          "esmeralda": 0.41,
+          "diamante": 0.48,
+          "retador": 0.55,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "peso_muerto_piernas_rigidas": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.8,
+          "plata": 1.04,
+          "oro": 1.28,
+          "platino": 1.52,
+          "esmeralda": 1.76,
+          "diamante": 2.0,
+          "retador": 2.3,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.72,
+          "plata": 0.91,
+          "oro": 1.14,
+          "platino": 1.37,
+          "esmeralda": 1.6,
+          "diamante": 1.82,
+          "retador": 2.1,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.59,
+          "plata": 0.77,
+          "oro": 0.97,
+          "platino": 1.18,
+          "esmeralda": 1.39,
+          "diamante": 1.6,
+          "retador": 1.84,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.31,
+          "plata": 0.42,
+          "oro": 0.52,
+          "platino": 0.62,
+          "esmeralda": 0.73,
+          "diamante": 0.83,
+          "retador": 0.96,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.27,
+          "plata": 0.37,
+          "oro": 0.47,
+          "platino": 0.57,
+          "esmeralda": 0.67,
+          "diamante": 0.77,
+          "retador": 0.88,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.23,
+          "plata": 0.32,
+          "oro": 0.41,
+          "platino": 0.5,
+          "esmeralda": 0.59,
+          "diamante": 0.68,
+          "retador": 0.78,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "sentadilla_hack": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.94,
+          "plata": 1.26,
+          "oro": 1.54,
+          "platino": 1.81,
+          "esmeralda": 2.09,
+          "diamante": 2.37,
+          "retador": 2.72,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.84,
+          "plata": 1.1,
+          "oro": 1.36,
+          "platino": 1.62,
+          "esmeralda": 1.88,
+          "diamante": 2.14,
+          "retador": 2.47,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.67,
+          "plata": 0.91,
+          "oro": 1.15,
+          "platino": 1.39,
+          "esmeralda": 1.63,
+          "diamante": 1.87,
+          "retador": 2.14,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.33,
+          "plata": 0.46,
+          "oro": 0.59,
+          "platino": 0.73,
+          "esmeralda": 0.86,
+          "diamante": 0.99,
+          "retador": 1.14,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.28,
+          "plata": 0.41,
+          "oro": 0.53,
+          "platino": 0.66,
+          "esmeralda": 0.78,
+          "diamante": 0.91,
+          "retador": 1.05,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.23,
+          "plata": 0.34,
+          "oro": 0.46,
+          "platino": 0.57,
+          "esmeralda": 0.69,
+          "diamante": 0.8,
+          "retador": 0.92,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "zancada_lateral": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.42,
+          "plata": 0.57,
+          "oro": 0.7,
+          "platino": 0.82,
+          "esmeralda": 0.95,
+          "diamante": 1.07,
+          "retador": 1.24,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.38,
+          "plata": 0.5,
+          "oro": 0.62,
+          "platino": 0.74,
+          "esmeralda": 0.85,
+          "diamante": 0.97,
+          "retador": 1.12,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.3,
+          "plata": 0.41,
+          "oro": 0.52,
+          "platino": 0.63,
+          "esmeralda": 0.74,
+          "diamante": 0.85,
+          "retador": 0.97,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.15,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.52,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.19,
+          "oro": 0.24,
+          "platino": 0.3,
+          "esmeralda": 0.36,
+          "diamante": 0.41,
+          "retador": 0.48,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.16,
+          "oro": 0.21,
+          "platino": 0.26,
+          "esmeralda": 0.31,
+          "diamante": 0.37,
+          "retador": 0.42,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "step_ups": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.47,
+          "plata": 0.63,
+          "oro": 0.77,
+          "platino": 0.91,
+          "esmeralda": 1.04,
+          "diamante": 1.18,
+          "retador": 1.36,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.42,
+          "plata": 0.55,
+          "oro": 0.68,
+          "platino": 0.81,
+          "esmeralda": 0.94,
+          "diamante": 1.07,
+          "retador": 1.23,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.33,
+          "plata": 0.45,
+          "oro": 0.57,
+          "platino": 0.69,
+          "esmeralda": 0.81,
+          "diamante": 0.93,
+          "retador": 1.07,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.17,
+          "plata": 0.23,
+          "oro": 0.3,
+          "platino": 0.36,
+          "esmeralda": 0.43,
+          "diamante": 0.49,
+          "retador": 0.57,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.2,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.52,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.17,
+          "oro": 0.23,
+          "platino": 0.29,
+          "esmeralda": 0.34,
+          "diamante": 0.4,
+          "retador": 0.46,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "peso_muerto_una_pierna": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.34,
+          "plata": 0.46,
+          "oro": 0.56,
+          "platino": 0.66,
+          "esmeralda": 0.76,
+          "diamante": 0.86,
+          "retador": 0.99,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.3,
+          "plata": 0.4,
+          "oro": 0.49,
+          "platino": 0.59,
+          "esmeralda": 0.68,
+          "diamante": 0.78,
+          "retador": 0.9,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.24,
+          "plata": 0.33,
+          "oro": 0.42,
+          "platino": 0.5,
+          "esmeralda": 0.59,
+          "diamante": 0.68,
+          "retador": 0.78,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.12,
+          "plata": 0.17,
+          "oro": 0.22,
+          "platino": 0.26,
+          "esmeralda": 0.31,
+          "diamante": 0.36,
+          "retador": 0.42,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.19,
+          "platino": 0.24,
+          "esmeralda": 0.28,
+          "diamante": 0.33,
+          "retador": 0.38,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.08,
+          "plata": 0.13,
+          "oro": 0.17,
+          "platino": 0.21,
+          "esmeralda": 0.25,
+          "diamante": 0.29,
+          "retador": 0.34,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "hip_thrust": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 1.02,
+          "plata": 1.38,
+          "oro": 1.68,
+          "platino": 1.98,
+          "esmeralda": 2.28,
+          "diamante": 2.58,
+          "retador": 2.96,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.91,
+          "plata": 1.2,
+          "oro": 1.48,
+          "platino": 1.77,
+          "esmeralda": 2.05,
+          "diamante": 2.34,
+          "retador": 2.69,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.73,
+          "plata": 0.99,
+          "oro": 1.25,
+          "platino": 1.51,
+          "esmeralda": 1.77,
+          "diamante": 2.04,
+          "retador": 2.34,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.39,
+          "plata": 0.55,
+          "oro": 0.7,
+          "platino": 0.86,
+          "esmeralda": 1.01,
+          "diamante": 1.17,
+          "retador": 1.35,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.33,
+          "plata": 0.48,
+          "oro": 0.63,
+          "platino": 0.78,
+          "esmeralda": 0.93,
+          "diamante": 1.07,
+          "retador": 1.24,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.27,
+          "plata": 0.41,
+          "oro": 0.54,
+          "platino": 0.68,
+          "esmeralda": 0.81,
+          "diamante": 0.95,
+          "retador": 1.09,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "extensiones": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.42,
+          "plata": 0.57,
+          "oro": 0.7,
+          "platino": 0.82,
+          "esmeralda": 0.95,
+          "diamante": 1.07,
+          "retador": 1.24,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.38,
+          "plata": 0.5,
+          "oro": 0.62,
+          "platino": 0.74,
+          "esmeralda": 0.85,
+          "diamante": 0.97,
+          "retador": 1.12,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.3,
+          "plata": 0.41,
+          "oro": 0.52,
+          "platino": 0.63,
+          "esmeralda": 0.74,
+          "diamante": 0.85,
+          "retador": 0.97,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.15,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.52,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.19,
+          "oro": 0.24,
+          "platino": 0.3,
+          "esmeralda": 0.36,
+          "diamante": 0.41,
+          "retador": 0.48,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.16,
+          "oro": 0.21,
+          "platino": 0.26,
+          "esmeralda": 0.31,
+          "diamante": 0.37,
+          "retador": 0.42,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "curl_femoral": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.34,
+          "plata": 0.46,
+          "oro": 0.56,
+          "platino": 0.66,
+          "esmeralda": 0.76,
+          "diamante": 0.86,
+          "retador": 0.99,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.3,
+          "plata": 0.4,
+          "oro": 0.49,
+          "platino": 0.59,
+          "esmeralda": 0.68,
+          "diamante": 0.78,
+          "retador": 0.9,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.24,
+          "plata": 0.33,
+          "oro": 0.42,
+          "platino": 0.5,
+          "esmeralda": 0.59,
+          "diamante": 0.68,
+          "retador": 0.78,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.12,
+          "plata": 0.17,
+          "oro": 0.22,
+          "platino": 0.26,
+          "esmeralda": 0.31,
+          "diamante": 0.36,
+          "retador": 0.42,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.19,
+          "platino": 0.24,
+          "esmeralda": 0.28,
+          "diamante": 0.33,
+          "retador": 0.38,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.08,
+          "plata": 0.13,
+          "oro": 0.17,
+          "platino": 0.21,
+          "esmeralda": 0.25,
+          "diamante": 0.29,
+          "retador": 0.34,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "aductores": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.26,
+          "plata": 0.34,
+          "oro": 0.42,
+          "platino": 0.49,
+          "esmeralda": 0.57,
+          "diamante": 0.64,
+          "retador": 0.74,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.23,
+          "plata": 0.3,
+          "oro": 0.37,
+          "platino": 0.44,
+          "esmeralda": 0.51,
+          "diamante": 0.58,
+          "retador": 0.67,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.18,
+          "plata": 0.25,
+          "oro": 0.31,
+          "platino": 0.38,
+          "esmeralda": 0.44,
+          "diamante": 0.51,
+          "retador": 0.58,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.09,
+          "plata": 0.13,
+          "oro": 0.16,
+          "platino": 0.2,
+          "esmeralda": 0.23,
+          "diamante": 0.27,
+          "retador": 0.31,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.08,
+          "plata": 0.11,
+          "oro": 0.15,
+          "platino": 0.18,
+          "esmeralda": 0.21,
+          "diamante": 0.25,
+          "retador": 0.29,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.13,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.22,
+          "retador": 0.25,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "abductores": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.26,
+          "plata": 0.34,
+          "oro": 0.42,
+          "platino": 0.49,
+          "esmeralda": 0.57,
+          "diamante": 0.64,
+          "retador": 0.74,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.23,
+          "plata": 0.3,
+          "oro": 0.37,
+          "platino": 0.44,
+          "esmeralda": 0.51,
+          "diamante": 0.58,
+          "retador": 0.67,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.18,
+          "plata": 0.25,
+          "oro": 0.31,
+          "platino": 0.38,
+          "esmeralda": 0.44,
+          "diamante": 0.51,
+          "retador": 0.58,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.09,
+          "plata": 0.13,
+          "oro": 0.16,
+          "platino": 0.2,
+          "esmeralda": 0.23,
+          "diamante": 0.27,
+          "retador": 0.31,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.08,
+          "plata": 0.11,
+          "oro": 0.15,
+          "platino": 0.18,
+          "esmeralda": 0.21,
+          "diamante": 0.25,
+          "retador": 0.29,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.13,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.22,
+          "retador": 0.25,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "patada_gluteo_polea": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.42,
+          "plata": 0.57,
+          "oro": 0.7,
+          "platino": 0.82,
+          "esmeralda": 0.95,
+          "diamante": 1.07,
+          "retador": 1.24,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.38,
+          "plata": 0.5,
+          "oro": 0.62,
+          "platino": 0.74,
+          "esmeralda": 0.85,
+          "diamante": 0.97,
+          "retador": 1.12,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.3,
+          "plata": 0.41,
+          "oro": 0.52,
+          "platino": 0.63,
+          "esmeralda": 0.74,
+          "diamante": 0.85,
+          "retador": 0.97,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.15,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.52,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.19,
+          "oro": 0.24,
+          "platino": 0.3,
+          "esmeralda": 0.36,
+          "diamante": 0.41,
+          "retador": 0.48,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.16,
+          "oro": 0.21,
+          "platino": 0.26,
+          "esmeralda": 0.31,
+          "diamante": 0.37,
+          "retador": 0.42,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "curl_femoral_tumbado": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.36,
+          "plata": 0.48,
+          "oro": 0.59,
+          "platino": 0.69,
+          "esmeralda": 0.8,
+          "diamante": 0.9,
+          "retador": 1.04,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.32,
+          "plata": 0.42,
+          "oro": 0.52,
+          "platino": 0.62,
+          "esmeralda": 0.72,
+          "diamante": 0.82,
+          "retador": 0.94,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.26,
+          "plata": 0.35,
+          "oro": 0.44,
+          "platino": 0.53,
+          "esmeralda": 0.62,
+          "diamante": 0.71,
+          "retador": 0.82,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.28,
+          "esmeralda": 0.33,
+          "diamante": 0.38,
+          "retador": 0.44,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.16,
+          "oro": 0.2,
+          "platino": 0.25,
+          "esmeralda": 0.3,
+          "diamante": 0.35,
+          "retador": 0.4,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.09,
+          "plata": 0.13,
+          "oro": 0.18,
+          "platino": 0.22,
+          "esmeralda": 0.26,
+          "diamante": 0.31,
+          "retador": 0.35,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "press_sillon": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.94,
+          "plata": 1.26,
+          "oro": 1.54,
+          "platino": 1.81,
+          "esmeralda": 2.09,
+          "diamante": 2.37,
+          "retador": 2.72,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.84,
+          "plata": 1.1,
+          "oro": 1.36,
+          "platino": 1.62,
+          "esmeralda": 1.88,
+          "diamante": 2.14,
+          "retador": 2.47,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.67,
+          "plata": 0.91,
+          "oro": 1.15,
+          "platino": 1.39,
+          "esmeralda": 1.63,
+          "diamante": 1.87,
+          "retador": 2.14,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.33,
+          "plata": 0.46,
+          "oro": 0.59,
+          "platino": 0.73,
+          "esmeralda": 0.86,
+          "diamante": 0.99,
+          "retador": 1.14,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.28,
+          "plata": 0.41,
+          "oro": 0.53,
+          "platino": 0.66,
+          "esmeralda": 0.78,
+          "diamante": 0.91,
+          "retador": 1.05,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.23,
+          "plata": 0.34,
+          "oro": 0.46,
+          "platino": 0.57,
+          "esmeralda": 0.69,
+          "diamante": 0.8,
+          "retador": 0.92,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "glute_bridge": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.72,
+          "plata": 0.98,
+          "oro": 1.19,
+          "platino": 1.4,
+          "esmeralda": 1.61,
+          "diamante": 1.83,
+          "retador": 2.1,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.65,
+          "plata": 0.85,
+          "oro": 1.05,
+          "platino": 1.25,
+          "esmeralda": 1.45,
+          "diamante": 1.66,
+          "retador": 1.91,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.52,
+          "plata": 0.7,
+          "oro": 0.89,
+          "platino": 1.07,
+          "esmeralda": 1.26,
+          "diamante": 1.44,
+          "retador": 1.66,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.26,
+          "plata": 0.36,
+          "oro": 0.46,
+          "platino": 0.56,
+          "esmeralda": 0.66,
+          "diamante": 0.76,
+          "retador": 0.88,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.22,
+          "plata": 0.31,
+          "oro": 0.41,
+          "platino": 0.51,
+          "esmeralda": 0.61,
+          "diamante": 0.7,
+          "retador": 0.81,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.18,
+          "plata": 0.27,
+          "oro": 0.35,
+          "platino": 0.44,
+          "esmeralda": 0.53,
+          "diamante": 0.62,
+          "retador": 0.71,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "gemelos_de_pie": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.38,
+          "plata": 0.52,
+          "oro": 0.63,
+          "platino": 0.74,
+          "esmeralda": 0.85,
+          "diamante": 0.97,
+          "retador": 1.11,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.34,
+          "plata": 0.45,
+          "oro": 0.56,
+          "platino": 0.66,
+          "esmeralda": 0.77,
+          "diamante": 0.88,
+          "retador": 1.01,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.27,
+          "plata": 0.37,
+          "oro": 0.47,
+          "platino": 0.57,
+          "esmeralda": 0.67,
+          "diamante": 0.76,
+          "retador": 0.88,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.15,
+          "plata": 0.2,
+          "oro": 0.26,
+          "platino": 0.32,
+          "esmeralda": 0.38,
+          "diamante": 0.44,
+          "retador": 0.51,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.24,
+          "platino": 0.29,
+          "esmeralda": 0.35,
+          "diamante": 0.4,
+          "retador": 0.46,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.25,
+          "esmeralda": 0.31,
+          "diamante": 0.36,
+          "retador": 0.41,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "gemelos_sentado": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.3,
+          "plata": 0.4,
+          "oro": 0.49,
+          "platino": 0.58,
+          "esmeralda": 0.66,
+          "diamante": 0.75,
+          "retador": 0.86,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.27,
+          "plata": 0.35,
+          "oro": 0.43,
+          "platino": 0.52,
+          "esmeralda": 0.6,
+          "diamante": 0.68,
+          "retador": 0.78,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.21,
+          "plata": 0.29,
+          "oro": 0.37,
+          "platino": 0.44,
+          "esmeralda": 0.52,
+          "diamante": 0.59,
+          "retador": 0.68,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.11,
+          "plata": 0.16,
+          "oro": 0.2,
+          "platino": 0.25,
+          "esmeralda": 0.3,
+          "diamante": 0.34,
+          "retador": 0.39,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.14,
+          "oro": 0.18,
+          "platino": 0.23,
+          "esmeralda": 0.27,
+          "diamante": 0.31,
+          "retador": 0.36,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.08,
+          "plata": 0.12,
+          "oro": 0.16,
+          "platino": 0.2,
+          "esmeralda": 0.24,
+          "diamante": 0.28,
+          "retador": 0.32,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "prensa_gemelos": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.38,
+          "plata": 0.52,
+          "oro": 0.63,
+          "platino": 0.74,
+          "esmeralda": 0.85,
+          "diamante": 0.97,
+          "retador": 1.11,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.34,
+          "plata": 0.45,
+          "oro": 0.56,
+          "platino": 0.66,
+          "esmeralda": 0.77,
+          "diamante": 0.88,
+          "retador": 1.01,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.27,
+          "plata": 0.37,
+          "oro": 0.47,
+          "platino": 0.57,
+          "esmeralda": 0.67,
+          "diamante": 0.76,
+          "retador": 0.88,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.15,
+          "plata": 0.2,
+          "oro": 0.26,
+          "platino": 0.32,
+          "esmeralda": 0.38,
+          "diamante": 0.44,
+          "retador": 0.51,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.24,
+          "platino": 0.29,
+          "esmeralda": 0.35,
+          "diamante": 0.4,
+          "retador": 0.46,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.25,
+          "esmeralda": 0.31,
+          "diamante": 0.36,
+          "retador": 0.41,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "abdominales": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.3,
+          "plata": 0.4,
+          "oro": 0.5,
+          "platino": 0.6,
+          "esmeralda": 0.7,
+          "diamante": 0.8,
+          "retador": 0.92,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.26,
+          "plata": 0.36,
+          "oro": 0.45,
+          "platino": 0.55,
+          "esmeralda": 0.64,
+          "diamante": 0.74,
+          "retador": 0.85,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.22,
+          "plata": 0.3,
+          "oro": 0.39,
+          "platino": 0.48,
+          "esmeralda": 0.57,
+          "diamante": 0.65,
+          "retador": 0.75,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.25,
+          "oro": 0.33,
+          "platino": 0.4,
+          "esmeralda": 0.48,
+          "diamante": 0.56,
+          "retador": 0.64,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.11,
+          "plata": 0.16,
+          "oro": 0.21,
+          "platino": 0.26,
+          "esmeralda": 0.31,
+          "diamante": 0.36,
+          "retador": 0.41,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.09,
+          "plata": 0.14,
+          "oro": 0.19,
+          "platino": 0.23,
+          "esmeralda": 0.28,
+          "diamante": 0.32,
+          "retador": 0.37,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.07,
+          "plata": 0.11,
+          "oro": 0.16,
+          "platino": 0.2,
+          "esmeralda": 0.24,
+          "diamante": 0.28,
+          "retador": 0.33,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "plancha": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.18,
+          "plata": 0.24,
+          "oro": 0.3,
+          "platino": 0.36,
+          "esmeralda": 0.42,
+          "diamante": 0.48,
+          "retador": 0.55,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.16,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.38,
+          "diamante": 0.44,
+          "retador": 0.51,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.29,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.29,
+          "diamante": 0.33,
+          "retador": 0.39,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.07,
+          "plata": 0.1,
+          "oro": 0.13,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.21,
+          "retador": 0.25,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.14,
+          "esmeralda": 0.17,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.12,
+          "esmeralda": 0.14,
+          "diamante": 0.17,
+          "retador": 0.2,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "russian_twist": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.15,
+          "plata": 0.2,
+          "oro": 0.25,
+          "platino": 0.3,
+          "esmeralda": 0.35,
+          "diamante": 0.4,
+          "retador": 0.46,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.27,
+          "esmeralda": 0.32,
+          "diamante": 0.37,
+          "retador": 0.42,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.11,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.28,
+          "diamante": 0.33,
+          "retador": 0.37,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.09,
+          "plata": 0.13,
+          "oro": 0.16,
+          "platino": 0.2,
+          "esmeralda": 0.24,
+          "diamante": 0.28,
+          "retador": 0.32,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.06,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.13,
+          "esmeralda": 0.15,
+          "diamante": 0.18,
+          "retador": 0.21,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.12,
+          "esmeralda": 0.14,
+          "diamante": 0.16,
+          "retador": 0.19,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.08,
+          "platino": 0.1,
+          "esmeralda": 0.12,
+          "diamante": 0.14,
+          "retador": 0.16,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "elevacion_piernas": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.24,
+          "plata": 0.32,
+          "oro": 0.4,
+          "platino": 0.48,
+          "esmeralda": 0.56,
+          "diamante": 0.64,
+          "retador": 0.74,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.21,
+          "plata": 0.29,
+          "oro": 0.36,
+          "platino": 0.44,
+          "esmeralda": 0.51,
+          "diamante": 0.59,
+          "retador": 0.68,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.24,
+          "oro": 0.31,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.6,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.2,
+          "oro": 0.26,
+          "platino": 0.32,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.51,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.09,
+          "plata": 0.13,
+          "oro": 0.17,
+          "platino": 0.21,
+          "esmeralda": 0.25,
+          "diamante": 0.29,
+          "retador": 0.33,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.07,
+          "plata": 0.11,
+          "oro": 0.15,
+          "platino": 0.19,
+          "esmeralda": 0.22,
+          "diamante": 0.26,
+          "retador": 0.3,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.12,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.23,
+          "retador": 0.26,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "crunches_polea": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.24,
+          "plata": 0.32,
+          "oro": 0.4,
+          "platino": 0.48,
+          "esmeralda": 0.56,
+          "diamante": 0.64,
+          "retador": 0.74,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.21,
+          "plata": 0.29,
+          "oro": 0.36,
+          "platino": 0.44,
+          "esmeralda": 0.51,
+          "diamante": 0.59,
+          "retador": 0.68,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.17,
+          "plata": 0.24,
+          "oro": 0.31,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.6,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.14,
+          "plata": 0.2,
+          "oro": 0.26,
+          "platino": 0.32,
+          "esmeralda": 0.39,
+          "diamante": 0.45,
+          "retador": 0.51,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.09,
+          "plata": 0.13,
+          "oro": 0.17,
+          "platino": 0.21,
+          "esmeralda": 0.25,
+          "diamante": 0.29,
+          "retador": 0.33,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.07,
+          "plata": 0.11,
+          "oro": 0.15,
+          "platino": 0.19,
+          "esmeralda": 0.22,
+          "diamante": 0.26,
+          "retador": 0.3,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.09,
+          "oro": 0.12,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.23,
+          "retador": 0.26,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "mountain_climbers": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.12,
+          "plata": 0.16,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.28,
+          "diamante": 0.32,
+          "retador": 0.37,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.14,
+          "oro": 0.18,
+          "platino": 0.22,
+          "esmeralda": 0.26,
+          "diamante": 0.29,
+          "retador": 0.34,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.09,
+          "plata": 0.12,
+          "oro": 0.16,
+          "platino": 0.19,
+          "esmeralda": 0.23,
+          "diamante": 0.26,
+          "retador": 0.3,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.07,
+          "plata": 0.1,
+          "oro": 0.13,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.22,
+          "retador": 0.26,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.05,
+          "plata": 0.07,
+          "oro": 0.08,
+          "platino": 0.1,
+          "esmeralda": 0.12,
+          "diamante": 0.14,
+          "retador": 0.17,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.07,
+          "platino": 0.09,
+          "esmeralda": 0.11,
+          "diamante": 0.13,
+          "retador": 0.15,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.03,
+          "plata": 0.05,
+          "oro": 0.06,
+          "platino": 0.08,
+          "esmeralda": 0.1,
+          "diamante": 0.11,
+          "retador": 0.13,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "bicicleta": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.12,
+          "plata": 0.16,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.28,
+          "diamante": 0.32,
+          "retador": 0.37,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.14,
+          "oro": 0.18,
+          "platino": 0.22,
+          "esmeralda": 0.26,
+          "diamante": 0.29,
+          "retador": 0.34,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.09,
+          "plata": 0.12,
+          "oro": 0.16,
+          "platino": 0.19,
+          "esmeralda": 0.23,
+          "diamante": 0.26,
+          "retador": 0.3,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.07,
+          "plata": 0.1,
+          "oro": 0.13,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.22,
+          "retador": 0.26,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.05,
+          "plata": 0.07,
+          "oro": 0.08,
+          "platino": 0.1,
+          "esmeralda": 0.12,
+          "diamante": 0.14,
+          "retador": 0.17,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.06,
+          "oro": 0.07,
+          "platino": 0.09,
+          "esmeralda": 0.11,
+          "diamante": 0.13,
+          "retador": 0.15,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.03,
+          "plata": 0.05,
+          "oro": 0.06,
+          "platino": 0.08,
+          "esmeralda": 0.1,
+          "diamante": 0.11,
+          "retador": 0.13,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "elevacion_pelvis": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.18,
+          "plata": 0.24,
+          "oro": 0.3,
+          "platino": 0.36,
+          "esmeralda": 0.42,
+          "diamante": 0.48,
+          "retador": 0.55,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.16,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.38,
+          "diamante": 0.44,
+          "retador": 0.51,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.13,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.29,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.1,
+          "plata": 0.15,
+          "oro": 0.2,
+          "platino": 0.24,
+          "esmeralda": 0.29,
+          "diamante": 0.33,
+          "retador": 0.39,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.07,
+          "plata": 0.1,
+          "oro": 0.13,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.21,
+          "retador": 0.25,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.14,
+          "esmeralda": 0.17,
+          "diamante": 0.19,
+          "retador": 0.22,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.04,
+          "plata": 0.07,
+          "oro": 0.09,
+          "platino": 0.12,
+          "esmeralda": 0.14,
+          "diamante": 0.17,
+          "retador": 0.2,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "v_ups": {
+    "entries": {
+      "hombre": [
+        {
+          "bronze": 0.21,
+          "plata": 0.28,
+          "oro": 0.35,
+          "platino": 0.42,
+          "esmeralda": 0.49,
+          "diamante": 0.56,
+          "retador": 0.64,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.18,
+          "plata": 0.25,
+          "oro": 0.32,
+          "platino": 0.38,
+          "esmeralda": 0.45,
+          "diamante": 0.52,
+          "retador": 0.59,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.15,
+          "plata": 0.21,
+          "oro": 0.27,
+          "platino": 0.33,
+          "esmeralda": 0.4,
+          "diamante": 0.46,
+          "retador": 0.52,
+          "ageMin": 40,
+          "ageMax": 49
+        },
+        {
+          "bronze": 0.12,
+          "plata": 0.18,
+          "oro": 0.23,
+          "platino": 0.28,
+          "esmeralda": 0.34,
+          "diamante": 0.39,
+          "retador": 0.45,
+          "ageMin": 50,
+          "ageMax": 99
+        }
+      ],
+      "mujer": [
+        {
+          "bronze": 0.08,
+          "plata": 0.11,
+          "oro": 0.15,
+          "platino": 0.18,
+          "esmeralda": 0.22,
+          "diamante": 0.25,
+          "retador": 0.29,
+          "ageMin": 18,
+          "ageMax": 29
+        },
+        {
+          "bronze": 0.06,
+          "plata": 0.1,
+          "oro": 0.13,
+          "platino": 0.16,
+          "esmeralda": 0.19,
+          "diamante": 0.23,
+          "retador": 0.26,
+          "ageMin": 30,
+          "ageMax": 39
+        },
+        {
+          "bronze": 0.05,
+          "plata": 0.08,
+          "oro": 0.11,
+          "platino": 0.14,
+          "esmeralda": 0.17,
+          "diamante": 0.2,
+          "retador": 0.23,
+          "ageMin": 40,
+          "ageMax": 99
+        }
+      ]
+    }
+  },
+  "_meta": {
+    "version": 2,
+    "units": "ratio = peso_movido / peso_corporal",
+    "source": "Mix: standards reales IPF GL + OpenPowerlifting para Press Banca, Sentadilla, Peso Muerto. Resto: ratios sintéticos derivados de literatura (Tuchscherer, Strong, ExRx) relativos a los 3 grandes.",
+    "synthetic_exercises": [
+      "press_inclinado",
+      "press_banca_declinado",
+      "press_mancuerna",
+      "press_banca_mancuerna",
+      "aperturas",
+      "aperturas_polea",
+      "cruce_poleas",
+      "fondos",
+      "pullover",
+      "aperturas_inclinadas",
+      "flexiones",
+      "peso_muerto_rumano",
+      "peso_muerto_sumo",
+      "remo_barra",
+      "remo_mancuerna",
+      "jalones",
+      "dominadas",
+      "remo_polea",
+      "face_pull",
+      "hiperextensiones",
+      "remo_t",
+      "jalones_agarre_estrecho",
+      "dominadas_asistidas",
+      "peso_muerto_rack",
+      "remo_pendlay",
+      "press_militar",
+      "press_arnold",
+      "elevaciones_laterales",
+      "elevaciones_frontales",
+      "pajaro",
+      "press_militar_sentado",
+      "elevaciones_laterales_polea",
+      "curl_barra",
+      "curl_mancuerna",
+      "curl_martillo",
+      "curl_polea",
+      "curl_concentrado",
+      "curl_inverso",
+      "curl_predicador",
+      "curl_araña",
+      "curl_barra_w",
+      "extensiones_triceps",
+      "press_frances",
+      "patada_triceps",
+      "fondos_triceps",
+      "cuerda_triceps",
+      "rompecraneos",
+      "press_banca_close_grip",
+      "extensiones_polea_tras_nuca",
+      "sentadilla_frontal",
+      "prensa",
+      "sentadilla_bulgara",
+      "zancadas",
+      "peso_muerto_sumo_piernas",
+      "sentadilla_goblet",
+      "buenos_dias",
+      "peso_muerto_piernas_rigidas",
+      "sentadilla_hack",
+      "zancada_lateral",
+      "step_ups",
+      "peso_muerto_una_pierna",
+      "hip_thrust",
+      "extensiones",
+      "curl_femoral",
+      "aductores",
+      "abductores",
+      "patada_gluteo_polea",
+      "curl_femoral_tumbado",
+      "press_sillon",
+      "glute_bridge",
+      "gemelos_de_pie",
+      "gemelos_sentado",
+      "prensa_gemelos",
+      "abdominales",
+      "plancha",
+      "russian_twist",
+      "elevacion_piernas",
+      "crunches_polea",
+      "mountain_climbers",
+      "bicicleta",
+      "elevacion_pelvis",
+      "v_ups"
+    ],
+    "real_exercises": [
+      "press_banca",
+      "sentadilla",
+      "peso_muerto"
+    ],
+    "tiers": [
+      "Bronce",
+      "Plata",
+      "Oro",
+      "Platino",
+      "Esmeralda",
+      "Diamante",
+      "Retador"
+    ],
+    "genders": [
+      "hombre",
+      "mujer"
+    ],
+    "age_buckets": [
+      "18-29",
+      "30-39",
+      "40-49",
+      "50+"
+    ],
+    "disclaimer": "Los tiers para Press Banca, Sentadilla y Peso Muerto usan standards reales de powerlifting. Para el resto, los tiers son estimaciones relativas a los 3 grandes."
   }
 }

@@ -9,13 +9,15 @@ import {
   Dumbbell,
   ListChecks,
   Zap,
+  Copy,
 } from "lucide-react";
 import { useWorkoutStore } from "../store/workoutStore";
 import { useProfileStore } from "../store/profileStore";
+import { useStandardsStore } from "../store/standardsStore";
 import { db } from "../db/database";
 import { bestSetForExercise } from "../db/queries";
 import { estimatedMax } from "../utils/estimators";
-import { tierFor } from "../services/rankingService";
+import { tierFor, type Gender } from "../services/rankingService";
 import { TIER_VARS, tierAlpha, type Tier } from "../models/types";
 import { Button } from "../components/ui/button";
 import { StatTile } from "../components/ironrank/StatTile";
@@ -43,9 +45,10 @@ interface BestLift {
 
 const BIG_LIFTS = ["Press Banca", "Sentadilla", "Peso Muerto"];
 
-export function WorkoutList({ onStart }: { onStart: () => void }) {
+export function WorkoutList({ onStart, onRepeatLast }: { onStart: () => void; onRepeatLast: (id: number) => void }) {
   const ws = useWorkoutStore();
   const ps = useProfileStore();
+  const std = useStandardsStore();
   const [summaries, setSummaries] = useState<WorkoutSummary[]>([]);
   const [bestLifts, setBestLifts] = useState<BestLift[]>([]);
   const [loading, setLoading] = useState(true);
@@ -86,13 +89,15 @@ export function WorkoutList({ onStart }: { onStart: () => void }) {
           }
         }
         let tier: Tier = "Bronce";
-        if (ps.profile && topExercise) {
+        if (ps.profile && topExercise && std.standards) {
+          const gender: Gender = ps.profile.gender === 'female' ? 'mujer' : 'hombre';
           tier = tierFor(
             topRm,
             ps.profile.bodyweight,
-            ps.profile.gender,
+            gender,
             ps.profile.age,
             topExercise,
+            std.standards,
           );
         }
         return {
@@ -113,6 +118,7 @@ export function WorkoutList({ onStart }: { onStart: () => void }) {
 
   const loadBestLifts = async () => {
     if (!ps.profile) return;
+    const gender: Gender = ps.profile.gender === 'female' ? 'mujer' : 'hombre';
     const lifts: BestLift[] = [];
     for (const name of BIG_LIFTS) {
       const e = await db.exercises
@@ -125,19 +131,23 @@ export function WorkoutList({ onStart }: { onStart: () => void }) {
       lifts.push({
         name,
         rm,
-        tier: tierFor(
-          rm,
-          ps.profile.bodyweight,
-          ps.profile.gender,
-          ps.profile.age,
-          name,
-        ),
+        tier: std.standards
+          ? tierFor(
+              rm,
+              ps.profile.bodyweight,
+              gender,
+              ps.profile.age,
+              name,
+              std.standards,
+            )
+          : "Bronce",
       });
     }
     setBestLifts(lifts);
   };
 
   const total = summaries.length;
+  const lastWorkout = summaries[0]; // más reciente (vienen ordenados desc)
   const totalVolume = summaries.reduce((a, s) => a + s.totalVolume, 0);
   const avgDuration = total
     ? Math.round(summaries.reduce((a, s) => a + s.duration, 0) / total / 60)
@@ -161,10 +171,23 @@ export function WorkoutList({ onStart }: { onStart: () => void }) {
             {total} workouts completados
           </p>
         </div>
-        <Button variant="tier" onClick={onStart} className="max-md:hidden">
-          <Plus size={16} strokeWidth={2.5} />
-          Nuevo
-        </Button>
+        <div className="flex items-center gap-2">
+          {lastWorkout && (
+            <Button
+              variant="outline"
+              size="md"
+              onClick={() => lastWorkout.id && onRepeatLast(lastWorkout.id)}
+              className="max-md:hidden"
+            >
+              <Copy size={14} strokeWidth={2.5} />
+              Repetir último
+            </Button>
+          )}
+          <Button variant="tier" onClick={onStart} className="max-md:hidden">
+            <Plus size={16} strokeWidth={2.5} />
+            Nuevo
+          </Button>
+        </div>
       </motion.header>
 
       {total > 0 && (

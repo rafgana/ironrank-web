@@ -111,13 +111,12 @@ export function TierProgression({
               <TierNode
                 tier={tier}
                 status={status}
-                size={isCurrent ? (wide ? 64 : 46) : wide ? 48 : 34}
+                size={isCurrent ? (wide ? 64 : 44) : wide ? 48 : 30}
               />
               <div
                 className={cn(
-                  "eyebrow w-full truncate text-center !text-[11px] transition-colors",
-                  status === "past" && "!text-fg-muted",
-                  status === "future" && "!text-fg-dim",
+                  "eyebrow w-full text-center !text-[9px] md:!text-[11px] transition-colors hidden sm:block",
+                  status === "future" && "sm:hidden",
                 )}
                 style={
                   isCurrent ? { color: TIER_VARS[tier] } : undefined
@@ -156,33 +155,38 @@ function TierNode({
 }) {
   const Badge = TIER_BADGES[tier];
   const isCurrent = status === "current";
+  const isPast = status === "past";
   return (
-    <div className="relative shrink-0" style={{ width: size, height: size }}>
+    <div
+      className="relative shrink-0"
+      style={{ width: size, height: size }}
+      data-tier={tier.toLowerCase()}
+    >
       {isCurrent && (
         <motion.div
-          className="absolute inset-0 rounded-full"
-          style={{
-            background: `radial-gradient(circle, ${tierAlpha(tier, 25)}, transparent 70%)`,
-          }}
-          animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0.2, 0.6] }}
+          className="absolute inset-0 rounded-full tier-glow"
+          style={{ background: `radial-gradient(circle, var(--tier-soft), transparent 70%)` }}
+          animate={{ scale: [1, 1.5, 1], opacity: [0.7, 0.2, 0.7] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         />
       )}
       <div
         className={cn(
           "relative transition-transform",
-          isCurrent && "scale-105",
+          isCurrent && "scale-110",
+          isPast && "opacity-60 saturate-50",
+          status === "future" && "opacity-40 saturate-30",
         )}
       >
         <Badge size={size} showIcon glow={isCurrent} />
-        {status === "past" && (
-          <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/45">
-            <Check size={size * 0.4} className="text-white" strokeWidth={3} />
+        {isPast && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Check size={size * 0.36} className="text-white drop-shadow-[0_0_4px_rgba(0,0,0,0.8)]" strokeWidth={3.5} />
           </div>
         )}
         {status === "future" && (
-          <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/55 opacity-70">
-            <Lock size={size * 0.32} className="text-fg-dim" strokeWidth={2.5} />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Lock size={size * 0.28} className="text-fg-dim drop-shadow-[0_0_4px_rgba(0,0,0,0.8)]" strokeWidth={2.5} />
           </div>
         )}
       </div>

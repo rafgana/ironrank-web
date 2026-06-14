@@ -9,7 +9,9 @@ import {
   nextMilestone,
   tierFromScore,
   rankedScore,
+  type Gender,
 } from "../services/rankingService";
+import { useStandardsStore } from "../store/standardsStore";
 import {
   TIERS,
   TIER_VARS,
@@ -54,6 +56,9 @@ interface ExerciseRow {
   previousRm: number;
 }
 
+// Ejercicios "ancla" que el usuario medio podría tener. Sirve como hint
+// para cuando el usuario no tiene data, pero el ranking real usa TODOS
+// los ejercicios que el usuario haya trabajado.
 const TRACKED_EXERCISES = [
   "Press Banca",
   "Sentadilla",
@@ -65,28 +70,46 @@ const TRACKED_EXERCISES = [
 
 export function Ranking() {
   const profile = useProfileStore((s) => s.profile);
+  const standards = useStandardsStore((s) => s.standards);
   const [exercises, setExercises] = useState<ExerciseRow[]>([]);
   const [overall, setOverall] = useState<Tier>("Bronce");
   const [score, setScore] = useState(0);
   const [filter, setFilter] = useState<string>("all");
   const [sort, setSort] = useState<"1rm" | "progress" | "name">("1rm");
 
+  const gender: Gender = profile?.gender === 'female' ? 'mujer' : 'hombre';
+  const age = profile?.age ?? 25;
+
   useEffect(() => {
-    if (profile) load();
-  }, [profile]);
+    if (profile && standards) load();
+  }, [profile, standards]);
 
   const load = async () => {
     const p = profile!;
-    const exs = await db.exercises
-      .filter((e) => TRACKED_EXERCISES.includes(e.name))
-      .toArray();
+    const std = standards!;
+    // Ranking: TODOS los ejercicios que el usuario haya trabajado al menos 1 vez.
+    // No imponemos "big three" — el ranking es honesto.
+    const allExs = await db.exercises.toArray();
+    // Para cada ejercicio, comprobar si tiene sets completados
+    const exsWithData = await Promise.all(
+      allExs.map(async (e) => {
+        const wes = await db.workoutExercises.where("exerciseId").equals(e.id!).toArray();
+        for (const we of wes) {
+          const sets = await db.sets.where("workoutExerciseId").equals(we.id!).filter((s) => s.completed).toArray();
+          if (sets.length > 0) return e;
+        }
+        return null;
+      }),
+    );
+    const exs = exsWithData.filter((e): e is Exercise => e !== null);
+    // Si no hay nada, fallback a TRACKED_EXERCISES para que se vea algo
+    const finalExs = exs.length > 0 ? exs : allExs.filter((e) => TRACKED_EXERCISES.includes(e.name));
 
-    let benchR = 0;
-    let squatR = 0;
-    let deadR = 0;
+    // Recolectar RMs por ejercicio para score global (promedio honesto)
+    const rmByExercise: Array<{ rm: number; name: string }> = [];
 
     const data: ExerciseRow[] = await Promise.all(
-      exs.map(async (e: Exercise) => {
+      finalExs.map(async (e: Exercise) => {
         const best = await bestSetForExercise(e.id!);
         if (!best) {
           return {
@@ -104,8 +127,8 @@ export function Ranking() {
           };
         }
         const rm = estimatedMax(best.weight, best.reps, best.rir);
-        const t = tierFor(rm, p.bodyweight, p.gender, p.age, e.name);
-        const m = nextMilestone(rm, p.bodyweight, p.gender, p.age, e.name);
+        const t = tierFor(rm, p.bodyweight, gender, age, e.name, std);
+        const m = nextMilestone(rm, p.bodyweight, gender, age, e.name, std);
 
         const prevSets = await db.sets
           .where("workoutExerciseId")
@@ -141,11 +164,7 @@ export function Ranking() {
               ),
             )
           : 100;
-
-        if (e.name.includes("Press Banca")) benchR = rm;
-        if (e.name.includes("Sentadilla")) squatR = rm;
-        if (e.name.includes("Peso Muerto")) deadR = rm;
-
+        if (rm > 0) rmByExercise.push({ rm, name: e.name });
         return {
           id: e.id,
           name: e.name,
@@ -162,7 +181,7 @@ export function Ranking() {
       }),
     );
 
-    const s = rankedScore(benchR, squatR, deadR, p.bodyweight);
+    const s = rankedScore(rmByExercise, p.bodyweight, gender, age, std);
     setScore(s);
     setOverall(tierFromScore(s));
     setExercises(data);
@@ -241,8 +260,9 @@ export function Ranking() {
             </div>
           )}
           <p className="mt-4 text-xs leading-relaxed text-fg-muted">
-            1RM estimados de Press Banca, Sentadilla y Peso Muerto,
-            normalizados por tu peso corporal ({profile?.bodyweight ?? "—"} kg).
+            Tu 1RM estimado de cada ejercicio, normalizado por tu peso corporal
+            ({profile?.bodyweight ?? "—"} kg). El rango general es el promedio
+            de todos tus ejercicios — no requiere los 3 grandes.
           </p>
         </section>
 

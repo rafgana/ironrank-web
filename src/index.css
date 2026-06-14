@@ -1,135 +1,153 @@
+/* =============================================================================
+   IRONRANK · DESIGN SYSTEM v4 — "CYBER-ATHLETE"
+   =============================================================================
+   Direction: Cyberpunk sports tech — neon cyan sobre OLED, mesh gradients,
+   polígonos custom por tier, type editorial cyber.
+   - Black-violet tinted base (oklch 0.07 0.015 280)
+   - Tier accent: CYAN ÚNICO (#00FFD1 ~) con 7 luminosidades
+   - Mesh gradient aurora animado (30s loop)
+   - Hairline borders + 1px inner highlight (Double-Bezel)
+   - Tinted shadows (cyan glow en hover, nunca negro puro)
+   - Tipografía: Space Grotesk + JetBrains Mono + Anton + Instrument Serif
+   ============================================================================= */
+
 @import "tailwindcss";
 
+/* =============================================================================
+   §1.  TOKENS
+   ============================================================================= */
+
 @theme {
-  /* Tipografías */
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  --font-condensed: "Bebas Neue", sans-serif;
+  /* --- Fonts (cyber editorial stack) --- */
+  --font-display: "Space Grotesk", "Inter Tight", system-ui, sans-serif;
+  --font-sans: "Space Grotesk", "Inter Tight", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, monospace;
+  --font-serif: "Instrument Serif", "EB Garamond", ui-serif, Georgia, serif;
+  --font-condensed: "Anton", "Bebas Neue", "Geist", sans-serif;
 
-  /* Marca (paleta naranja) */
-  --color-brand-50: oklch(0.97 0.03 50);
-  --color-brand-100: oklch(0.93 0.06 50);
-  --color-brand-200: oklch(0.88 0.1 50);
-  --color-brand-300: oklch(0.82 0.16 50);
-  --color-brand-400: oklch(0.77 0.19 50);
-  --color-brand-500: oklch(0.72 0.22 50);
-  --color-brand-600: oklch(0.66 0.23 50);
-  --color-brand-700: oklch(0.58 0.22 50);
-  --color-brand-800: oklch(0.48 0.2 50);
-  --color-brand-900: oklch(0.38 0.16 50);
+  /* --- Brand: CYAN ÚNICO (verde-azul eléctrico) --- */
+  --color-brand-50:  oklch(0.97 0.02 195);
+  --color-brand-100: oklch(0.93 0.06 192);
+  --color-brand-200: oklch(0.88 0.10 190);
+  --color-brand-300: oklch(0.84 0.14 188);
+  --color-brand-400: oklch(0.84 0.18 185);
+  --color-brand-500: oklch(0.85 0.20 183);
+  --color-brand-600: oklch(0.74 0.18 183);
+  --color-brand-700: oklch(0.62 0.16 185);
+  --color-brand-800: oklch(0.48 0.13 187);
+  --color-brand-900: oklch(0.34 0.10 190);
 
-  /* Tiers (OKLch, con variante -deep para gradientes) */
-  --color-tier-bronce: oklch(0.62 0.11 60);
-  --color-tier-bronce-deep: oklch(0.45 0.09 55);
-  --color-tier-plata: oklch(0.8 0.02 260);
-  --color-tier-plata-deep: oklch(0.6 0.02 260);
-  --color-tier-oro: oklch(0.85 0.17 95);
-  --color-tier-oro-deep: oklch(0.7 0.15 85);
-  --color-tier-platino: oklch(0.82 0.14 210);
-  --color-tier-platino-deep: oklch(0.62 0.12 220);
-  --color-tier-esmeralda: oklch(0.72 0.15 165);
-  --color-tier-esmeralda-deep: oklch(0.55 0.13 165);
-  --color-tier-diamante: oklch(0.88 0.09 230);
-  --color-tier-diamante-deep: oklch(0.7 0.12 250);
-  --color-tier-retador: oklch(0.65 0.24 15);
-  --color-tier-retador-deep: oklch(0.5 0.21 10);
+  /* --- Tiers: 7 luminosidades del mismo cyan ---
+     bronce = más oscuro y apagado, retador/diamante = más brillante y saturado */
+  --color-tier-bronce:        oklch(0.58 0.06 190);
+  --color-tier-bronce-deep:   oklch(0.38 0.05 195);
+  --color-tier-plata:         oklch(0.72 0.08 192);
+  --color-tier-plata-deep:    oklch(0.50 0.07 192);
+  --color-tier-oro:           oklch(0.82 0.15 188);
+  --color-tier-oro-deep:      oklch(0.62 0.13 188);
+  --color-tier-platino:       oklch(0.88 0.16 185);
+  --color-tier-platino-deep:  oklch(0.68 0.14 185);
+  --color-tier-esmeralda:     oklch(0.85 0.18 175);
+  --color-tier-esmeralda-deep:oklch(0.65 0.16 175);
+  --color-tier-diamante:      oklch(0.92 0.14 200);
+  --color-tier-diamante-deep: oklch(0.72 0.12 205);
+  --color-tier-retador:       oklch(0.78 0.22 320);
+  --color-tier-retador-deep:  oklch(0.58 0.20 330);
 
-  /* Alias legacy (código en migración) */
-  --color-bronze: var(--color-tier-bronce);
-  --color-bronze-2: var(--color-tier-bronce-deep);
-  --color-silver: var(--color-tier-plata);
-  --color-silver-2: var(--color-tier-plata-deep);
-  --color-gold: var(--color-tier-oro);
-  --color-gold-2: var(--color-tier-oro-deep);
-  --color-platinum: var(--color-tier-platino);
-  --color-emerald: var(--color-tier-esmeralda);
-  --color-diamond: var(--color-tier-diamante);
-  --color-diamond-2: var(--color-tier-diamante-deep);
-  --color-challenger: var(--color-tier-retador);
-  --color-challenger-2: var(--color-tier-retador-deep);
+  /* --- OLED-tinted neutral surface (violeta-negro frío) --- */
+  --color-surface-0: oklch(0.07 0.015 280);
+  --color-surface-1: oklch(0.105 0.018 280);
+  --color-surface-2: oklch(0.145 0.020 280);
+  --color-surface-3: oklch(0.20 0.022 280);
+  --color-surface-elevated: oklch(0.155 0.022 280);
 
-  /* Superficies: base azul-acero frío para que los acentos cálidos respiren */
-  --color-surface-0: oklch(0.11 0.012 260);
-  --color-surface-1: oklch(0.145 0.012 260);
-  --color-surface-2: oklch(0.18 0.012 260);
-  --color-surface-3: oklch(0.22 0.012 260);
-  --color-border-subtle: oklch(0.26 0.012 260);
-  --color-fg: oklch(0.96 0.005 260);
-  --color-fg-muted: oklch(0.68 0.01 260);
-  --color-fg-dim: oklch(0.48 0.01 260);
+  /* --- Border / hairline (tinte cyan sutil) --- */
+  --color-border-subtle: oklch(0.26 0.025 200);
+  --color-border-strong: oklch(0.40 0.040 195);
 
-  /* Escala tipográfica fluida */
-  --text-display: clamp(2.5rem, 4.5vw + 1rem, 4.25rem);
-  --text-display--line-height: 1;
-  --text-display--letter-spacing: -0.03em;
-  --text-h1: clamp(1.75rem, 2.5vw + 0.5rem, 2.5rem);
-  --text-h1--line-height: 1.1;
-  --text-h1--letter-spacing: -0.02em;
-  --text-h2: clamp(1.25rem, 1.5vw + 0.5rem, 1.625rem);
-  --text-h2--line-height: 1.2;
-  --text-h2--letter-spacing: -0.01em;
+  /* --- Foreground (off-white con tinte cyan) --- */
+  --color-fg:       oklch(0.96 0.008 200);
+  --color-fg-muted: oklch(0.68 0.012 200);
+  --color-fg-dim:   oklch(0.46 0.015 200);
 
-  /* Radios */
-  --radius-card: 1rem;
-  --radius-sheet: 1.5rem;
+  /* --- Type scale (más grande, más peso) --- */
+  --text-display: clamp(3.25rem, 7vw + 1rem, 6.5rem);
+  --text-h1: clamp(2.0rem, 3.5vw + 0.5rem, 3.25rem);
+  --text-h2: clamp(1.5rem, 1.8vw + 0.5rem, 2.125rem);
+  --text-h3: clamp(1.125rem, 1vw + 0.5rem, 1.5rem);
+  --text-body: clamp(0.9375rem, 0.4vw + 0.875rem, 1.0625rem);
+  --text-micro: 0.6875rem;
+  --text-atom:  0.625rem;
 
-  /* Sombras (highlight interior superior = profundidad sin bordes) */
+  /* --- Radii (más angulares, cyber) --- */
+  --radius-card: 0.875rem;
+  --radius-input: 0.5rem;
+  --radius-button: 0.625rem;
+  --radius-clip: 1.5rem;
+
+  /* --- Shadows (TIER-tinted, cyan glow) --- */
   --shadow-card:
-    inset 0 1px 0 0 oklch(1 0 0 / 0.05), 0 8px 24px -12px oklch(0 0 0 / 0.6);
+    inset 0 1px 0 0 oklch(1 0 0 / 0.06),
+    inset 0 0 0 1px oklch(0 0 0 / 0.3),
+    0 8px 32px -12px oklch(0 0 0 / 0.8),
+    0 0 0 1px oklch(1 0 0 / 0.02);
   --shadow-card-hover:
-    inset 0 1px 0 0 oklch(1 0 0 / 0.07), 0 16px 32px -12px oklch(0 0 0 / 0.7);
-  --shadow-glow-tier: 0 0 32px -8px var(--tier-glow);
+    inset 0 1px 0 0 oklch(1 0 0 / 0.10),
+    inset 0 0 0 1px oklch(0 0 0 / 0.3),
+    0 16px 48px -12px oklch(0 0 0 / 0.9),
+    0 0 32px -8px var(--tier-glow);
+  --shadow-glow-tier: 0 0 40px -4px var(--tier-glow);
+  --shadow-glow-strong: 0 0 60px -4px var(--tier-glow), 0 0 12px 0 var(--tier);
+
+  /* --- Z-index --- */
+  --z-base: 0;
+  --z-elevated: 10;
+  --z-sticky: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-toast: 50;
+  --z-tooltip: 60;
+
+  /* --- Motion --- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-snap: 180ms;
+  --duration-base: 320ms;
+  --duration-slow: 520ms;
+  --duration-cinema: 900ms;
 }
 
-/* ====================================================================
-   ACENTO DE TIER EN RUNTIME
-   App.tsx fija <html data-tier="oro"> según el rango global del usuario;
-   todo lo demás es CSS puro derivado de --tier.
-   ==================================================================== */
+/* =============================================================================
+   §2.  TIER ACCENT (runtime) — flips by <html data-tier="...">
+   ============================================================================= */
+
 :root {
   --tier: var(--color-tier-bronce);
   --tier-deep: var(--color-tier-bronce-deep);
 }
-:root[data-tier="bronce"] {
-  --tier: var(--color-tier-bronce);
-  --tier-deep: var(--color-tier-bronce-deep);
-}
-:root[data-tier="plata"] {
-  --tier: var(--color-tier-plata);
-  --tier-deep: var(--color-tier-plata-deep);
-}
-:root[data-tier="oro"] {
-  --tier: var(--color-tier-oro);
-  --tier-deep: var(--color-tier-oro-deep);
-}
-:root[data-tier="platino"] {
-  --tier: var(--color-tier-platino);
-  --tier-deep: var(--color-tier-platino-deep);
-}
-:root[data-tier="esmeralda"] {
-  --tier: var(--color-tier-esmeralda);
-  --tier-deep: var(--color-tier-esmeralda-deep);
-}
-:root[data-tier="diamante"] {
-  --tier: var(--color-tier-diamante);
-  --tier-deep: var(--color-tier-diamante-deep);
-}
-:root[data-tier="retador"] {
-  --tier: var(--color-tier-retador);
-  --tier-deep: var(--color-tier-retador-deep);
-}
+:root[data-tier="bronce"]   { --tier: var(--color-tier-bronce);   --tier-deep: var(--color-tier-bronce-deep); }
+:root[data-tier="plata"]    { --tier: var(--color-tier-plata);    --tier-deep: var(--color-tier-plata-deep); }
+:root[data-tier="oro"]      { --tier: var(--color-tier-oro);      --tier-deep: var(--color-tier-oro-deep); }
+:root[data-tier="platino"]  { --tier: var(--color-tier-platino);  --tier-deep: var(--color-tier-platino-deep); }
+:root[data-tier="esmeralda"]{ --tier: var(--color-tier-esmeralda);--tier-deep: var(--color-tier-esmeralda-deep); }
+:root[data-tier="diamante"] { --tier: var(--color-tier-diamante); --tier-deep: var(--color-tier-diamante-deep); }
+:root[data-tier="retador"]  { --tier: var(--color-tier-retador);  --tier-deep: var(--color-tier-retador-deep); }
 
 :root {
-  /* Derivados ambientales del tier (sustituyen los hacks `${color}1A`) */
-  --tier-glow: color-mix(in oklab, var(--tier) 40%, transparent);
-  --tier-soft: color-mix(in oklab, var(--tier) 12%, transparent);
+  --tier-glow: color-mix(in oklab, var(--tier) 50%, transparent);
+  --tier-soft: color-mix(in oklab, var(--tier) 14%, transparent);
   --tier-softer: color-mix(in oklab, var(--tier) 6%, transparent);
-  --tier-border: color-mix(in oklab, var(--tier) 30%, transparent);
-  --tier-gradient: linear-gradient(135deg, var(--tier-deep), var(--tier));
-  --tier-contrast: oklch(0.13 0.01 260);
+  --tier-border: color-mix(in oklab, var(--tier) 35%, transparent);
+  --tier-contrast: oklch(0.08 0.02 280);
+  --tier-gradient: linear-gradient(135deg, var(--tier-deep), var(--tier) 50%, color-mix(in oklab, var(--tier) 60%, white 8%));
+  --tier-gradient-mesh:
+    radial-gradient(at 20% 20%, var(--tier) 0%, transparent 50%),
+    radial-gradient(at 80% 80%, var(--tier-deep) 0%, transparent 50%),
+    radial-gradient(at 80% 20%, color-mix(in oklab, var(--tier) 40%, transparent) 0%, transparent 50%);
+}
 
-  /* Variables CSS legacy (compatibilidad con primitivas ui/) */
+/* Legacy aliases (compat) */
+:root {
   --background: var(--color-surface-0);
   --foreground: var(--color-fg);
   --card: var(--color-surface-1);
@@ -137,295 +155,355 @@
   --popover: var(--color-surface-2);
   --popover-foreground: var(--color-fg);
   --primary: var(--color-brand-500);
-  --primary-foreground: oklch(1 0 0);
+  --primary-foreground: oklch(0.08 0.02 280);
   --secondary: var(--color-surface-2);
   --secondary-foreground: var(--color-fg);
   --muted: var(--color-surface-2);
   --muted-foreground: var(--color-fg-muted);
   --accent: var(--color-surface-3);
   --accent-foreground: var(--color-fg);
-  --destructive: oklch(0.55 0.2 25);
-  --destructive-foreground: oklch(1 0 0);
+  --destructive: oklch(0.62 0.22 330);
+  --destructive-foreground: oklch(0.96 0.008 200);
   --border: var(--color-border-subtle);
-  --input: var(--color-surface-2);
+  --input: var(--color-border-subtle);
   --ring: var(--color-brand-500);
-  --radius: 0.5rem;
-  --sidebar: oklch(0.125 0.012 260);
-  --sidebar-foreground: var(--color-fg);
-  --sidebar-primary: var(--color-brand-500);
-  --sidebar-border: var(--color-border-subtle);
+  --radius: var(--radius-card);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* =============================================================================
+   §3.  BASE
+   ============================================================================= */
 
 html {
   -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
   scroll-behavior: smooth;
-  /* Fondo ambiental: glows del tier + base. El grid técnico va en body::before */
-  background:
-    radial-gradient(1100px 520px at 82% -12%, var(--tier-softer), transparent 62%),
-    radial-gradient(
-      900px 640px at -12% 35%,
-      color-mix(in oklab, var(--color-brand-500) 4.5%, transparent),
-      transparent 60%
-    ),
-    var(--color-surface-0);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "ss02", "cv11";
+  background-color: var(--color-surface-0);
   min-height: 100%;
+  color-scheme: dark;
+}
+
+/* ===== LIGHT MODE OVERRIDES =====
+   Solo el chrome cambia. Acentos cyan/tier se mantienen.
+   Aplicado por el theme service. */
+:root[data-theme="light"] {
+  --color-surface-0: oklch(0.98 0.005 220);
+  --color-surface-1: oklch(0.96 0.005 220);
+  --color-surface-2: oklch(0.93 0.008 220);
+  --color-surface-3: oklch(0.88 0.012 220);
+  --color-surface-elevated: oklch(0.95 0.006 220);
+  --color-border-subtle: oklch(0.86 0.012 220);
+  --color-border-strong: oklch(0.72 0.018 220);
+  --color-fg: oklch(0.18 0.020 220);
+  --color-fg-muted: oklch(0.42 0.018 220);
+  --color-fg-dim: oklch(0.62 0.015 220);
+  color-scheme: light;
+}
+:root[data-theme="light"] body::before {
+  opacity: 0.5; /* aurora más sutil en light */
 }
 
 body {
-  font-family: var(--font-sans);
-  background: transparent;
+  font-family: var(--font-display);
   color: var(--color-fg);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.5;
-  text-rendering: optimizeLegibility;
-  overscroll-behavior-y: none;
+  background-color: var(--color-surface-0);
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* Grid técnico de fondo, desvaneciéndose desde arriba */
+/* ----- Aurora background mesh (animated, 30s loop) ----- */
 body::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 800px 600px at 15% 20%, color-mix(in oklab, var(--tier) 12%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse 700px 500px at 85% 15%, color-mix(in oklab, var(--tier-deep) 14%, transparent) 0%, transparent 55%),
+    radial-gradient(ellipse 900px 700px at 50% 80%, color-mix(in oklab, var(--tier) 8%, transparent) 0%, transparent 65%),
+    radial-gradient(ellipse 600px 400px at 80% 90%, oklch(0.20 0.10 320 / 0.4) 0%, transparent 50%);
+  filter: blur(40px);
+  animation: aurora-drift 45s var(--ease-in-out-quart) infinite alternate;
+  pointer-events: none;
+  will-change: transform;
+}
+body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
-  pointer-events: none;
   background-image:
-    linear-gradient(to right, oklch(1 0 0 / 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(1 0 0 / 0.03) 1px, transparent 1px);
-  background-size: 52px 52px;
-  mask-image: radial-gradient(
-    ellipse 90% 65% at 50% 0%,
-    black 25%,
-    transparent 78%
-  );
+    linear-gradient(to right, oklch(1 0 0 / 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 0.015) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 1200px 800px at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 1200px 800px at center, black 30%, transparent 80%);
+  pointer-events: none;
 }
 
-button,
-a,
-input,
-select {
-  -webkit-tap-highlight-color: transparent;
+@keyframes aurora-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(-2%, 1%, 0) scale(1.05); }
+  100% { transform: translate3d(2%, -1%, 0) scale(1.02); }
 }
 
-button {
-  user-select: none;
+/* ----- Reduced motion ----- */
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-/* Utilidades de tipografía */
-.font-display {
-  font-family: var(--font-display);
-  letter-spacing: -0.02em;
-}
-.font-condensed {
-  font-family: var(--font-condensed);
-  letter-spacing: 0.08em;
-}
-.font-mono {
+/* =============================================================================
+   §4.  TYPOGRAPHY
+   ============================================================================= */
+
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); letter-spacing: -0.022em; }
+.font-condensed  { font-family: var(--font-condensed); letter-spacing: 0.02em; }
+.font-mono       { font-family: var(--font-mono); }
+.font-serif      { font-family: var(--font-serif); }
+
+.eyebrow {
   font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+}
+.eyebrow-tight { letter-spacing: 0.12em; }
+.eyebrow-bracket::before { content: "[ "; opacity: 0.6; }
+.eyebrow-bracket::after  { content: " ]"; opacity: 0.6; }
+
+.display {
+  font-family: var(--font-condensed);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+  text-transform: uppercase;
 }
 
-/* Focus ring accesible */
-*:focus-visible {
+.serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.numeric { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+
+/* =============================================================================
+   §5.  FOCUS
+   ============================================================================= */
+
+:focus-visible {
   outline: 2px solid var(--tier);
   outline-offset: 2px;
-  border-radius: 0.375rem;
+  border-radius: 4px;
+}
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--tier);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--tier) 25%, transparent);
 }
 
-/* Scrollbar custom */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+/* =============================================================================
+   §6.  SCROLLBAR
+   ============================================================================= */
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-surface-3);
-  border-radius: 3px;
+  background: color-mix(in oklab, var(--color-fg-dim) 60%, transparent);
+  border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-fg-dim);
-}
+::-webkit-scrollbar-thumb:hover { background: var(--tier); }
 
-@layer components {
-  /* Card base: sustituye a MagicCard en toda la app */
-  .card {
-    background: linear-gradient(
-      180deg,
-      color-mix(in oklab, white 3.5%, var(--color-surface-1)),
-      var(--color-surface-1) 55%
-    );
-    border: 1px solid color-mix(in oklab, white 9%, transparent);
-    border-radius: var(--radius-card);
-    box-shadow: var(--shadow-card);
-  }
+* { scrollbar-color: color-mix(in oklab, var(--color-fg-dim) 60%, transparent) transparent; scrollbar-width: thin; }
 
-  /* Card con acento ambiental del tier */
-  .card-accent {
-    background:
-      radial-gradient(120% 90% at 18% -10%, var(--tier-soft), transparent 58%),
-      radial-gradient(
-        90% 100% at 100% 100%,
-        color-mix(in oklab, var(--tier) 5%, transparent),
-        transparent 55%
-      ),
-      linear-gradient(
-        180deg,
-        color-mix(in oklab, white 3%, var(--color-surface-1)),
-        var(--color-surface-1) 60%
-      );
-    border: 1px solid var(--tier-border);
-    border-radius: var(--radius-card);
-    box-shadow: var(--shadow-card), 0 0 48px -24px var(--tier-glow);
-  }
+/* =============================================================================
+   §7.  UTILITIES
+   ============================================================================= */
 
-  /* Esquinas HUD (brackets del color del tier) para paneles destacados */
-  .hud {
-    position: relative;
-  }
-  .hud::after {
-    content: "";
-    position: absolute;
-    inset: 9px;
-    pointer-events: none;
-    --hud-c: color-mix(in oklab, var(--tier) 55%, transparent);
-    background:
-      linear-gradient(var(--hud-c), var(--hud-c)) left top / 16px 1.5px,
-      linear-gradient(var(--hud-c), var(--hud-c)) left top / 1.5px 16px,
-      linear-gradient(var(--hud-c), var(--hud-c)) right top / 16px 1.5px,
-      linear-gradient(var(--hud-c), var(--hud-c)) right top / 1.5px 16px,
-      linear-gradient(var(--hud-c), var(--hud-c)) left bottom / 16px 1.5px,
-      linear-gradient(var(--hud-c), var(--hud-c)) left bottom / 1.5px 16px,
-      linear-gradient(var(--hud-c), var(--hud-c)) right bottom / 16px 1.5px,
-      linear-gradient(var(--hud-c), var(--hud-c)) right bottom / 1.5px 16px;
-    background-repeat: no-repeat;
-  }
-
-  /* Eyebrow de sección: legible, técnico */
-  .eyebrow {
-    font-family: var(--font-sans);
-    font-size: 0.6875rem; /* 11px — mínimo absoluto de la app */
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    color: var(--color-fg-muted);
-    text-transform: uppercase;
-  }
-
-  .tier-text {
-    color: var(--tier);
-  }
-
-  .tier-gradient-text {
-    background: linear-gradient(
-      120deg,
-      var(--tier) 20%,
-      color-mix(in oklab, var(--tier) 55%, white) 50%,
-      var(--tier) 80%
-    );
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty  { text-wrap: pretty; }
+  .gradient-text-tier {
+    background: var(--tier-gradient);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-
-  /* Textura de ruido sutil (data-URI, coste de red cero) */
-  .bg-noise {
-    position: relative;
+  .tier-gradient-text {
+    background-image: linear-gradient(180deg, var(--tier), color-mix(in oklab, var(--tier) 50%, var(--tier-deep)));
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
   }
-  .bg-noise::before {
+  .gradient-text-cyan {
+    background: linear-gradient(135deg, var(--color-brand-300), var(--color-brand-500));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .tier-glow { box-shadow: var(--shadow-glow-tier); }
+  .tier-glow-strong { box-shadow: var(--shadow-glow-strong); }
+  .glow-text { text-shadow: 0 0 24px color-mix(in oklab, var(--tier) 60%, transparent); }
+
+  .clip-corner-tr {
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+  }
+  .clip-corner-tl {
+    clip-path: polygon(18px 0, 100% 0, 100% 100%, 0 100%, 0 18px);
+  }
+  .clip-corner-all {
+    clip-path: polygon(18px 0, calc(100% - 18px) 0, 100% 18px, 100% calc(100% - 18px), calc(100% - 18px) 100%, 18px 100%, 0 calc(100% - 18px), 0 18px);
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(to right, oklch(1 0 0 / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(1 0 0 / 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .scanlines::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 2px,
+      oklch(0 0 0 / 0.08) 2px,
+      oklch(0 0 0 / 0.08) 3px
+    );
+    pointer-events: none;
+    border-radius: inherit;
+  }
+}
+
+/* =============================================================================
+   §8.  COMPONENT PATTERNS
+   ============================================================================= */
+
+@layer components {
+  /* ---- Card base (Double-Bezel) ---- */
+  .card {
+    position: relative;
+    background: linear-gradient(180deg, oklch(1 0 0 / 0.025), oklch(1 0 0 / 0)) , var(--color-surface-1);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .card::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(180deg, oklch(1 0 0 / 0.10), transparent 40%);
+    -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
     pointer-events: none;
-    opacity: 0.025;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .card-hover { transition: box-shadow var(--duration-base) var(--ease-out-expo), transform var(--duration-base) var(--ease-out-expo), border-color var(--duration-base) var(--ease-out-expo); }
+  .card-hover:hover {
+    border-color: var(--tier-border);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
   }
 
-  /* Safe areas (requiere viewport-fit=cover) */
-  .pb-safe {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  .pt-safe {
-    padding-top: env(safe-area-inset-top);
+  /* ---- Card tier-accent (border colored by tier) ---- */
+  .card-tier { position: relative; }
+  .card-tier::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(180deg, var(--tier), transparent 60%);
+    -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.5;
   }
 
-  /* Área táctil mínima accesible */
-  .tap-target {
-    min-height: 44px;
-    min-width: 44px;
+  /* ---- HUD frame (technical corners) ---- */
+  .hud {
+    position: relative;
+  }
+  .hud::before, .hud::after {
+    content: "";
+    position: absolute;
+    width: 12px; height: 12px;
+    border-color: var(--tier);
+    border-style: solid;
+    border-width: 0;
+  }
+  .hud::before { top: 0; left: 0; border-top-width: 1.5px; border-left-width: 1.5px; }
+  .hud::after  { bottom: 0; right: 0; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+
+  /* ---- Tier badge (rotated hex) ---- */
+  .tier-badge-glow {
+    filter: drop-shadow(0 0 8px var(--tier-glow)) drop-shadow(0 0 16px var(--tier-glow));
   }
 
-  /* Skeleton de carga */
+  /* ---- Skeleton ---- */
   .skeleton {
-    background: var(--color-surface-2);
-    border-radius: var(--radius-card);
-    animation: skeleton-pulse 1.6s ease-in-out infinite;
+    background: linear-gradient(90deg, var(--color-surface-2) 0%, var(--color-surface-3) 50%, var(--color-surface-2) 100%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.4s ease-in-out infinite;
+    border-radius: 6px;
+  }
+  @keyframes skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 
-  /* Máscara de fade en bordes para filas con scroll horizontal */
-  .scroll-fade-x {
-    mask-image: linear-gradient(
-      to right,
-      transparent,
-      black 16px,
-      black calc(100% - 16px),
-      transparent
+  /* ---- Holographic tier emblem (conic gradient rotate) ---- */
+  .holo-tier {
+    background: conic-gradient(
+      from 0deg,
+      var(--tier-deep),
+      var(--tier),
+      color-mix(in oklab, var(--tier) 60%, white 20%),
+      var(--tier),
+      var(--tier-deep)
     );
+    animation: holo-spin 12s linear infinite;
+  }
+  @keyframes holo-spin {
+    to { transform: rotate(360deg); }
   }
 }
 
-/* Animaciones base */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* =============================================================================
+   §9.  A11Y
+   ============================================================================= */
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.animate-in {
-  animation: fadeIn 0.3s ease-out;
-}
-
-@keyframes skeleton-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.55;
-  }
-}
-
-@keyframes emblem-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-/* Kill-switch global de movimiento */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  html {
-    scroll-behavior: auto;
-  }
+::selection {
+  background: color-mix(in oklab, var(--tier) 40%, transparent);
+  color: var(--color-fg);
 }

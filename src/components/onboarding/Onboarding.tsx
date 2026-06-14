@@ -21,8 +21,9 @@ import { NumberTicker } from "@/components/magicui/number-ticker";
 import { springFast, springUI } from "@/lib/motionTokens";
 import { useProfileStore } from "../../store/profileStore";
 import { TIERS, TIER_VARS, type Tier } from "../../models/types";
-
-const STORAGE_KEY = "ironrank.onboarding.completed.v1";
+import { track } from "../../services/analytics";
+import { logAction } from "../../services/actionLog";
+import { setOnboardingStatus, db } from "../../db/database";
 
 interface OnboardingData {
   age: number;
@@ -50,7 +51,7 @@ const GOAL_OPTIONS: {
   desc: string;
   icon: typeof Trophy;
 }[] = [
-  { value: "strength", label: "Fuerza", desc: "Maximizar 1RM en los 3 grandes", icon: Trophy },
+  { value: "strength", label: "Fuerza", desc: "Maximizar 1RM en tus levantamientos", icon: Trophy },
   { value: "muscle", label: "Músculo", desc: "Hipertrofia y volumen", icon: Dumbbell },
   { value: "general", label: "General", desc: "Salud y composición", icon: Sparkles },
   { value: "performance", label: "Rendimiento", desc: "Deporte específico", icon: TrendingUp },
@@ -76,6 +77,7 @@ export function Onboarding({ onComplete }: OnboardingProps) {
         height: profile.profile!.height,
         restTimerDefault: profile.profile!.restTimerDefault,
         useKg: profile.profile!.useKg,
+        goal: profile.profile!.goal ?? d.goal,
       }));
     }
   }, [profile.profile]);
@@ -87,25 +89,30 @@ export function Onboarding({ onComplete }: OnboardingProps) {
     { title: "Listo", component: <ReadyStep data={data} /> },
   ];
 
-  function handleFinish() {
-    profile.update({
+  async function handleFinish() {
+    await profile.update({
       age: data.age,
       gender: data.gender,
       bodyweight: data.bodyweight,
       height: data.height,
       restTimerDefault: data.restTimerDefault,
       useKg: data.useKg,
+      goal: data.goal,
     });
-    try {
-      localStorage.setItem(STORAGE_KEY, "true");
-    } catch {}
+    await setOnboardingStatus("completed");
+    track("onboarding_completed");
+    logAction("onboarding_completed", {
+      goal: data.goal,
+      gender: data.gender,
+      bodyweight: data.bodyweight,
+    });
     onComplete();
   }
 
   function handleSkip() {
-    try {
-      localStorage.setItem(STORAGE_KEY, "skipped");
-    } catch {}
+    setOnboardingStatus("skipped");
+    track("onboarding_skipped");
+    logAction("onboarding_skipped");
     onComplete();
   }
 
@@ -166,7 +173,12 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                 {step === 0 && "Vamos a configurar tu IronRank en menos de 1 minuto."}
                 {step === 1 && "Estos datos calibrarán tu rango inicial."}
                 {step === 2 && "Adaptamos las sugerencias a tu meta principal."}
-                {step === 3 && "Tu primer workout te está esperando."}
+                {step === 3 && (
+                  <span>
+                    Tu primer workout te está esperando.{" "}
+                    <strong className="text-tier-esmeralda">Heads-up:</strong> los tiers para Press Banca, Sentadilla y Peso Muerto usan standards reales de powerlifting. El resto son ratios sintéticos calibrados a esos 3 — útiles para orientarte, pero no oficiales.
+                  </span>
+                )}
               </div>
 
               <div className="flex-1">{steps[step].component}</div>
@@ -260,8 +272,16 @@ function ProfileStep({
   data: OnboardingData;
   onChange: (d: OnboardingData) => void;
 }) {
+  const profile = useProfileStore();
+  const hasExistingData = !!profile.profile;
   return (
     <div className="space-y-4">
+      {hasExistingData && (
+        <div className="rounded-lg border border-brand-500/30 bg-brand-500/5 p-3 text-xs text-fg-muted">
+          <strong className="text-fg">Ya tienes datos.</strong> Edítalos abajo o
+          pulsa Continuar para mantenerlos.
+        </div>
+      )}
       <Field
         label="Edad"
         value={data.age}
@@ -319,8 +339,16 @@ function GoalStep({
   data: OnboardingData;
   onChange: (d: OnboardingData) => void;
 }) {
+  const profile = useProfileStore();
+  const hasExistingData = !!profile.profile;
   return (
     <div className="space-y-2">
+      {hasExistingData && (
+        <div className="rounded-lg border border-brand-500/30 bg-brand-500/5 p-3 text-xs text-fg-muted mb-3">
+          <strong className="text-fg">Tu objetivo actual:</strong> {data.goal}
+          {" "}(puedes cambiarlo abajo).
+        </div>
+      )}
       {GOAL_OPTIONS.map((g) => {
         const Icon = g.icon;
         const active = data.goal === g.value;
@@ -449,10 +477,16 @@ function Field({
   );
 }
 
-export function shouldShowOnboarding(): boolean {
+/**
+ * Determina si se debe mostrar el onboarding.
+ * Consulta IndexedDB. Es async — debe llamarse en useEffect.
+ */
+export async function shouldShowOnboarding(): Promise<boolean> {
   if (typeof window === "undefined") return false;
   try {
-    return !localStorage.getItem(STORAGE_KEY);
+    const { getOnboardingStatus } = await import("../../db/database");
+    const status = await getOnboardingStatus();
+    return status === "pending";
   } catch {
     return false;
   }

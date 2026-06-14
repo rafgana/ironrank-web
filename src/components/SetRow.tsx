@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Check } from "lucide-react";
+import { Check, X } from "lucide-react";
 import type { SetEntry } from "../models/types";
 import { estimatedMax } from "../utils/estimators";
 import { fmt } from "../utils/format";
@@ -11,6 +11,11 @@ interface SetRowProps {
   set: SetEntry;
   index: number;
   onToggle: () => void;
+  onRemove?: () => void;
+  /** Si este set es un PR (nuevo e1RM histórico para el ejercicio). */
+  isPR?: boolean;
+  /** Delta del PR (kg sobre el mejor histórico). */
+  prDelta?: number;
 }
 
 const RIR_LABELS: Record<number, { label: string; color: string }> = {
@@ -21,7 +26,7 @@ const RIR_LABELS: Record<number, { label: string; color: string }> = {
   4: { label: "4+", color: "#10B981" },
 };
 
-export function SetRow({ set, index, onToggle }: SetRowProps) {
+export function SetRow({ set, index, onToggle, onRemove, isPR, prDelta }: SetRowProps) {
   const isDone = set.completed;
   const rirInfo = set.rir != null ? RIR_LABELS[set.rir] : null;
   const e1rm = estimatedMax(set.weight, set.reps, set.rir);
@@ -36,7 +41,7 @@ export function SetRow({ set, index, onToggle }: SetRowProps) {
       }}
       transition={{ duration: 0.25 }}
       className={cn(
-        "relative flex items-center gap-2 rounded-lg py-1.5 pr-3 pl-1 text-sm transition-colors",
+        "group relative flex items-center gap-2 rounded-lg py-1.5 pr-3 pl-1 text-sm transition-colors",
         isDone ? "bg-surface-2" : "hover:bg-surface-2",
       )}
     >
@@ -110,6 +115,18 @@ export function SetRow({ set, index, onToggle }: SetRowProps) {
             DROP
           </span>
         )}
+        {isPR && (
+          <span
+            className="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider animate-pulse"
+            style={{
+              background: "color-mix(in oklab, var(--tier) 18%, transparent)",
+              color: "var(--tier)",
+              border: "1px solid color-mix(in oklab, var(--tier) 40%, transparent)",
+            }}
+          >
+            PR {prDelta ? `+${prDelta.toFixed(1)}kg` : ""}
+          </span>
+        )}
       </div>
 
       <div className="shrink-0 text-right">
@@ -123,6 +140,16 @@ export function SetRow({ set, index, onToggle }: SetRowProps) {
           {e1rm.toFixed(1)}
         </div>
       </div>
+      {onRemove && (
+        <button
+          onClick={onRemove}
+          className="tap-target flex shrink-0 items-center justify-center text-fg-dim opacity-0 transition-opacity hover:text-red-400 group-hover:opacity-100"
+          aria-label="Eliminar serie"
+          title="Eliminar serie"
+        >
+          <X size={14} />
+        </button>
+      )}
     </motion.div>
   );
 }
