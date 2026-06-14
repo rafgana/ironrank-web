@@ -2,7 +2,14 @@
    IronRank Landing — GSAP
    ═══════════════════════════════════════════════════════════════ */
 
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 gsap.registerPlugin(ScrollTrigger);
+
+if (prefersReducedMotion) {
+  gsap.globalTimeline.timeScale(100);
+  ScrollTrigger.refresh();
+}
 
 // ─── 3D TILT CARDS ───
 document.querySelectorAll("[data-tilt]").forEach((card) => {

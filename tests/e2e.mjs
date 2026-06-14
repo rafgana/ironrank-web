@@ -284,6 +284,61 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  // ─── Landing page tests ───
+
+  await scenario("10. Landing page renders without errors", async () => {
+    const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const p = await ctx.newPage();
+    const errors = [];
+    p.on("pageerror", (e) => errors.push(e.message));
+    p.on("console", (m) => { if (m.type() === "error") errors.push(m.text()); });
+    p.on("requestfailed", (req) => {
+      if (!req.url().includes("favicon")) errors.push(`failed: ${req.url()}`);
+    });
+
+    await p.goto("https://rafagandia.com/ironrank/landing/", { waitUntil: "networkidle", timeout: 30000 });
+    await p.waitForTimeout(3000);
+    const title = await p.title();
+    assert(title.includes("IronRank"), "Title should contain IronRank");
+    const h1 = await p.locator("h1").first().textContent();
+    assert(h1.includes("Entrena"), "H1 should contain 'Entrena'");
+    const tierCards = await p.locator(".tier-card").count();
+    assert(tierCards === 7, `Should have 7 tier cards, got ${tierCards}`);
+    assert(errors.length === 0, `Should have no errors, got: ${errors.join("; ")}`);
+    await browser.close();
+  });
+
+  await scenario("11. Landing page has SEO meta tags", async () => {
+    const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
+    const p = await (await browser.newContext()).newPage();
+    await p.goto("https://rafagandia.com/ironrank/landing/", { waitUntil: "domcontentloaded" });
+    const ogTitle = await p.locator('meta[property="og:title"]').getAttribute("content");
+    const ogImage = await p.locator('meta[property="og:image"]').getAttribute("content");
+    const ogImageWidth = await p.locator('meta[property="og:image:width"]').getAttribute("content");
+    const canonical = await p.locator('link[rel="canonical"]').getAttribute("href");
+    const jsonLd = await p.locator('script[type="application/ld+json"]').count();
+    assert(ogTitle?.includes("IronRank"), "og:title should mention IronRank");
+    assert(ogImage?.includes("og-landing.png"), "og:image should be og-landing.png");
+    assert(ogImageWidth === "1200", "og:image:width should be 1200");
+    assert(canonical?.includes("/landing/"), "canonical should include /landing/");
+    assert(jsonLd >= 1, "Should have at least one JSON-LD block");
+    await browser.close();
+  });
+
+  await scenario("12. Sitemap and robots are accessible", async () => {
+    const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
+    const p = await (await browser.newContext()).newPage();
+    const sitemapRes = await p.goto("https://rafagandia.com/ironrank/sitemap.xml");
+    const sitemapBody = await sitemapRes.text();
+    assert(sitemapBody.includes("/ironrank/landing/"), "Sitemap should include /ironrank/landing/");
+    const robotsRes = await p.goto("https://rafagandia.com/ironrank/robots.txt");
+    const robotsBody = await robotsRes.text();
+    assert(robotsBody.includes("Sitemap:"), "Robots should reference sitemap");
+    assert(robotsBody.includes("Disallow:"), "Robots should have disallow rules");
+    await browser.close();
+  });
+
   console.log(`\nResults: ${pass} pass, ${fail} fail`);
   if (fail > 0) {
     console.log("\nFailures:");
