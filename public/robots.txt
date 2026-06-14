@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /ironrank/
+Allow: /ironrank/landing/
+
+# Disallow admin / private paths
+Disallow: /ironrank/?tab=*
+Disallow: /ironrank/?settings
+Disallow: /api/
+
+Sitemap: https://rafagandia.com/ironrank/sitemap.xml

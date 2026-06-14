@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>IronRank · Entrena, sube de liga, mejora</title>
+    <meta
+      name="description"
+      content="IronRank es un tracker de gym con sistema de ligas tipo juego. Apunta tus series, sube de Bronce a Retador, sync entre dispositivos."
+    />
+    <meta name="keywords" content="gym, tracker, pesas, ligas, marcas, récord, gym app, entrenamiento" />
+    <meta name="author" content="IronRank" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="canonical" href="https://rafagandia.com/ironrank/landing/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://rafagandia.com/ironrank/landing/" />
+    <meta property="og:title" content="IronRank · Entrena, sube de liga, mejora" />
+    <meta property="og:description" content="Tracker de gym con sistema de ligas. Apunta tus series, sube de rango, mejora." />
+    <meta property="og:image" content="https://rafagandia.com/ironrank/og-image.png" />
+    <meta property="og:site_name" content="IronRank" />
+    <meta property="og:locale" content="es_ES" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="IronRank · Entrena, sube de liga, mejora" />
+    <meta name="twitter:description" content="Tracker de gym con sistema de ligas. Apunta tus series, sube de rango, mejora." />
+    <meta name="twitter:image" content="https://rafagandia.com/ironrank/og-image.png" />
+
+    <link rel="icon" type="image/svg+xml" href="/ironrank/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800&family=Anton&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./badges.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "IronRank",
+        "description": "Gym tracker con sistema de ligas tipo juego. 7 rangos, sync entre dispositivos.",
+        "url": "https://rafagandia.com/ironrank/landing/",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires modern browser with IndexedDB support",
+        "inLanguage": "es-ES",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+      }
+    </script>
+
+    <script defer data-domain="ironrank.rafagandia.com" src="https://plausible.io/js/script.js"></script>
+  </head>
+  <body>
+    <!-- SVG defs reutilizables: gradients para los 7 tier badges -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <linearGradient id="tb-bronce-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#2C3538"/>
+          <stop offset="55%"  stop-color="#6B7A7E"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.45)"/>
+        </linearGradient>
+        <linearGradient id="tb-plata-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#4A6B70"/>
+          <stop offset="55%"  stop-color="#9DD4D8"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.5)"/>
+        </linearGradient>
+        <linearGradient id="tb-oro-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#1A8A75"/>
+          <stop offset="55%"  stop-color="#3FE8C4"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.55)"/>
+        </linearGradient>
+        <linearGradient id="tb-platino-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#1FA088"/>
+          <stop offset="55%"  stop-color="#5BFFE0"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.6)"/>
+        </linearGradient>
+        <linearGradient id="tb-esmeralda-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#00A06F"/>
+          <stop offset="55%"  stop-color="#00FFB0"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.55)"/>
+        </linearGradient>
+        <linearGradient id="tb-diamante-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#5BB5D0"/>
+          <stop offset="55%"  stop-color="#9FF4FF"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.7)"/>
+        </linearGradient>
+        <linearGradient id="tb-retador-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stop-color="#9D1466"/>
+          <stop offset="55%"  stop-color="#FF3DA0"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.6)"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <!-- Nav -->
+    <nav class="nav" id="nav">
+      <a class="nav-logo" href="#top">
+        <span class="nav-logo-mark">IR</span>
+        <span class="nav-logo-text">IronRank</span>
+      </a>
+      <div class="nav-links">
+        <a href="#ligas" data-nav>Ligas</a>
+        <a href="#features" data-nav>Qué hace</a>
+        <a href="#como" data-nav>Cómo funciona</a>
+        <a href="#faq" data-nav>FAQ</a>
+      </div>
+      <a class="nav-cta" href="/ironrank/">Entrar →</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="hero-bg">
+        <div class="hero-glow hero-glow--cyan"></div>
+        <div class="hero-glow hero-glow--orange"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-noise"></div>
+      </div>
+
+      <div class="hero-inner">
+        <div class="hero-eyebrow" data-hero-anim>
+          <span class="hero-eyebrow-dot"></span>
+          IronRank · v2.3
+        </div>
+
+        <h1 class="hero-title" data-hero-anim>
+          <span class="hero-line">Entrena.</span>
+          <span class="hero-line hero-line--accent">Sube de <em>liga</em>. Mejora.</span>
+        </h1>
+
+        <p class="hero-sub" data-hero-anim>
+          Un tracker de gym con sistema de ligas tipo juego. Apunta cada serie,
+          sube por <strong>siete rangos</strong> hasta llegar a Retador. Sin coste
+          para empezar, sin tarjeta, sin permanencia.
+        </p>
+
+        <div class="hero-ctas" data-hero-anim>
+          <a class="btn btn--primary" href="/ironrank/">
+            <span>Empezar gratis</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a class="btn btn--ghost" href="#ligas">Ver ligas ↓</a>
+        </div>
+
+        <div class="hero-stats" data-hero-anim>
+          <div class="hero-stat">
+            <div class="hero-stat-num"><span data-counter="7">0</span></div>
+            <div class="hero-stat-label">Ligas</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num"><span data-counter="85">0</span>+</div>
+            <div class="hero-stat-label">Ejercicios</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">offline</div>
+            <div class="hero-stat-label">Funciona sin cobertura</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">sin tarjeta</div>
+            <div class="hero-stat-label">Empezar es gratis</div>
+          </div>
+        </div>
+
+        <!-- 7 badges reales de la app (replica de tier-badges.tsx) -->
+        <div class="hero-cards" id="hero-cards">
+          <!-- BRONCE -->
+          <div class="tier-card" data-tilt>
+            <div class="tier-card-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Liga Bronce">
+                <path d="M 50 6 L 92 32 L 80 92 L 20 92 L 8 32 Z" class="tb-bronce-path"/>
+                <g class="tb-bronce-glyph" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+                  <line x1="32" y1="40" x2="68" y2="40"/>
+                  <line x1="36" y1="55" x2="64" y2="55"/>
+                  <line x1="42" y1="70" x2="58" y2="70"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-card-name">BRONCE</div>
+            <div class="tier-card-sub">Empezando</div>
+          </div>
+          <!-- PLATA -->
+          <div class="tier-card" data-tilt>
+            <div class="tier-card-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Liga Plata">
+                <path d="M 50 4 L 84 50 L 50 96 L 16 50 Z" class="tb-plata-path"/>
+                <g class="tb-plata-glyph" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none">
+                  <line x1="50" y1="28" x2="50" y2="72"/>
+                  <line x1="32" y1="50" x2="68" y2="50"/>
+                  <circle cx="50" cy="50" r="10" fill="currentColor" opacity="0.15" stroke="none"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-card-name">PLATA</div>
+            <div class="tier-card-sub">En forma</div>
+          </div>
+          <!-- ORO -->
+          <div class="tier-card" data-tilt>
+            <div class="tier-card-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Liga Oro">
+                <path d="M 50 4 L 96 38 L 78 92 L 22 92 L 4 38 Z" class="tb-oro-path"/>
+                <g class="tb-oro-glyph" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" fill="none">
+                  <polygon points="50,30 65,50 50,70 35,50"/>
+                  <line x1="50" y1="30" x2="50" y2="70"/>
+                  <line x1="35" y1="50" x2="65" y2="50"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-card-name">ORO</div>
+            <div class="tier-card-sub">Constante</div>
+          </div>
+          <!-- PLATINO -->
+          <div class="tier-card" data-tilt>
+            <div class="tier-card-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Liga Platino">
+                <path d="M 50 4 L 78 14 L 96 40 L 90 76 L 64 96 L 36 96 L 10 76 L 4 40 L 22 14 Z" class="tb-platino-path"/>
+                <g class="tb-platino-glyph" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none">
+                  <polygon points="50,28 68,42 62,62 38,62 32,42"/>
+                  <circle cx="50" cy="48" r="4" fill="currentColor" stroke="none"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-card-name">PLATINO</div>
+            <div class="tier-card-sub">Dedicado</div>
+          </div>
+          <!-- ESMERALDA -->
+          <div class="tier-card" data-tilt>
+            <div class="tier-card-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Liga Esmeralda">
+                <path d="M 4 18 L 96 18 L 78 92 L 22 92 Z" class="tb-esmeralda-path"/>
+                <g class="tb-esmeralda-glyph" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+                  <line x1="30" y1="38" x2="70" y2="38"/>
+                  <line x1="34" y1="50" x2="66" y2="50"/>
+                  <line x1="42" y1="62" x2="58" y2="62"/>
+                  <circle cx="50" cy="74" r="3" fill="currentColor" stroke="none"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-card-name">ESMERALDA</div>
+            <div class="tier-card-sub">Fuerte</div>
+          </div>
+          <!-- DIAMANTE -->
+          <div class="tier-card" data-tilt>
+            <div class="tier-card-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Liga Diamante">
+                <path d="M 50 2 L 96 30 L 84 84 L 16 84 L 4 30 Z" class="tb-diamante-path"/>
+                <g class="tb-diamante-glyph" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none">
+                  <polygon points="50,22 78,40 72,72 28,72 22,40"/>
+                  <line x1="50" y1="22" x2="50" y2="72"/>
+                  <line x1="22" y1="40" x2="78" y2="40"/>
+                  <line x1="50" y1="22" x2="22" y2="40" stroke-opacity="0.5"/>
+                  <line x1="50" y1="22" x2="78" y2="40" stroke-opacity="0.5"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-card-name">DIAMANTE</div>
+            <div class="tier-card-sub">Élite</div>
+          </div>
+          <!-- RETADOR -->
+          <div class="tier-card tier-card--glowing" data-tilt>
+            <div class="tier-card-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Liga Retador">
+                <path d="M 50 2 L 62 28 L 92 22 L 78 50 L 96 78 L 64 72 L 50 98 L 36 72 L 4 78 L 22 50 L 8 22 L 38 28 Z" class="tb-retador-path"/>
+                <g class="tb-retador-glyph" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none">
+                  <polygon points="50,30 60,44 76,42 66,56 72,72 50,64 28,72 34,56 24,42 40,44"/>
+                  <circle cx="50" cy="54" r="4" fill="currentColor" stroke="none"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-card-name">RETADOR</div>
+            <div class="tier-card-sub">El techo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-scroll-hint">
+        <span>Scroll</span>
+        <div class="hero-scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- Las siete ligas -->
+    <section class="section section--tiers" id="ligas">
+      <div class="section-bg">
+        <div class="section-bg-glow"></div>
+      </div>
+
+      <div class="section-inner">
+        <div class="section-eyebrow" data-section-anim>// Las siete ligas</div>
+        <h2 class="section-title" data-section-anim>
+          Bronce. Plata. Oro. <span class="tier-text--retador">Retador.</span>
+        </h2>
+        <p class="section-sub" data-section-anim>
+          Cada liga refleja cuánto has mejorado. Cuanto más trabajas, más alto
+          llegas. Y si paras, bajas — como en un juego.
+        </p>
+
+        <div class="tiers-list" id="tiers-list">
+          <div class="tier-row" data-tier-row data-tier="bronce">
+            <div class="tier-row-num">01</div>
+            <div class="tier-row-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Bronce">
+                <path d="M 50 6 L 92 32 L 80 92 L 20 92 L 8 32 Z" class="tb-bronce-path"/>
+                <g class="tb-bronce-glyph" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" fill="none">
+                  <line x1="32" y1="40" x2="68" y2="40"/>
+                  <line x1="36" y1="55" x2="64" y2="55"/>
+                  <line x1="42" y1="70" x2="58" y2="70"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-row-info">
+              <div class="tier-row-name">Bronce</div>
+              <div class="tier-row-desc">Acabas de empezar</div>
+            </div>
+            <div class="tier-row-range">Empezando</div>
+            <div class="tier-row-bar"><div class="tier-row-bar-fill"></div></div>
+          </div>
+          <div class="tier-row" data-tier-row data-tier="plata">
+            <div class="tier-row-num">02</div>
+            <div class="tier-row-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Plata">
+                <path d="M 50 4 L 84 50 L 50 96 L 16 50 Z" class="tb-plata-path"/>
+                <g class="tb-plata-glyph" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+                  <line x1="50" y1="28" x2="50" y2="72"/>
+                  <line x1="32" y1="50" x2="68" y2="50"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-row-info">
+              <div class="tier-row-name">Plata</div>
+              <div class="tier-row-desc">Ya controlas la técnica</div>
+            </div>
+            <div class="tier-row-range">En forma</div>
+            <div class="tier-row-bar"><div class="tier-row-bar-fill"></div></div>
+          </div>
+          <div class="tier-row" data-tier-row data-tier="oro">
+            <div class="tier-row-num">03</div>
+            <div class="tier-row-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Oro">
+                <path d="M 50 4 L 96 38 L 78 92 L 22 92 L 4 38 Z" class="tb-oro-path"/>
+                <g class="tb-oro-glyph" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+                  <polygon points="50,30 65,50 50,70 35,50"/>
+                  <line x1="50" y1="30" x2="50" y2="70"/>
+                  <line x1="35" y1="50" x2="65" y2="50"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-row-info">
+              <div class="tier-row-name">Oro</div>
+              <div class="tier-row-desc">Por encima del promedio</div>
+            </div>
+            <div class="tier-row-range">Fuerte</div>
+            <div class="tier-row-bar"><div class="tier-row-bar-fill"></div></div>
+          </div>
+          <div class="tier-row" data-tier-row data-tier="platino">
+            <div class="tier-row-num">04</div>
+            <div class="tier-row-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Platino">
+                <path d="M 50 4 L 78 14 L 96 40 L 90 76 L 64 96 L 36 96 L 10 76 L 4 40 L 22 14 Z" class="tb-platino-path"/>
+                <g class="tb-platino-glyph" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+                  <polygon points="50,28 68,42 62,62 38,62 32,42"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-row-info">
+              <div class="tier-row-name">Platino</div>
+              <div class="tier-row-desc">Dedicado y constante</div>
+            </div>
+            <div class="tier-row-range">Muy fuerte</div>
+            <div class="tier-row-bar"><div class="tier-row-bar-fill"></div></div>
+          </div>
+          <div class="tier-row" data-tier-row data-tier="esmeralda">
+            <div class="tier-row-num">05</div>
+            <div class="tier-row-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Esmeralda">
+                <path d="M 4 18 L 96 18 L 78 92 L 22 92 Z" class="tb-esmeralda-path"/>
+                <g class="tb-esmeralda-glyph" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" fill="none">
+                  <line x1="30" y1="38" x2="70" y2="38"/>
+                  <line x1="34" y1="50" x2="66" y2="50"/>
+                  <line x1="42" y1="62" x2="58" y2="62"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-row-info">
+              <div class="tier-row-name">Esmeralda</div>
+              <div class="tier-row-desc">Por encima del resto del gym</div>
+            </div>
+            <div class="tier-row-range">Élite</div>
+            <div class="tier-row-bar"><div class="tier-row-bar-fill"></div></div>
+          </div>
+          <div class="tier-row" data-tier-row data-tier="diamante">
+            <div class="tier-row-num">06</div>
+            <div class="tier-row-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Diamante">
+                <path d="M 50 2 L 96 30 L 84 84 L 16 84 L 4 30 Z" class="tb-diamante-path"/>
+                <g class="tb-diamante-glyph" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none">
+                  <polygon points="50,22 78,40 72,72 28,72 22,40"/>
+                  <line x1="50" y1="22" x2="50" y2="72"/>
+                  <line x1="22" y1="40" x2="78" y2="40"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-row-info">
+              <div class="tier-row-name">Diamante</div>
+              <div class="tier-row-desc">Nivel competitivo</div>
+            </div>
+            <div class="tier-row-range">Compite</div>
+            <div class="tier-row-bar"><div class="tier-row-bar-fill"></div></div>
+          </div>
+          <div class="tier-row" data-tier-row data-tier="retador">
+            <div class="tier-row-num">07</div>
+            <div class="tier-row-badge">
+              <svg viewBox="0 0 100 100" class="tier-badge-svg" aria-label="Retador">
+                <path d="M 50 2 L 62 28 L 92 22 L 78 50 L 96 78 L 64 72 L 50 98 L 36 72 L 4 78 L 22 50 L 8 22 L 38 28 Z" class="tb-retador-path"/>
+                <g class="tb-retador-glyph" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none">
+                  <polygon points="50,30 60,44 76,42 66,56 72,72 50,64 28,72 34,56 24,42 40,44"/>
+                </g>
+              </svg>
+            </div>
+            <div class="tier-row-info">
+              <div class="tier-row-name">Retador</div>
+              <div class="tier-row-desc">El techo</div>
+            </div>
+            <div class="tier-row-range">Donde pocos llegan</div>
+            <div class="tier-row-bar"><div class="tier-row-bar-fill"></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Qué hace -->
+    <section class="section section--features" id="features">
+      <div class="section-inner">
+        <div class="section-eyebrow" data-section-anim>// Qué hace</div>
+        <h2 class="section-title" data-section-anim>
+          Lo que necesitas.<br />
+          <span class="gradient-text">Sin más.</span>
+        </h2>
+
+        <div class="features-grid">
+          <div class="feature-card feature-card--big" data-feature-card>
+            <div class="feature-card-glyph">
+              <svg viewBox="0 0 80 80" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="40" cy="42" r="28"/>
+                <path d="M40 26 V42 L51 49"/>
+                <path d="M40 4 V12 M40 72 V80 M4 42 H12 M68 42 H76" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Apunta cada serie. Sin tocar más que dos botones.</h3>
+            <p class="feature-card-desc">
+              Peso, repes, listo. La app te recuerda qué hiciste la última vez y te
+              sugiere cuánto cargar.
+            </p>
+            <div class="feature-card-glow"></div>
+          </div>
+
+          <div class="feature-card" data-feature-card>
+            <div class="feature-card-glyph">
+              <svg viewBox="0 0 80 80" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 60 L26 44 L36 52 L50 30 L66 48"/>
+                <circle cx="26" cy="44" r="2.5" fill="currentColor"/>
+                <circle cx="36" cy="52" r="2.5" fill="currentColor"/>
+                <circle cx="50" cy="30" r="2.5" fill="currentColor"/>
+                <circle cx="66" cy="48" r="2.5" fill="currentColor"/>
+                <path d="M10 70 H70"/>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Tu progresión, semana a semana.</h3>
+            <p class="feature-card-desc">
+              Cuánto pesabas, cuánto pesas, cuánto has mejorado. Todo en un vistazo.
+            </p>
+          </div>
+
+          <div class="feature-card" data-feature-card>
+            <div class="feature-card-glyph">
+              <svg viewBox="0 0 80 80" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="14" y="20" width="38" height="50" rx="4"/>
+                <rect x="32" y="10" width="34" height="50" rx="4"/>
+                <circle cx="49" cy="58" r="2.5" fill="currentColor"/>
+                <path d="M44 30 H58 M44 38 H54"/>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">En el móvil, en el portátil, donde sea.</h3>
+            <p class="feature-card-desc">
+              Apuntas en el gym, lo ves en casa. Entra con Google y se sincroniza
+              solo.
+            </p>
+          </div>
+
+          <div class="feature-card" data-feature-card>
+            <div class="feature-card-glyph">
+              <svg viewBox="0 0 80 80" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 56 Q12 30 30 30 Q40 30 44 40 Q48 50 60 50 Q70 50 70 30"/>
+                <circle cx="60" cy="50" r="2" fill="currentColor"/>
+                <path d="M28 64 H56"/>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Funciona sin cobertura.</h3>
+            <p class="feature-card-desc">
+              Sótano del gym, parking subterráneo, metro. La app sigue. Cuando
+              vuelves a tener internet, se sincroniza.
+            </p>
+          </div>
+
+          <div class="feature-card" data-feature-card>
+            <div class="feature-card-glyph">
+              <svg viewBox="0 0 80 80" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="20" y="36" width="40" height="34" rx="3"/>
+                <path d="M28 36 V28 a12 12 0 0 1 24 0 V36"/>
+                <circle cx="40" cy="52" r="3" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Tus datos son tuyos.</h3>
+            <p class="feature-card-desc">
+              Servidor en Europa, GDPR. Si borras la cuenta, se borra todo. Sin
+              anuncios, sin tracking.
+            </p>
+          </div>
+
+          <div class="feature-card" data-feature-card>
+            <div class="feature-card-glyph">
+              <svg viewBox="0 0 80 80" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="10" y="14" width="60" height="6" rx="1"/>
+                <rect x="10" y="40" width="60" height="6" rx="1"/>
+                <circle cx="20" cy="17" r="3" fill="currentColor"/>
+                <circle cx="34" cy="17" r="3" fill="currentColor"/>
+                <circle cx="48" cy="17" r="3" fill="currentColor"/>
+                <circle cx="20" cy="43" r="3"/>
+                <circle cx="34" cy="43" r="3" fill="currentColor"/>
+                <circle cx="48" cy="43" r="3" fill="currentColor"/>
+                <path d="M16 62 L24 54 L34 60 L46 50 L60 58 L66 54"/>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Calcula los discos por ti.</h3>
+            <p class="feature-card-desc">
+              Le dices cuánto pesas y te dice exactamente qué discos poner a cada
+              lado de la barra.
+            </p>
+          </div>
+
+          <div class="feature-card feature-card--wide" data-feature-card>
+            <div class="feature-card-glyph">
+              <svg viewBox="0 0 80 80" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="10" y="14" width="14" height="14" rx="2"/>
+                <rect x="28" y="14" width="14" height="14" rx="2" fill="currentColor" fill-opacity="0.2"/>
+                <rect x="46" y="14" width="14" height="14" rx="2"/>
+                <rect x="10" y="32" width="14" height="14" rx="2" fill="currentColor" fill-opacity="0.2"/>
+                <rect x="28" y="32" width="14" height="14" rx="2"/>
+                <rect x="46" y="32" width="14" height="14" rx="2" fill="currentColor" fill-opacity="0.2"/>
+                <rect x="10" y="50" width="14" height="14" rx="2"/>
+                <rect x="28" y="50" width="14" height="14" rx="2" fill="currentColor" fill-opacity="0.2"/>
+                <rect x="46" y="50" width="14" height="14" rx="2"/>
+              </svg>
+            </div>
+            <h3 class="feature-card-title">Tu mapa de constancia.</h3>
+            <p class="feature-card-desc">
+              Cada día que entrenas se ilumina. Ves cuándo has sido constante, cuándo
+              flojeas, qué semanas fueron leyenda. Sin sermones, sólo datos.
+            </p>
+            <div class="feature-card-glow"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cómo funciona -->
+    <section class="section section--how" id="como">
+      <div class="section-inner">
+        <div class="section-eyebrow" data-section-anim>// Cómo funciona</div>
+        <h2 class="section-title" data-section-anim>Tres pasos.</h2>
+
+        <div class="how-grid">
+          <div class="how-step" data-how-step>
+            <div class="how-step-num">1</div>
+            <h3 class="how-step-title">Toca un botón.</h3>
+            <p class="how-step-desc">
+              Elige los ejercicios que vas a hacer. La app te recuerda qué hiciste
+              la última vez.
+            </p>
+            <div class="how-step-visual">
+              <div class="how-step-pulse"></div>
+            </div>
+          </div>
+
+          <div class="how-step" data-how-step>
+            <div class="how-step-num">2</div>
+            <h3 class="how-step-title">Apunta cada serie.</h3>
+            <p class="how-step-desc">
+              Cuánto pesas, cuántas repes. Marcar como hecho guarda el set y arranca
+              el cronómetro.
+            </p>
+            <div class="how-step-visual">
+              <div class="how-step-check">
+                <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 20 L18 28 L32 12"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="how-step" data-how-step>
+            <div class="how-step-num">3</div>
+            <h3 class="how-step-title">Sube de liga.</h3>
+            <p class="how-step-desc">
+              Cada récord te acerca al siguiente rango. Mides tu progreso en meses
+              y años, no en semanas.
+            </p>
+            <div class="how-step-visual">
+              <div class="how-step-arrow">
+                <svg viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 52 V8 M10 18 L20 8 L30 18"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA final -->
+    <section class="section section--cta">
+      <div class="cta-bg">
+        <div class="cta-glow"></div>
+        <div class="cta-grid"></div>
+      </div>
+      <div class="section-inner">
+        <h2 class="cta-title" data-cta-anim>
+          Tu próximo récord<br />te espera.
+        </h2>
+        <p class="cta-sub" data-cta-anim>Gratis para empezar. Sin tarjeta. Sin permanencia.</p>
+        <a class="btn btn--primary btn--xl" href="/ironrank/" data-cta-anim>
+          <span>Empezar gratis</span>
+          <svg width="18" height="18" viewBox="0 0 14 14" fill="none">
+            <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section--faq" id="faq">
+      <div class="section-inner">
+        <div class="section-eyebrow" data-section-anim>// FAQ</div>
+        <h2 class="section-title" data-section-anim>Preguntas frecuentes</h2>
+
+        <div class="faq-list">
+          <details class="faq-item" data-faq-item>
+            <summary>¿Qué es IronRank?</summary>
+            <p>
+              Un tracker de gym con sistema de ligas tipo juego. Cada vez que
+              superas una marca, subes de Bronce a Plata, Oro, Platino, Esmeralda,
+              Diamante y Retador.
+            </p>
+          </details>
+          <details class="faq-item" data-faq-item>
+            <summary>¿Cuánto cuesta?</summary>
+            <p>
+              Empezar es gratis. Si en el futuro cambia, te avisamos con tiempo.
+            </p>
+          </details>
+          <details class="faq-item" data-faq-item>
+            <summary>¿Funciona sin internet?</summary>
+            <p>
+              Sí. Tus datos se guardan en el móvil y se sincronizan cuando vuelves
+              a tener cobertura.
+            </p>
+          </details>
+          <details class="faq-item" data-faq-item>
+            <summary>¿Mis datos están seguros?</summary>
+            <p>
+              Servidor en Europa (Supabase, región EU West), cumple GDPR. Si borras
+              la cuenta, se elimina todo.
+            </p>
+          </details>
+          <details class="faq-item" data-faq-item>
+            <summary>¿Necesito crear cuenta?</summary>
+            <p>
+              Sí, para sincronizar entre dispositivos. Puedes entrar con Google o
+              con email y contraseña.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="nav-logo-mark">IR</span>
+          <span class="footer-brand-text">IronRank</span>
+        </div>
+        <div class="footer-links">
+          <a href="/ironrank/">App</a>
+          <a href="https://github.com/rafgana/ironrank-web" rel="noopener" target="_blank">GitHub</a>
+          <a href="mailto:ironrank@rafagandia.com">Contacto</a>
+        </div>
+        <div class="footer-copy">© 2026 IronRank</div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
