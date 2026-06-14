@@ -3,9 +3,14 @@ Allow: /
 Allow: /ironrank/
 Allow: /ironrank/landing/
 
-# Disallow admin / private paths
+# Disallow rutas internas de la SPA (state en query string)
 Disallow: /ironrank/?tab=*
+Disallow: /ironrank/?workout=*
 Disallow: /ironrank/?settings
+Disallow: /ironrank/manifest.json
+Disallow: /ironrank/sitemap.xml
+Disallow: /ironrank/sw.js
+Disallow: /ironrank/robots.txt
 Disallow: /api/
 
 Sitemap: https://rafagandia.com/ironrank/sitemap.xml
