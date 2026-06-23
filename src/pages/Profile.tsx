@@ -29,7 +29,7 @@ import { useOverallTier } from "../hooks/useOverallTier";
 import { requestNotificationPermission } from "../hooks/useIdleNotification";
 import { applyTheme } from "../services/themeService";
 import { TIER_VARS, tierAlpha } from "../models/types";
-import { isSyncEnabled } from "../services/syncService";
+import { isSyncEnabled } from "../services/sync/config";
 import { downloadJSON, exportAll, importAll, wipeAll } from "../services/dataPortability";
 import { exportActionLog, getActionCounts, logAction } from "../services/actionLog";
 import { AccountSection } from "../components/auth/AccountSection";

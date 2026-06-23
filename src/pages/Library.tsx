@@ -27,7 +27,6 @@ import { BottomSheet } from "../components/ui/BottomSheet";
 import { Button } from "../components/ui/button";
 import { NumberTicker } from "../components/magicui/number-ticker";
 import { enterItem, enterStagger } from "../lib/motionTokens";
-import { RoutinesManager } from "../components/routines/RoutinesManager";
 
 interface EnrichedExercise extends Exercise {
   tier?: Tier;
@@ -51,7 +50,7 @@ const MUSCLE_COLORS: Record<string, string> = {
 export function Library() {
   const p = useProfileStore();
   const std = useStandardsStore();
-  const [tab, setTab] = useState<"exercises" | "routines">("routines");
+  // Sin pestaña de rutinas (RoutinesManager eliminado)
   const [exs, setExs] = useState<EnrichedExercise[]>([]);
   const [search, setSearch] = useState("");
   const [muscle, setMuscle] = useState<string>("all");
@@ -83,43 +82,6 @@ export function Library() {
     if (p.profile) void load();
   }, [p.profile]);
 
-  if (tab === "routines") {
-    return (
-      <motion.div
-        variants={enterStagger}
-        initial="hidden"
-        animate="show"
-        className="space-y-5"
-      >
-        <motion.header variants={enterItem} className="flex items-end justify-between gap-3">
-          <div>
-            <div className="eyebrow mb-1">Planificación</div>
-            <h1 className="font-display text-h1 font-bold">Mis workouts</h1>
-            <p className="mt-1 text-sm text-fg-muted">
-              Diseña tu semana. Asigna ejercicios a días. Lleva el conteo.
-            </p>
-          </div>
-          <AnimatedTabs
-            layoutId="library-tab"
-            tabs={[
-              { value: "routines", label: "Workouts" },
-              { value: "exercises", label: "Ejercicios" },
-            ]}
-            value={tab === "routines" ? "routines" : "exercises"}
-            onChange={(v) => setTab(v as "exercises" | "routines")}
-          />
-        </motion.header>
-        <motion.div variants={enterItem}>
-          {/* TODO: re-enable RoutinesManager after fixing TDZ issues */}
-          <div className="rounded-lg border border-dashed border-border-subtle p-8 text-center text-fg-muted">
-            <div className="eyebrow mb-1">Rutinas</div>
-            <p className="text-sm">Próximamente. Estamos simplificando la app.</p>
-          </div>
-        </motion.div>
-      </motion.div>
-    );
-  }
-
   const muscles = Array.from(new Set(exs.map((e) => e.musclePrimary))).sort();
   const filtered = exs.filter(
     (e) =>
@@ -139,23 +101,12 @@ export function Library() {
       animate="show"
       className="space-y-5"
     >
-      <motion.header variants={enterItem} className="flex items-end justify-between gap-3">
-        <div>
-          <div className="eyebrow mb-1">Ejercicios</div>
-          <h1 className="font-display text-h1 font-bold">Biblioteca</h1>
-          <p className="mt-1 text-sm text-fg-muted">
-            {exs.length} ejercicios · {muscles.length} grupos musculares
-          </p>
-        </div>
-        <AnimatedTabs
-          layoutId="library-tab"
-          tabs={[
-            { value: "routines", label: "Workouts" },
-            { value: "exercises", label: "Ejercicios" },
-          ]}
-          value={tab}
-          onChange={(v) => setTab(v as "exercises" | "routines")}
-        />
+      <motion.header variants={enterItem}>
+        <div className="eyebrow mb-1">Ejercicios</div>
+        <h1 className="font-display text-h1 font-bold">Biblioteca</h1>
+        <p className="mt-1 text-sm text-fg-muted">
+          {exs.length} ejercicios · {muscles.length} grupos musculares
+        </p>
       </motion.header>
 
       <motion.div variants={enterItem} className="relative">

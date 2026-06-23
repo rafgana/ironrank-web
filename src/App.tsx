@@ -22,7 +22,6 @@ import { Ranking } from "./pages/Ranking";
 import { Progress } from "./pages/Progress";
 import { Library } from "./pages/Library";
 import { Profile } from "./pages/Profile";
-import { TierDemo } from "./pages/TierDemo";
 import { useWorkoutStore } from "./store/workoutStore";
 import { useProfileStore } from "./store/profileStore";
 import { useOverallTier } from "./hooks/useOverallTier";
@@ -33,7 +32,7 @@ import {
   Onboarding,
   shouldShowOnboarding,
 } from "./components/onboarding/Onboarding";
-import { isSyncEnabled } from "./services/syncService";
+import { isSyncEnabled } from "./services/sync/config";
 import { usePlausibleInit, track } from "./services/analytics";
 import { logAction } from "./services/actionLog";
 import { useStandardsStore } from "./store/standardsStore";
@@ -71,7 +70,6 @@ export default function App() {
   useIdleNotification();
   const [tab, setTabState] = useState<Tab>("home");
   const [showWorkout, setShowWorkout] = useState(false);
-  const [showDemo, setShowDemo] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const direction = useRef(1);
@@ -126,13 +124,7 @@ export default function App() {
       if (!cancelled && restored) setShowWorkout(true);
     });
     std.load();
-    const params = new URLSearchParams(window.location.search);
-    setShowDemo(params.get("demo") === "1");
-    if (params.get("demo") === "1") {
-      setShowOnboarding(false);
-    } else {
-      shouldShowOnboarding().then((show) => setShowOnboarding(show));
-    }
+    shouldShowOnboarding().then((show) => setShowOnboarding(show));
     return () => { cancelled = true; };
   }, [auth.session?.user?.id]);
 
@@ -198,13 +190,12 @@ export default function App() {
     setShowWorkout(true);
   };
 
-  if (showOnboarding) {
-    // Auth es obligatorio: el onboarding local ya no se muestra.
-    // El primer login via OAuth crea el perfil automáticamente (handle_new_user trigger).
-    setShowOnboarding(false);
-  }
-
-  if (showDemo) return <TierDemo />;
+  // Auth es obligatorio: el onboarding local ya no se muestra.
+  // El primer login via OAuth crea el perfil automáticamente (handle_new_user trigger).
+  // Si por algún motivo está activo, lo desactivamos (defensa).
+  useEffect(() => {
+    if (showOnboarding) setShowOnboarding(false);
+  }, [showOnboarding]);
 
   if (showWorkout && ws.activeWorkout) {
     return (
