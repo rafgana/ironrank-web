@@ -317,7 +317,26 @@ em { font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 40
   justify-content: center;
   gap: clamp(1.5rem, 5vw, 4rem);
   flex-wrap: wrap;
-  margin-bottom: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-existing-account {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--fg-muted);
+  margin-bottom: 3rem;
+}
+
+.hero-existing-account a {
+  color: var(--paper);
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+  padding-bottom: 1px;
+}
+
+.hero-existing-account a:hover {
+  border-bottom-color: var(--brand);
 }
 
 .hero-stat {

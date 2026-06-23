@@ -29,6 +29,8 @@
     <meta name="twitter:image" content="https://rafagandia.com/ironrank/og-landing.png" />
 
     <link rel="icon" type="image/svg+xml" href="/ironrank/favicon.svg" />
+    <link rel="apple-touch-icon" href="/ironrank/apple-touch-icon.png" />
+    <link rel="alternate icon" href="/ironrank/apple-touch-icon.png" type="image/png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -100,9 +102,9 @@
     </svg>
 
     <!-- Nav -->
-    <nav class="nav" id="nav">
-      <a class="nav-logo" href="#top">
-        <span class="nav-logo-mark">IR</span>
+    <nav class="nav" id="nav" aria-label="Navegación principal">
+      <a class="nav-logo" href="#top" aria-label="IronRank — ir al inicio">
+        <span class="nav-logo-mark" aria-hidden="true">IR</span>
         <span class="nav-logo-text">IronRank</span>
       </a>
       <div class="nav-links">
@@ -111,7 +113,7 @@
         <a href="#como" data-nav>Cómo funciona</a>
         <a href="#faq" data-nav>FAQ</a>
       </div>
-      <a class="nav-cta" href="/ironrank/">Entrar →</a>
+      <a class="nav-cta" href="/ironrank/" aria-label="Entrar a la app">Entrar →</a>
     </nav>
 
     <!-- Hero -->
@@ -168,6 +170,10 @@
             <div class="hero-stat-label">Empezar es gratis</div>
           </div>
         </div>
+
+        <p class="hero-existing-account" data-hero-anim>
+          ¿Ya tienes cuenta? <a href="/ironrank/">Entra →</a>
+        </p>
 
         <!-- 7 badges reales de la app (replica de tier-badges.tsx) -->
         <div class="hero-cards" id="hero-cards">
