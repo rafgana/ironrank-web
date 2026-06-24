@@ -581,6 +581,34 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("28. Ops team: 4 subagents + 4 scripts + security audit", async () => {
+    const { existsSync } = await import("node:fs");
+    const { execSync } = await import("node:child_process");
+    const repoRoot = process.cwd();
+    const skills = ["security-auditor", "devops", "data-engineer", "sre"];
+    for (const s of skills) {
+      assert(existsSync(`${repoRoot}/.claude/skills/${s}/SKILL.md`), `Missing skill: ${s}`);
+    }
+    const scripts = ["security-audit.mjs", "deploy-check.mjs", "db-health.mjs", "slo-check.mjs"];
+    for (const s of scripts) {
+      const path = `${repoRoot}/scripts/ops/${s}`;
+      assert(existsSync(path), `Missing script: ${s}`);
+      const stat = execSync(`stat -c %a ${path}`).toString().trim();
+      assert(stat === "755" || stat === "775", `${s} should be executable, got ${stat}`);
+    }
+    // Registry has 18 agents
+    const reg = JSON.parse(execSync(`cat ${repoRoot}/.harness/agent-registry.json`).toString());
+    assert(Object.keys(reg.agents).length === 18, `Registry should have 18 agents, got ${Object.keys(reg.agents).length}`);
+    // Security audit runs without throwing
+    const secOut = execSync(`node ${repoRoot}/scripts/ops/security-audit.mjs 2>&1 || true`).toString();
+    assert(secOut.includes("Security audit"), "security-audit.mjs should output header");
+    assert(existsSync(`${repoRoot}/.harness/SECURITY_AUDIT.md`), "SECURITY_AUDIT.md should be created");
+    // SLO check runs
+    const sloOut = execSync(`node ${repoRoot}/scripts/ops/slo-check.mjs 2>&1`).toString();
+    assert(sloOut.includes("SLO check"), "slo-check.mjs should output header");
+    assert(existsSync(`${repoRoot}/.harness/SLO.md`), "SLO.md should be created");
+  });
+
   await scenario("27. Product team: 4 subagents + 4 scripts + audit", async () => {
     const { existsSync } = await import("node:fs");
     const { execSync } = await import("node:child_process");
@@ -596,9 +624,9 @@ async function scenario(name, fn) {
       const stat = execSync(`stat -c %a ${path}`).toString().trim();
       assert(stat === "755" || stat === "775", `${s} should be executable, got ${stat}`);
     }
-    // Registry has 14 agents
+    // Registry has 18 agents
     const reg = JSON.parse(execSync(`cat ${repoRoot}/.harness/agent-registry.json`).toString());
-    assert(Object.keys(reg.agents).length === 14, `Registry should have 14 agents, got ${Object.keys(reg.agents).length}`);
+    assert(Object.keys(reg.agents).length === 18, `Registry should have 18 agents, got ${Object.keys(reg.agents).length}`);
     // Scripts ejecutan sin error
     const riceOut = execSync(`node ${repoRoot}/scripts/product/prd-score.mjs "Test feature" 2>&1`).toString();
     assert(riceOut.includes("RICE score:"), "prd-score.mjs should output RICE");
@@ -655,7 +683,7 @@ async function scenario(name, fn) {
     // Registry has 10 agents including loop-engineer
     const reg = JSON.parse(execSync(`cat ${repoRoot}/.harness/agent-registry.json`).toString());
     const agentNames = Object.keys(reg.agents);
-    assert(agentNames.length === 14, `Registry should have 14 agents, got ${agentNames.length}: ${agentNames.join(", ")}`);
+    assert(agentNames.length === 18, `Registry should have 18 agents, got ${agentNames.length}: ${agentNames.join(", ")}`);
     assert(reg.agents["loop-engineer"], "Registry missing loop-engineer");
     assert(reg.agents["loop-engineer"].team === "meta", `loop-engineer.team should be 'meta', got ${reg.agents["loop-engineer"].team}`);
     // Seed logs (idempotent)
@@ -694,19 +722,19 @@ async function scenario(name, fn) {
     // Registry has 10 agents
     const reg = JSON.parse(execSync(`cat ${repoRoot}/.harness/agent-registry.json`).toString());
     const agentNames = Object.keys(reg.agents);
-    assert(agentNames.length === 14, `Registry should have 14 agents, got ${agentNames.length}: ${agentNames.join(", ")}`);
+    assert(agentNames.length === 18, `Registry should have 18 agents, got ${agentNames.length}: ${agentNames.join(", ")}`);
     // Each agent has required fields
     for (const [name, agent] of Object.entries(reg.agents)) {
       assert(agent.name === name, `${name}: agent.name mismatch`);
       assert(agent.skillPath, `${name}: missing skillPath`);
       assert(agent.purpose, `${name}: missing purpose`);
       assert(Array.isArray(agent.invariants) && agent.invariants.length >= 3, `${name}: needs >=3 invariants, has ${(agent.invariants || []).length}`);
-      assert(["tech", "marketing", "meta", "product"].includes(agent.team), `${name}: team must be tech|marketing|meta|product`);
+      assert(["tech", "marketing", "meta", "product", "ops"].includes(agent.team), `${name}: team must be tech|marketing|meta|product|ops`);
       assert(["ok", "broken", "deprecated"].includes(agent.health), `${name}: invalid health`);
     }
     // monitor.mjs runs and reports 10 OK
     const monitorOut = execSync(`node ${repoRoot}/scripts/supervisor/monitor.mjs 2>&1`).toString();
-    assert(monitorOut.includes("14 OK"), `monitor.mjs should report 14 OK, output: ${monitorOut.slice(0, 200)}`);
+    assert(monitorOut.includes("18 OK"), `monitor.mjs should report 18 OK, output: ${monitorOut.slice(0, 200)}`);
     // evolve.mjs runs
     const evolveOut = execSync(`node ${repoRoot}/scripts/supervisor/evolve.mjs 2>&1`).toString();
     assert(evolveOut.includes("Evolution proposals"), "evolve.mjs should output header");

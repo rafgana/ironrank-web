@@ -1,6 +1,6 @@
 # Product portfolio audit
 
-Generated: 2026-06-24T18:49:00.519Z
+Generated: 2026-06-24T19:05:43.001Z
 
 ## Inventory
 - Pages: 7 (ActiveWorkout.tsx, Dashboard.tsx, Library.tsx, Profile.tsx, Progress.tsx, Ranking.tsx, Workout.tsx)
@@ -8,7 +8,7 @@ Generated: 2026-06-24T18:49:00.519Z
 - Hooks: 6
 - Stores: 5
 - Blog posts: 2
-- Subagents: 14
+- Subagents: 18
 
 ## RICE score (current + candidate features)
 

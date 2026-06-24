@@ -1,7 +1,7 @@
 {
   "$schema": "./agent-registry.schema.json",
   "version": 1,
-  "lastReviewedAt": "2026-06-24T18:38:24.885Z",
+  "lastReviewedAt": "2026-06-24T18:58:39.785Z",
   "agents": {
     "architect": {
       "name": "architect",
@@ -450,6 +450,147 @@
         "Never over-promise",
         "Always acknowledge emotion",
         "No emojis"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "security-auditor": {
+      "name": "security-auditor",
+      "team": "ops",
+      "purpose": "Audit security, secrets, OWASP, GDPR, headers",
+      "skillPath": ".claude/skills/security-auditor/SKILL.md",
+      "scripts": [
+        "security-audit.mjs"
+      ],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "bash",
+        "glob",
+        "grep",
+        "webfetch"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "SECURITY_AUDIT.md"
+      ],
+      "invariants": [
+        "Never fix vulns yourself",
+        "Never downplay severity",
+        "Always include location",
+        "Always include remediation",
+        "Always reference"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "devops": {
+      "name": "devops",
+      "team": "ops",
+      "purpose": "Manage deploys, infrastructure, CI/CD, build optimization",
+      "skillPath": ".claude/skills/devops/SKILL.md",
+      "scripts": [
+        "deploy-check.mjs"
+      ],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "bash",
+        "glob",
+        "grep",
+        "webfetch"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "DEPLOY.md"
+      ],
+      "invariants": [
+        "Never deploy without verification",
+        "Never modify prod without backup",
+        "Never skip security headers",
+        "Always document runbook",
+        "Always include rollback"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "data-engineer": {
+      "name": "data-engineer",
+      "team": "ops",
+      "purpose": "Manage Supabase schema, migrations, RLS, indexes, queries",
+      "skillPath": ".claude/skills/data-engineer/SKILL.md",
+      "scripts": [
+        "db-health.mjs"
+      ],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "bash",
+        "glob",
+        "grep",
+        "webfetch"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "DATA_ENGINEERING.md"
+      ],
+      "invariants": [
+        "Never write UI code",
+        "Never drop table without backup",
+        "Always version migrations",
+        "Always include RLS on user data",
+        "Always add indexes for WHERE"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "sre": {
+      "name": "sre",
+      "team": "ops",
+      "purpose": "Define SLOs, monitor reliability, run post-mortems",
+      "skillPath": ".claude/skills/sre/SKILL.md",
+      "scripts": [
+        "slo-check.mjs"
+      ],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "bash",
+        "glob",
+        "grep",
+        "webfetch"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "SLO.md",
+        "POSTMORTEM.md"
+      ],
+      "invariants": [
+        "Never blame individuals",
+        "Never hide failures",
+        "Always include timeline",
+        "No human error as root cause",
+        "Always publish"
       ],
       "lastInvokedAt": null,
       "health": "ok",
