@@ -568,6 +568,23 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("26. Loop engineer auto-apply: aplica diffs con guardrails", async () => {
+    const { execSync } = await import("node:child_process");
+    const repoRoot = process.cwd();
+    // Idempotente: ya aplicamos antes, debe skip por "ya aplicado hoy"
+    const out = execSync(`node ${repoRoot}/scripts/loop-engineer/loop-optimize.mjs --auto-apply 2>&1`).toString();
+    assert(
+      out.includes("AUTO-APPLY"),
+      "auto-apply mode should run",
+    );
+    // Debe haber guardrails: skip por "ya aplicado hoy" o "ya tiene sección"
+    const skipped = out.includes("ya aplicado hoy") || out.includes("ya tiene sección");
+    assert(skipped, "auto-apply should skip already-applied proposals (guardrail 1 cambio/día)");
+    // Verificar que NINGÚN SKILL.md fue editado en este run (todos skipped)
+    const appliedCount = (out.match(/✓ \[.*\] applied/g) || []).length;
+    assert(appliedCount === 0, `Idempotency: expected 0 new applied, got ${appliedCount}`);
+  });
+
   await scenario("25. Loop engineer: trace + design + optimize + auto-mejora", async () => {
     const { existsSync } = await import("node:fs");
     const { execSync } = await import("node:child_process");

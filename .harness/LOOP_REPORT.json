@@ -1,50 +1,50 @@
 {
-  "ts": "2026-06-24T17:31:10.398Z",
+  "ts": "2026-06-24T17:41:30.731Z",
   "window_days": 7,
-  "total_entries": 46,
-  "total_sessions": 10,
+  "total_entries": 59,
+  "total_sessions": 11,
   "longest_sessions": [
     {
+      "date": "2026-06-23",
+      "duration_ms": 595215,
+      "ops": 4,
+      "agents": 4,
+      "actions": "architect_review → implementer_fix → verifier_reject → release-manager_commit"
+    },
+    {
       "date": "2026-06-18",
-      "duration_ms": 713109,
-      "ops": 5,
-      "agents": 5,
-      "actions": "architect_intake → implementer_fix → verifier_approve → docs-writer_jsdoc → release-manager_changelog"
-    },
-    {
-      "date": "2026-06-20",
-      "duration_ms": 473527,
+      "duration_ms": 403074,
       "ops": 4,
       "agents": 4,
-      "actions": "architect_plan → verifier_audit → docs-writer_post → release-manager_changelog"
+      "actions": "architect_review → implementer_fix → verifier_audit → release-manager_commit"
     },
     {
-      "date": "2026-06-21",
-      "duration_ms": 441269,
+      "date": "2026-06-23",
+      "duration_ms": 337119,
       "ops": 4,
       "agents": 4,
-      "actions": "architect_review → implementer_fix → docs-writer_jsdoc → release-manager_commit"
+      "actions": "architect_plan → implementer_fix → verifier_audit → release-manager_pr"
     },
     {
       "date": "2026-06-22",
-      "duration_ms": 357220,
+      "duration_ms": 210804,
       "ops": 3,
       "agents": 3,
-      "actions": "architect_intake → implementer_code → verifier_audit"
+      "actions": "implementer_test → verifier_reject → release-manager_changelog"
     },
     {
-      "date": "2026-06-19",
-      "duration_ms": 330833,
-      "ops": 4,
-      "agents": 4,
-      "actions": "architect_review → implementer_fix → docs-writer_jsdoc → release-manager_commit"
+      "date": "2026-06-20",
+      "duration_ms": 123779,
+      "ops": 3,
+      "agents": 3,
+      "actions": "architect_plan → verifier_approve → release-manager_changelog"
     }
   ],
   "invocations_per_agent": {
-    "implementer": 7,
-    "verifier": 10,
-    "release-manager": 10,
-    "architect": 10,
-    "docs-writer": 9
+    "architect": 12,
+    "implementer": 13,
+    "verifier": 15,
+    "release-manager": 12,
+    "docs-writer": 7
   }
 }

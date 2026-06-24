@@ -3,5 +3,13 @@
   "lastVerifiedAt": null,
   "lastCommitSha": null,
   "lastTestPass": 0,
-  "lastTestFail": 0
+  "lastTestFail": 0,
+  "lastAutoApply": {
+    "implementer": "2026-06-24",
+    "verifier": "2026-06-24",
+    "release-manager": "2026-06-24",
+    "architect": "2026-06-24",
+    "docs-writer": "2026-06-24",
+    "loop-engineer": "2026-06-24"
+  }
 }

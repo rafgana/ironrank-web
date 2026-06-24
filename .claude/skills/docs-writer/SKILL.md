@@ -86,3 +86,11 @@ tldr: "<one-sentence summary, 100-150 chars>"
 - `npm run content:list` — see existing posts
 - `npm run content:add "<title>"` — create a new post scaffold
 - `npm run build` — regenerate static HTML
+
+## Auto-improved by loop-engineer
+
+_2026-06-24T17:35:00.804Z_
+
+## Retry policy
+- If a task fails: read the error, don't retry blindly
+- If 2 retries fail: escalate to user, do not loop

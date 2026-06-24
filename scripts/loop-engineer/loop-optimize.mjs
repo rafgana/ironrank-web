@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 // loop-optimize.mjs — detecta cuellos de botella en loops y propone mejoras
 // Output: .harness/LOOP_PROPOSAL.md con diffs sugeridos a SKILL.md de otros agentes
+// Uso: node scripts/loop-engineer/loop-optimize.mjs [--auto-apply]
+//      --auto-apply: aplica los diffs (solo añadir líneas, con guardrails)
 
 import { readFileSync, readdirSync, existsSync, writeFileSync } from "node:fs";
+
+const args = process.argv.slice(2);
 import { resolve, join } from "node:path";
 
 const LOGS_DIR = resolve(".harness/logs");
@@ -170,3 +174,117 @@ for (const p of proposals) {
   console.log(`  [${p.type}] ${p.agent || "—"}: ${p.metric}`);
 }
 console.log(`\nSaved to ${outPath}`);
+
+// ============================================================
+// AUTO-APPLY (opt-in via --auto-apply flag)
+// ============================================================
+// Aplica los diffs propuestos a los SKILL.md de otros agentes.
+// Solo aplica diffs que AÑADEN secciones (+ líneas), nunca los
+// que eliminan (- líneas). Respeta guardrails: nunca toca
+// archivos críticos, limita 1 cambio/agente/día, etc.
+
+const autoApply = args.includes("--auto-apply");
+if (autoApply && proposals.length > 0) {
+  console.log(`\n=== AUTO-APPLY (--auto-apply flag) ===\n`);
+  const { statSync: ss } = await import("node:fs");
+  const stateFile = resolve(".harness/state/state.json");
+  const state = JSON.parse(readFileSync(stateFile, "utf8"));
+  state.lastAutoApply = state.lastAutoApply || {};
+  const today = new Date().toISOString().slice(0, 10);
+
+  let applied = 0;
+  let skipped = 0;
+  let manual = 0;
+
+  for (const p of proposals) {
+    if (!p.proposed_diff || !p.agent) {
+      console.log(`  · [${p.type}] no diff, skipped`);
+      skipped++;
+      continue;
+    }
+
+    // GUARDRAIL 1: solo añadir (+ líneas), nunca eliminar
+    const hasNegativeLines = p.proposed_diff
+      .split("\n")
+      .some((l) => l.startsWith("- ") && !l.startsWith("+ "));
+    if (hasNegativeLines) {
+      console.log(`  ✗ [${p.type}] ${p.agent}: contiene líneas a eliminar, MANUAL_REQUIRED`);
+      manual++;
+      continue;
+    }
+
+    const skillPath = resolve(`.claude/skills/${p.agent}/SKILL.md`);
+    if (!existsSync(skillPath)) {
+      console.log(`  ✗ [${p.type}] ${p.agent}: SKILL.md missing, MANUAL_REQUIRED`);
+      manual++;
+      continue;
+    }
+
+    // GUARDRAIL 2: 1 cambio por agente por día
+    if (state.lastAutoApply[p.agent] === today) {
+      console.log(`  · [${p.type}] ${p.agent}: ya aplicado hoy, skipped`);
+      skipped++;
+      continue;
+    }
+
+    // GUARDRAIL 3: si ya tiene la sección "Auto-improved by loop-engineer", no duplicar
+    const skillContent = readFileSync(skillPath, "utf8");
+    if (skillContent.includes("## Auto-improved by loop-engineer")) {
+      console.log(`  · [${p.type}] ${p.agent}: ya tiene sección auto-improved, skipped (run --force para re-aplicar)`);
+      skipped++;
+      continue;
+    }
+
+    // GUARDRAIL 4: no tocar archivos críticos
+    const FORBIDDEN = ["dist/", ".env", "node_modules/", "package-lock.json"];
+    if (FORBIDDEN.some((f) => skillPath.includes(f))) {
+      console.log(`  ✗ [${p.type}] ${p.agent}: ruta prohibida, MANUAL_REQUIRED`);
+      manual++;
+      continue;
+    }
+
+    // GUARDRAIL 5: solo si el agente no está deprecated
+    const registry = JSON.parse(readFileSync(REGISTRY, "utf8"));
+    if (registry.agents[p.agent]?.deprecated) {
+      console.log(`  · [${p.type}] ${p.agent}: deprecated, skipped`);
+      skipped++;
+      continue;
+    }
+
+    // APLICAR
+    const before = readFileSync(skillPath, "utf8");
+    const newLines = p.proposed_diff
+      .split("\n")
+      .filter((l) => l.startsWith("+ ") && !l.startsWith("++"))
+      .map((l) => l.slice(2));
+    if (newLines.length === 0) {
+      console.log(`  ✗ [${p.type}] ${p.agent}: diff vacío, MANUAL_REQUIRED`);
+      manual++;
+      continue;
+    }
+    const newSection = `\n## Auto-improved by loop-engineer\n\n_${new Date().toISOString()}_\n\n${newLines.join("\n")}\n`;
+    const after = before.trimEnd() + "\n" + newSection;
+    writeFileSync(skillPath, after, "utf8");
+    state.lastAutoApply[p.agent] = today;
+    applied++;
+    console.log(`  ✓ [${p.type}] ${p.agent}: applied (${newLines.length} lines added)`);
+
+    // Log
+    const logLine = JSON.stringify({
+      ts: new Date().toISOString(),
+      action: "loop-engineer_auto_applied",
+      target: skillPath,
+      details: { type: p.type, metric: p.metric, lines_added: newLines.length },
+    });
+    const logFile = resolve(`.harness/logs/${today}.jsonl`);
+    const fs = await import("node:fs");
+    const existing = existsSync(logFile) ? readFileSync(logFile, "utf8") : "";
+    writeFileSync(logFile, existing + logLine + "\n", "utf8");
+  }
+
+  // Persist state
+  writeFileSync(stateFile, JSON.stringify(state, null, 2));
+
+  console.log(`\nResult: ${applied} applied, ${skipped} skipped, ${manual} require manual review`);
+  console.log(`Run: ./scripts/supervisor/monitor.mjs to verify health.`);
+}

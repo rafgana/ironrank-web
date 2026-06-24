@@ -109,3 +109,11 @@ git log -1 --stat
 - `git diff --stat` — size of changes
 - `./scripts/harness/state.mjs read state` — current harness state
 - `./scripts/harness/log.sh release-manager <sha>` — log
+
+## Auto-improved by loop-engineer
+
+_2026-06-24T17:35:00.802Z_
+
+## Retry policy
+- If a task fails: read the error, don't retry blindly
+- If 2 retries fail: escalate to user, do not loop

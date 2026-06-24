@@ -114,3 +114,11 @@ When the measurement shows a clear pattern, **propose** a change to a subagent's
 - [Run Long-Horizon Tasks with Codex](https://openai.com/index/run-long-horizon-tasks-with-codex/) — OpenAI
 - [Effective Harnesses for Long-Running Agents](https://www.anthropic.com/engineering/effective-harnesses-long-running) — Anthropic
 - holaOS `evolve-worker.ts` — the closest production precedent
+
+## Auto-improved by loop-engineer
+
+_2026-06-24T17:35:16.526Z_
+
+## Retry policy
+- If a task fails: read the error, don't retry blindly
+- If 2 retries fail: escalate to user, do not loop

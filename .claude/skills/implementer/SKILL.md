@@ -67,3 +67,12 @@ Code changes that:
 - ❌ Adding a "future improvement" TODO
 - ❌ Using `useEffect` for derived state (use useMemo)
 - ❌ Adding try/catch around the entire function (handle specific errors)
+
+## Auto-improved by loop-engineer
+
+_2026-06-24T17:35:00.801Z_
+
+## Performance
+- Expected duration per phase: <3 min
+- If over budget: split into smaller commits
+- If 2+ slow runs in 7d: review the agent's instructions for over-scoping

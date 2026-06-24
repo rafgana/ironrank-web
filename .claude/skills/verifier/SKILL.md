@@ -77,3 +77,12 @@ APPROVE / REJECT (with reasons)
 - **Never approve with critical/serious a11y violations**
 - **Never approve if bundle size grew > 10%**
 - **Always report the verdict** explicitly (APPROVE / REJECT)
+
+## Auto-improved by loop-engineer
+
+_2026-06-24T17:35:00.802Z_
+
+## Performance
+- Expected duration per phase: <3 min
+- If over budget: split into smaller commits
+- If 2+ slow runs in 7d: review the agent's instructions for over-scoping

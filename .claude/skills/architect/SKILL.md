@@ -73,3 +73,11 @@ S / M / L (LoC change)
 - `./scripts/harness/state.mjs read state` — see harness state
 - `grep -rn "term" src/` — find usage
 - `./scripts/harness/log.sh architect <target>` — log your plan
+
+## Auto-improved by loop-engineer
+
+_2026-06-24T17:35:00.803Z_
+
+## Retry policy
+- If a task fails: read the error, don't retry blindly
+- If 2 retries fail: escalate to user, do not loop
