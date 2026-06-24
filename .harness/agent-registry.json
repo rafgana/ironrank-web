@@ -1,7 +1,7 @@
 {
   "$schema": "./agent-registry.schema.json",
   "version": 1,
-  "lastReviewedAt": "2026-06-24T17:07:57.296Z",
+  "lastReviewedAt": "2026-06-24T18:38:24.885Z",
   "agents": {
     "architect": {
       "name": "architect",
@@ -159,51 +159,24 @@
       "skillPath": ".claude/skills/marketing-strategist/SKILL.md",
       "scripts": [],
       "version": "1",
-      "grantedTools": ["read", "write", "edit", "glob", "grep", "webfetch"],
-      "invokedBy": ["main"],
-      "outputs": ["STRATEGY.md"],
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "glob",
+        "grep",
+        "webfetch"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "STRATEGY.md"
+      ],
       "invariants": [
         "No paid acquisition for Y1",
         "No comparison claims without evidence",
         "No 'free forever' claims"
-      ],
-      "lastInvokedAt": null,
-      "health": "ok",
-      "deprecated": false
-    },
-    "copywriter": {
-      "name": "copywriter",
-      "team": "marketing",
-      "purpose": "Write conversion copy: landings, emails, ads, microcopy",
-      "skillPath": ".claude/skills/copywriter/SKILL.md",
-      "scripts": ["content-brief.mjs"],
-      "version": "1",
-      "grantedTools": ["read", "write", "edit", "glob", "grep"],
-      "invokedBy": ["main"],
-      "outputs": ["landing copy", "email sequences", "ad copy"],
-      "invariants": [
-        "No emojis in user-facing copy",
-        "No hype words",
-        "No fake testimonials"
-      ],
-      "lastInvokedAt": null,
-      "health": "ok",
-      "deprecated": false
-    },
-    "seo-analyst": {
-      "name": "seo-analyst",
-      "team": "marketing",
-      "purpose": "Audit SEO, find keyword opportunities, content gaps",
-      "skillPath": ".claude/skills/seo-analyst/SKILL.md",
-      "scripts": ["competitor-scan.mjs", "keyword-research.mjs"],
-      "version": "1",
-      "grantedTools": ["read", "write", "edit", "glob", "grep", "webfetch"],
-      "invokedBy": ["main"],
-      "outputs": ["SEO.md"],
-      "invariants": [
-        "No gray-hat SEO",
-        "No keyword stuffing",
-        "Always include evidence"
       ],
       "lastInvokedAt": null,
       "health": "ok",
@@ -280,11 +253,23 @@
       "team": "marketing",
       "purpose": "Design growth experiments with guardrails",
       "skillPath": ".claude/skills/growth-hacker/SKILL.md",
-      "scripts": ["funnel.mjs"],
+      "scripts": [
+        "funnel.mjs"
+      ],
       "version": "1",
-      "grantedTools": ["read", "write", "edit", "glob", "grep"],
-      "invokedBy": ["main"],
-      "outputs": ["EXPERIMENT.md"],
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "glob",
+        "grep"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "EXPERIMENT.md"
+      ],
       "invariants": [
         "No dark patterns",
         "No addictive mechanics",
@@ -299,17 +284,172 @@
       "team": "meta",
       "purpose": "Design, measure, and optimize the iteration loops other agents run in. Proposes auto-improvements to other agents' SKILL.md based on measured log data.",
       "skillPath": ".claude/skills/loop-engineer/SKILL.md",
-      "scripts": ["loop-trace.mjs", "loop-design.mjs", "loop-optimize.mjs"],
+      "scripts": [
+        "loop-trace.mjs",
+        "loop-design.mjs",
+        "loop-optimize.mjs"
+      ],
       "version": "1",
-      "grantedTools": ["read", "write", "edit", "bash", "glob", "grep", "webfetch"],
-      "invokedBy": ["main", "supervisor"],
-      "outputs": ["LOOP_REPORT.md", "LOOP_PROPOSAL.md", ".harness/loops/*.md"],
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "bash",
+        "glob",
+        "grep",
+        "webfetch"
+      ],
+      "invokedBy": [
+        "main",
+        "supervisor"
+      ],
+      "outputs": [
+        "LOOP_REPORT.md",
+        "LOOP_PROPOSAL.md",
+        ".harness/loops/*.md"
+      ],
       "invariants": [
         "Never edits another agent's SKILL.md directly",
         "Never deletes a log entry",
         "Never proposes auto-commits",
         "Always includes data in proposals",
         "Always includes a rollback"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "product-manager": {
+      "name": "product-manager",
+      "team": "product",
+      "purpose": "Write PRDs and prioritize features using RICE scoring",
+      "skillPath": ".claude/skills/product-manager/SKILL.md",
+      "scripts": [
+        "prd-score.mjs",
+        "audit-portfolio.mjs"
+      ],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "glob",
+        "grep",
+        "webfetch"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "PRD.md"
+      ],
+      "invariants": [
+        "No scope creep",
+        "Always include counter-metrics",
+        "Always include a decision",
+        "RICE score mandatory"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "ux-researcher": {
+      "name": "ux-researcher",
+      "team": "product",
+      "purpose": "Define personas, run JTBD interviews, validate UX",
+      "skillPath": ".claude/skills/ux-researcher/SKILL.md",
+      "scripts": [
+        "jtbd-interview.mjs"
+      ],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "glob",
+        "grep",
+        "webfetch"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "RESEARCH.md"
+      ],
+      "invariants": [
+        "No fabricated personas",
+        "No fabricated user counts",
+        "Always include JTBD",
+        "Max 3 personas per research"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "data-analyst": {
+      "name": "data-analyst",
+      "team": "product",
+      "purpose": "Pull metrics, compute funnel/retention, surface insights",
+      "skillPath": ".claude/skills/data-analyst/SKILL.md",
+      "scripts": [
+        "metrics-pull.mjs"
+      ],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "bash",
+        "glob",
+        "grep",
+        "webfetch"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "METRICS.md"
+      ],
+      "invariants": [
+        "No fabricated numbers",
+        "No vanity metrics",
+        "Always include N",
+        "Always include date range"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "customer-support": {
+      "name": "customer-support",
+      "team": "product",
+      "purpose": "Draft responses to user questions, classify feedback",
+      "skillPath": ".claude/skills/customer-support/SKILL.md",
+      "scripts": [
+        "ticket-classify.mjs"
+      ],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "glob",
+        "grep",
+        "webfetch"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "support responses",
+        "FAQ entries"
+      ],
+      "invariants": [
+        "Never defensive",
+        "Never dismiss",
+        "Never over-promise",
+        "Always acknowledge emotion",
+        "No emojis"
       ],
       "lastInvokedAt": null,
       "health": "ok",

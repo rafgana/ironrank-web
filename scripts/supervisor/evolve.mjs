@@ -74,7 +74,7 @@ for (const agent of agents) {
 }
 
 // Scripts del harness y supervisor son intencionalmente compartidos
-const SHARED_TEAMS = new Set(["harness", "supervisor"]);
+const SHARED_TEAMS = new Set(["harness", "supervisor", "loop-engineer"]);
 
 for (const script of allScripts) {
   const [team] = script.split("/");
