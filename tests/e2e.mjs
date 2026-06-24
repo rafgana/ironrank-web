@@ -412,6 +412,70 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("14. Timer pause/resume + refresh survival", async () => {
+    const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const p = await ctx.newPage();
+    const session = await getSession();
+    await p.goto(URL, { waitUntil: "networkidle" });
+    await p.waitForTimeout(2000);
+    await p.locator('input[type="email"]').fill(session.user?.email || TEST_EMAIL);
+    await p.locator('input[type="password"]').fill(TEST_PASSWORD);
+    await p.locator('button:has-text("Iniciar")').first().click();
+    await p.waitForTimeout(5000);
+
+    // Set up workout
+    await p.locator('button:has-text("Nuevo workout")').first().click();
+    await p.waitForTimeout(2000);
+    await p.locator('button:has-text("Añadir ejercicio")').first().click();
+    await p.waitForTimeout(1500);
+    await p.locator('button:has-text("Press Banca")').first().click();
+    await p.waitForTimeout(1500);
+    await p.locator('button:has-text("Añadir serie")').first().click();
+    await p.waitForTimeout(1500);
+    const inputs = await p.locator('input[type="number"]').all();
+    if (inputs.length >= 2) {
+      await inputs[0].fill("60");
+      await inputs[1].fill("10");
+    }
+    const ctaBtns = await p.locator('button:has-text("Añadir serie")').all();
+    if (ctaBtns.length >= 2) {
+      await ctaBtns[ctaBtns.length - 1].click({ force: true });
+      await p.waitForTimeout(2500);
+    }
+    // Expand timer
+    const expand = p.locator('button[aria-label="Expandir timer"]').first();
+    if (await expand.isVisible({ timeout: 1500 }).catch(() => false)) {
+      await expand.click();
+      await p.waitForTimeout(800);
+    }
+    // Test pause: read t1, click pause, read t2, wait 3s, read t3
+    const t1 = await p.locator('.text-4xl.font-mono').first().textContent().catch(() => null);
+    const pause = p.locator('button:has-text("Pausar")').first();
+    if (await pause.isVisible({ timeout: 1500 }).catch(() => false)) {
+      await pause.click();
+      await p.waitForTimeout(500);
+    }
+    const t2 = await p.locator('.text-4xl.font-mono').first().textContent().catch(() => null);
+    await p.waitForTimeout(3000);
+    const t3 = await p.locator('.text-4xl.font-mono').first().textContent().catch(() => null);
+    assert(t2 === t3, `Timer should freeze when paused. T2=${t2} T3=${t3}`);
+    // Resume
+    const resume = p.locator('button:has-text("Reanudar")').first();
+    if (await resume.isVisible({ timeout: 1500 }).catch(() => false)) {
+      await resume.click();
+      await p.waitForTimeout(2000);
+    }
+    const t4 = await p.locator('.text-4xl.font-mono').first().textContent().catch(() => null);
+    assert(t4 !== t3, `Timer should resume. T3=${t3} T4=${t4}`);
+    // Refresh survival
+    await p.reload({ waitUntil: "networkidle" });
+    await p.waitForTimeout(3000);
+    const timerStillVisible = await p.locator('text=/Descanso/i').first().isVisible({ timeout: 3000 }).catch(() => false);
+    assert(timerStillVisible, "Timer should survive page refresh");
+    await browser.close();
+  });
+
   console.log(`\nResults: ${pass} pass, ${fail} fail`);
   if (fail > 0) {
     console.log("\nFailures:");
