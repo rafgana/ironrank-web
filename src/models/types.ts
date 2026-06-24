@@ -62,8 +62,6 @@ export type ActionKind =
   | "export_data"
   | "import_data"
   | "wipe_data"
-  | "onboarding_completed"
-  | "onboarding_skipped"
   | "app_installed"
   | "command_palette_opened"
   | "share_card_generated"

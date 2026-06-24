@@ -30,8 +30,6 @@ export type AnalyticsEvent =
   | "wipe_data"
   /* PWA */
   | "app_installed"
-  | "onboarding_completed"
-  | "onboarding_skipped"
   | "command_palette_opened";
 
 interface PlausibleWindow extends Window {

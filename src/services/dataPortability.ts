@@ -17,7 +17,7 @@ import type {
   Exercise,
   ActionLog,
 } from "../models/types";
-import type { AppState, OnboardingStatus } from "../db/database";
+import type { AppState } from "../db/database";
 
 const EXPORT_VERSION = 1;
 const APP_NAME = "IronRank";
@@ -314,15 +314,10 @@ export async function wipeAll(): Promise<void> {
     db.userProfile.clear(),
     db.actionLog.clear(),
   ]);
-  // Limpiar onboarding flag también — si wipeamos todo, el usuario verá onboarding de nuevo
+  // Limpiar app state (no hay onboarding desde el switch a auth obligatorio)
   try {
     const { db } = await import("../db/database");
     await db.appState.clear();
-    try {
-      localStorage.removeItem("ironrank.onboarding.completed.v1");
-    } catch {
-      /* ignore */
-    }
   } catch {
     /* ignore */
   }

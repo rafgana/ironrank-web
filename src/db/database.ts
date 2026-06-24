@@ -6,11 +6,11 @@ import type { Workout, WorkoutExercise, SetEntry, Exercise, Routine, RoutineExer
  * - onboardingStatus: 'pending' | 'completed' | 'skipped'
  * Migrado a IndexedDB para sobrevivir wipes selectivos de localStorage.
  */
-export type OnboardingStatus = "pending" | "completed" | "skipped";
+// (Onboarding functions y type eliminados — sin uso tras quitar Onboarding component)
 export interface AppState {
   id?: number;
   key: string;
-  value: OnboardingStatus | string;
+  value: string;
 }
 
 export class IronRankDB extends Dexie {
@@ -124,27 +124,4 @@ export async function seedExercises() {
 export async function getProfile(): Promise<UserProfile | null> {
   const profiles = await db.userProfile.toArray()
   return profiles[0] ?? null
-}
-
-/** Devuelve el status del onboarding desde IndexedDB. */
-export async function getOnboardingStatus(): Promise<OnboardingStatus> {
-  const row = await db.appState.get({ key: "onboardingStatus" });
-  if (row) return row.value as OnboardingStatus;
-  // Fallback para usuarios v1 (migración incompleta) o primer load
-  try {
-    const oldFlag = localStorage.getItem("ironrank.onboarding.completed.v1");
-    if (oldFlag) {
-      const status: OnboardingStatus = oldFlag === "true" ? "completed" : "skipped";
-      // Migrar al IDB
-      await setOnboardingStatus(status);
-      try { localStorage.removeItem("ironrank.onboarding.completed.v1"); } catch { /* ignore */ }
-      return status;
-    }
-  } catch { /* ignore */ }
-  return "pending";
-}
-
-/** Persiste el status del onboarding. */
-export async function setOnboardingStatus(status: OnboardingStatus): Promise<void> {
-  await db.appState.put({ key: "onboardingStatus", value: status });
 }
