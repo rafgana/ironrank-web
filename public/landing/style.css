@@ -1008,6 +1008,6 @@ em { font-style: italic; font-family: 'Instrument Serif', serif; font-weight: 40
 
 .footer-copy {
   font-size: 0.75rem;
-  color: var(--fg-dim);
+  color: var(--fg-muted);
   font-family: 'JetBrains Mono', monospace;
 }

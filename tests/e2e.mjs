@@ -476,6 +476,33 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("15. Accessibility (axe-core WCAG 2.1 AA)", async () => {
+    const urls = [
+      "https://rafagandia.com/ironrank/landing/",
+      "https://rafagandia.com/ironrank/",
+    ];
+    for (const url of urls) {
+      const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+      const p = await ctx.newPage();
+      await p.goto(url, { waitUntil: "networkidle", timeout: 30000 });
+      await p.waitForTimeout(2000);
+      await p.addScriptTag({ url: "https://cdn.jsdelivr.net/npm/axe-core@4.10.0/axe.min.js" });
+      await p.waitForTimeout(500);
+      const results = await p.evaluate(async () => {
+        return await window.axe.run({
+          runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"] },
+        });
+      });
+      const critical = results.violations.filter((v) => v.impact === "critical" || v.impact === "serious");
+      if (critical.length > 0) {
+        const summary = critical.map((v) => `${v.id} (${v.impact}, ${v.nodes.length} nodes)`).join("; ");
+        assert(false, `${url} has ${critical.length} serious a11y violations: ${summary}`);
+      }
+      await browser.close();
+    }
+  });
+
   console.log(`\nResults: ${pass} pass, ${fail} fail`);
   if (fail > 0) {
     console.log("\nFailures:");
