@@ -568,6 +568,46 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("19. Blog: index + post + BlogPosting schema", async () => {
+    const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
+    const p = await browser.newContext({ viewport: { width: 1440, height: 900 } }).then((c) => c.newPage());
+    // /blog/ index
+    await p.goto("https://rafagandia.com/ironrank/blog/", { waitUntil: "networkidle" });
+    const h1 = await p.locator("h1").first().textContent();
+    assert(h1.includes("Blog"), `Blog index h1 should mention Blog, got: ${h1}`);
+    const cards = await p.locator(".post-card").count();
+    assert(cards >= 1, `Blog index should have ≥1 post card, got ${cards}`);
+    // Sitemap debe incluir /blog/ y al menos un post
+    const sitemap = await p.evaluate(async () => {
+      const res = await fetch("/ironrank/sitemap.xml");
+      return await res.text();
+    });
+    assert(sitemap.includes("/blog/"), "Sitemap missing /blog/");
+    assert(sitemap.includes("/blog/ironrank-vs-strong-vs-hevy/"), "Sitemap missing post URL");
+    // /blog/<slug>/ post
+    await p.goto("https://rafagandia.com/ironrank/blog/ironrank-vs-strong-vs-hevy/", { waitUntil: "networkidle" });
+    const postH1 = await p.locator("h1").first().textContent();
+    assert(postH1.length > 0, "Post h1 should not be empty");
+    const tldrVisible = await p.locator(".post-tldr").isVisible();
+    assert(tldrVisible, "TLDR should be visible");
+    const ctaVisible = await p.locator(".post-footer .cta").isVisible();
+    assert(ctaVisible, "Post CTA should be visible");
+    // BlogPosting schema
+    const schemas = await p.evaluate(() =>
+      [...document.querySelectorAll('script[type="application/ld+json"]')].map((b) => JSON.parse(b.textContent))
+    );
+    const blogPost = schemas.find((s) => s["@type"] === "BlogPosting");
+    assert(blogPost, "Post missing BlogPosting schema");
+    assert(blogPost.headline && blogPost.headline.length > 0, "BlogPosting missing headline");
+    assert(blogPost.datePublished, "BlogPosting missing datePublished");
+    assert(blogPost.author && blogPost.author.name === "IronRank", "BlogPosting missing/invalid author");
+    assert(blogPost.inLanguage === "es-ES", `BlogPosting inLanguage should be es-ES, got ${blogPost.inLanguage}`);
+    // Verificar que el contenido se renderiza (no es HTML vacío)
+    const bodyText = await p.locator(".post-body").textContent();
+    assert(bodyText.length > 500, `Post body should have content, got ${bodyText.length} chars`);
+    await browser.close();
+  });
+
   await scenario("18. SEO: JSON-LD schemas + sitemap + robots.txt", async () => {
     const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
     const p = await browser.newContext().then((c) => c.newPage());
