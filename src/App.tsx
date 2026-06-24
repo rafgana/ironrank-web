@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   Home,
@@ -15,13 +15,14 @@ import {
   Sparkles,
   Calendar,
 } from "lucide-react";
-import { Dashboard } from "./pages/Dashboard";
-import { ActiveWorkout } from "./pages/ActiveWorkout";
-import { WorkoutList } from "./pages/Workout";
-import { Ranking } from "./pages/Ranking";
-import { Progress } from "./pages/Progress";
-import { Library } from "./pages/Library";
-import { Profile } from "./pages/Profile";
+// Lazy-loaded pages (code-splitting reduces initial bundle)
+const Dashboard = lazy(() => import("./pages/Dashboard").then((m) => ({ default: m.Dashboard })));
+const ActiveWorkout = lazy(() => import("./pages/ActiveWorkout").then((m) => ({ default: m.ActiveWorkout })));
+const WorkoutList = lazy(() => import("./pages/Workout").then((m) => ({ default: m.WorkoutList })));
+const Ranking = lazy(() => import("./pages/Ranking").then((m) => ({ default: m.Ranking })));
+const Progress = lazy(() => import("./pages/Progress").then((m) => ({ default: m.Progress })));
+const Library = lazy(() => import("./pages/Library").then((m) => ({ default: m.Library })));
+const Profile = lazy(() => import("./pages/Profile").then((m) => ({ default: m.Profile })));
 import { useWorkoutStore } from "./store/workoutStore";
 import { useProfileStore } from "./store/profileStore";
 import { useOverallTier } from "./hooks/useOverallTier";
@@ -372,12 +373,14 @@ export default function App() {
             }}
             transition={springUI}
           >
-            {tab === "home" && <Dashboard onStartWorkout={startWorkout} />}
-            {tab === "workout" && <WorkoutList onStart={startWorkout} onRepeatLast={repeatLastWorkout} />}
-            {tab === "ranked" && <Ranking />}
-            {tab === "progress" && <Progress />}
-            {tab === "library" && <Library />}
-            {tab === "profile" && <Profile />}
+            <Suspense fallback={<div className="min-h-[40vh]" />}>
+              {tab === "home" && <Dashboard onStartWorkout={startWorkout} />}
+              {tab === "workout" && <WorkoutList onStart={startWorkout} onRepeatLast={repeatLastWorkout} />}
+              {tab === "ranked" && <Ranking />}
+              {tab === "progress" && <Progress />}
+              {tab === "library" && <Library />}
+              {tab === "profile" && <Profile />}
+            </Suspense>
           </motion.div>
         </AnimatePresence>
       </main>
