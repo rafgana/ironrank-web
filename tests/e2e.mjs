@@ -544,6 +544,30 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("17. Critical pages prefetched on Dashboard", async () => {
+    const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const p = await ctx.newPage();
+    const downloaded = new Set();
+    p.on("response", (res) => {
+      const u = res.url();
+      if (u.includes("/ironrank/assets/") && u.endsWith(".js")) {
+        downloaded.add(u.split("/").pop());
+      }
+    });
+    const session = await getSession();
+    await p.goto(URL, { waitUntil: "networkidle" });
+    await p.waitForTimeout(2000);
+    await p.locator('input[type="email"]').fill(session.user?.email || TEST_EMAIL);
+    await p.locator('input[type="password"]').fill(TEST_PASSWORD);
+    await p.locator('button:has-text("Iniciar")').first().click();
+    // Wait for dashboard + prefetch delay (1.5s) + load time
+    await p.waitForTimeout(4000);
+    const pageChunks = [...downloaded].filter((f) => /Profile|Library|Ranking|Progress/.test(f));
+    assert(pageChunks.length >= 3, `Expected at least 3 page chunks prefetched, got ${pageChunks.length}: ${pageChunks.join(", ")}`);
+    await browser.close();
+  });
+
   await scenario("15. Accessibility (axe-core WCAG 2.1 AA)", async () => {
     const urls = [
       "https://rafagandia.com/ironrank/landing/",

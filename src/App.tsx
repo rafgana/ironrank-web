@@ -178,6 +178,21 @@ export default function App() {
     setShowWorkout(true);
   };
 
+  // Prefetch las páginas que el usuario probablemente visitará desde Dashboard.
+  // Reduce la latencia percibida al navegar (Profile, Library, Ranking, etc.)
+  useEffect(() => {
+    if (tab !== "home") return;
+    const id = setTimeout(() => {
+      // Llamamos los imports lazy para que el chunk se descargue en background.
+      // Suspense ya está montado, así que no renderiza nada nuevo.
+      void import("./pages/Profile");
+      void import("./pages/Library");
+      void import("./pages/Ranking");
+      void import("./pages/Progress");
+    }, 1500);
+    return () => clearTimeout(id);
+  }, [tab]);
+
   const repeatLastWorkout = async (workoutId: number) => {
     await ws.startWorkout(undefined, workoutId);
     track("workout_started");
