@@ -59,31 +59,24 @@ jobs:
 
       - name: Commit + push (autonomous)
         if: steps.optimize.outputs.applied != '0'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APPLIED_COUNT: ${{ steps.optimize.outputs.applied }}
         run: |
           git config user.name "ironrank-bot"
           git config user.email "bot@ironrank.local"
           git add -A
-          git commit -m "chore(harness): auto-apply loop-engineer mejoras
-
-- ${{ steps.optimize.outputs.applied }} SKILL.md auto-mejorados
-- Ver .harness/LOOP_PROPOSAL.md para detalle
-- Tests E2E: 26/26 pass
-- Generado autonomamente por GitHub Actions (cron lunes 8am UTC)
-
-Co-authored-by: ironrank-bot <bot@ironrank.local>" || echo "Nothing to commit"
+          printf 'chore(harness): auto-apply loop-engineer mejoras\n\n- %s SKILL.md auto-mejorados\n- Ver .harness/LOOP_PROPOSAL.md para detalle\n- Tests E2E: 26/26 pass\n- Generado autonomamente por GitHub Actions (cron lunes 8am UTC)\n\nCo-authored-by: ironrank-bot <bot@ironrank.local>\n' "$APPLIED_COUNT" > /tmp/commit-msg.txt
+          git commit -F /tmp/commit-msg.txt || echo "Nothing to commit"
           git push origin master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Open issue si hay MANY manuales
+      - name: Open issue si hay failures manuales
         if: failure()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: '⚠ self-improve falló — review manual requerida',
-              body: 'El loop-engineer detectó propuestas que requieren revisión manual. Ver logs del run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}',
-              labels: ['harness', 'needs-review']
-            });
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "self-improve fallo - review manual requerida" \
+            --body "El loop-engineer detecto propuestas que requieren revision manual. Ver logs del run en GitHub Actions." \
+            --label harness,needs-review \
+            || echo "Could not create issue (gh not authenticated)"
