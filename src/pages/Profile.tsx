@@ -33,6 +33,7 @@ import { isSyncEnabled } from "../services/sync/config";
 import { downloadJSON, exportAll, importAll, wipeAll } from "../services/dataPortability";
 import { exportActionLog, getActionCounts, logAction } from "../services/actionLog";
 import { AccountSection } from "../components/auth/AccountSection";
+import { BodyMeasurementsSection } from "../components/ironrank/BodyMeasurementsSection";
 import { Switch } from "../components/ui/switch";
 import { Slider } from "../components/ui/slider";
 import { Button } from "../components/ui/button";
@@ -441,6 +442,10 @@ export function Profile() {
           </motion.section>
 
           <AccountSection />
+
+          <motion.div variants={enterItem}>
+            <BodyMeasurementsSection />
+          </motion.div>
 
           <motion.section variants={enterItem} className="card space-y-4 p-5">
             <SectionHeader eyebrow="Privacidad" title="Tus datos" />

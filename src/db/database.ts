@@ -1,5 +1,5 @@
 import Dexie from 'dexie'
-import type { Workout, WorkoutExercise, SetEntry, Exercise, Routine, RoutineExercise, UserProfile, ActionLog } from '../models/types'
+import type { Workout, WorkoutExercise, SetEntry, Exercise, Routine, RoutineExercise, UserProfile, ActionLog, BodyMeasurement } from '../models/types'
 
 /**
  * Estado de la app (no datos del usuario, solo flags).
@@ -23,6 +23,7 @@ export class IronRankDB extends Dexie {
   userProfile!: Dexie.Table<UserProfile, number>
   actionLog!: Dexie.Table<ActionLog, number>
   appState!: Dexie.Table<AppState, number>
+  bodyMeasurements!: Dexie.Table<BodyMeasurement, number>
 
   constructor() {
     super('IronRank')
@@ -78,20 +79,26 @@ export class IronRankDB extends Dexie {
       }
     });
 
-    // v3: ejemplo de cómo añadir una columna con default.
-    // (No aplicamos cambios reales aquí, solo dejamos documentado el patrón)
-    // this.version(3).stores({...}).upgrade(async (tx) => {
-    //   await tx.table('workouts').toCollection().modify((w) => {
-    //     if (!w.notes) w.notes = '';
-    //   });
-    // });
+    // v3: añadir tabla bodyMeasurements (peso, grasa, perímetros)
+    this.version(3).stores({
+      workouts: '++id, date',
+      workoutExercises: '++id, workoutId, exerciseId',
+      sets: '++id, workoutExerciseId, completed',
+      exercises: '++id, name, musclePrimary',
+      routines: '++id, name',
+      routineExercises: '++id, routineId, exerciseId',
+      userProfile: '++id',
+      actionLog: '++id, timestamp, kind, [kind+timestamp]',
+      appState: '++id, &key',
+      bodyMeasurements: '++id, date',
+    });
   }
 }
 
 export const db = new IronRankDB()
 
 /** Versión actual del schema. Incrementar en cada cambio. */
-export const CURRENT_SCHEMA_VERSION = 2;
+export const CURRENT_SCHEMA_VERSION = 3;
 
 /** Devuelve la versión actual de la BBDD. Útil para mostrar al usuario si hay upgrade pendiente. */
 export async function getCurrentSchemaVersion(): Promise<number> {

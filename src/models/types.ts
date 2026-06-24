@@ -145,6 +145,24 @@ export interface Routine {
   notes?: string
 }
 
+export interface BodyMeasurement {
+  id?: number
+  date: Date
+  /** Peso corporal en kg. 0 = sin registrar. */
+  bodyweight: number
+  /** Porcentaje de grasa (0-100). 0 = sin registrar. */
+  bodyFatPct: number
+  /** Perímetro de cintura en cm. 0 = sin registrar. */
+  waistCm: number
+  /** Perímetro de pecho en cm. 0 = sin registrar. */
+  chestCm: number
+  /** Perímetro de brazo en cm. 0 = sin registrar. */
+  armCm: number
+  /** Perímetro de muslo en cm. 0 = sin registrar. */
+  thighCm: number
+  notes?: string
+}
+
 export interface RoutineExercise {
   id?: number
   routineId: number

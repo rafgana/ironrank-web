@@ -568,6 +568,47 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("21. Body measurements: añadir medida, ver snapshot", async () => {
+    const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const p = await ctx.newPage();
+    const session = await getSession();
+    await p.goto(URL, { waitUntil: "networkidle" });
+    await p.waitForTimeout(2000);
+    await p.locator('input[type="email"]').fill(session.user?.email || TEST_EMAIL);
+    await p.locator('input[type="password"]').fill(TEST_PASSWORD);
+    await p.locator('button:has-text("Iniciar")').first().click();
+    await p.waitForTimeout(3000);
+    // Ir a Perfil
+    await p.locator('button:has-text("Perfil")').first().click();
+    await p.waitForTimeout(2000);
+    // Sección Medidas corporales visible
+    const section = p.locator('text=/Medidas corporales/i').first();
+    assert(await section.isVisible({ timeout: 3000 }), "Body measurements section should be visible in Profile");
+    // Click "Añadir"
+    const addBtn = p.locator('button:has-text("Añadir")').first();
+    assert(await addBtn.isVisible({ timeout: 2000 }), "Add button should be visible");
+    await addBtn.click();
+    await p.waitForTimeout(500);
+    // Rellenar peso
+    const weightInput = p.locator('input[name="bodyweight"]').first();
+    assert(await weightInput.isVisible({ timeout: 2000 }), "Bodyweight input should be visible after clicking Add");
+    await weightInput.fill("78.5");
+    // Rellenar cintura
+    const waistInput = p.locator('input[name="waistCm"]').first();
+    await waistInput.fill("82");
+    // Guardar
+    await p.locator('button[type="submit"]:has-text("Guardar")').first().click();
+    await p.waitForTimeout(1500);
+    // Verificar que el snapshot muestra 78.5
+    const snapshot = await p.locator('text=/78\\.5/').first().isVisible({ timeout: 2000 }).catch(() => false);
+    assert(snapshot, "Weight 78.5 should appear in snapshot after save");
+    // Verificar que no queda el form abierto
+    const formGone = !(await p.locator('input[name="bodyweight"]').isVisible({ timeout: 500 }).catch(() => false));
+    assert(formGone, "Form should close after save");
+    await browser.close();
+  });
+
   await scenario("20. Streak counter: visible en header con workouts del día", async () => {
     const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
     const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
