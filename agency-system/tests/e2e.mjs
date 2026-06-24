@@ -1,0 +1,120 @@
+#!/usr/bin/env node
+// tests/e2e.mjs — E2E tests for the agency system
+import { existsSync, writeFileSync, mkdirSync, rmSync, readFileSync } from "node:fs";
+import { resolve, join } from "node:path";
+import { execSync } from "node:child_process";
+
+const AGENCY_DIR = resolve(".");
+const SCRIPTS = `${AGENCY_DIR}/scripts/agency.mjs`;
+
+let pass = 0;
+let fail = 0;
+const failures = [];
+
+function test(name, fn) {
+  return async () => {
+    try {
+      await fn();
+      console.log(`  ✓ ${name}`);
+      pass++;
+    } catch (e) {
+      console.log(`  ✗ ${name}: ${e.message}`);
+      fail++;
+      failures.push({ name, error: e.message });
+    }
+  };
+}
+
+function assert(cond, msg) {
+  if (!cond) throw new Error(msg || "Assertion failed");
+}
+
+console.log("\n[1. agency help shows usage]");
+await test("help", async () => {
+  const out = execSync(`node ${SCRIPTS} help 2>&1`).toString();
+  assert(out.includes("Usage:"), "should show Usage");
+  assert(out.includes("research icp"), "should list research icp");
+  assert(out.includes("outbound email"), "should list outbound email");
+})();
+
+console.log("\n[2. agency status works on empty state]");
+await test("status empty", async () => {
+  // Backup existing
+  const pp = `${AGENCY_DIR}/.harness/prospects.json`;
+  let backup = null;
+  if (existsSync(pp)) {
+    backup = readFileSync(pp, "utf8");
+    rmSync(pp);
+  }
+  try {
+    const out = execSync(`node ${SCRIPTS} status 2>&1`).toString();
+    assert(out.includes("Pipeline status"), "should show pipeline status");
+  } finally {
+    if (backup) writeFileSync(pp, backup);
+  }
+})();
+
+console.log("\n[3. agency research icp creates prospect]");
+await test("icp search", async () => {
+  const out = execSync(`node ${SCRIPTS} research icp "B2B SaaS, 10-50 employees, Spain" 2>&1`).toString();
+  assert(out.includes("Created draft entry"), "should create draft entry");
+  const pp = `${AGENCY_DIR}/.harness/prospects.json`;
+  assert(existsSync(pp), "prospects.json should exist");
+  const prospects = JSON.parse(readFileSync(pp, "utf8"));
+  assert(prospects.length >= 1, "should have at least 1 prospect");
+  const last = prospects[prospects.length - 1];
+  assert(last.icp.includes("B2B SaaS"), "ICP should be saved");
+  assert(last.status === "draft", "status should be draft");
+})();
+
+console.log("\n[4. agency outbound email composes from dossier]");
+await test("outbound email", async () => {
+  // Create test dossier
+  const dossierPath = `${AGENCY_DIR}/.harness/dossiers/test-person.md`;
+  mkdirSync(`${AGENCY_DIR}/.harness/dossiers`, { recursive: true });
+  writeFileSync(
+    dossierPath,
+    "# Dossier: Test Person\n\n## Basics\n- Role: CEO at Test Co\n- LinkedIn: linkedin.com/in/test\n",
+  );
+  try {
+    const out = execSync(
+      `node ${SCRIPTS} outbound email --dossier ${dossierPath} --tone casual --locale es 2>&1`,
+    ).toString();
+    assert(out.includes("Created draft email"), "should create email");
+    const slug = "test-person";
+    const emailPath = `${AGENCY_DIR}/.harness/sequences/${slug}/01-cold.md`;
+    assert(existsSync(emailPath), "01-cold.md should exist");
+    const email = readFileSync(emailPath, "utf8");
+    assert(email.includes("Subject"), "should have Subject section");
+    assert(email.includes("Body"), "should have Body section");
+    assert(email.includes("Follow-up"), "should have Follow-up section");
+    assert(email.includes("Locale: es"), "should record locale");
+  } finally {
+    rmSync(dossierPath, { force: true });
+    rmSync(`${AGENCY_DIR}/.harness/sequences/test-person`, { recursive: true, force: true });
+  }
+})();
+
+console.log("\n[5. agency status shows pipeline counts]");
+await test("status with data", async () => {
+  const out = execSync(`node ${SCRIPTS} status 2>&1`).toString();
+  assert(out.includes("Pipeline status"), "should show status");
+  assert(out.includes("Prospects:"), "should count prospects");
+})();
+
+console.log("\n[6. Skills and config exist]");
+await test("structure", async () => {
+  assert(existsSync(`${AGENCY_DIR}/.harness/config.json`), "config.json");
+  assert(existsSync(`${AGENCY_DIR}/.claude/skills/market-researcher/SKILL.md`), "market-researcher SKILL");
+  assert(existsSync(`${AGENCY_DIR}/.claude/skills/outbound-writer/SKILL.md`), "outbound-writer SKILL");
+  assert(existsSync(`${AGENCY_DIR}/scripts/agency.mjs`), "agency CLI");
+  assert(existsSync(`${AGENCY_DIR}/scripts/research/icp-search.mjs`), "icp-search");
+  assert(existsSync(`${AGENCY_DIR}/scripts/outbound/email-compose.mjs`), "email-compose");
+})();
+
+console.log(`\nResults: ${pass} pass, ${fail} fail`);
+if (fail > 0) {
+  console.log("\nFailures:");
+  failures.forEach((f) => console.log(`  - ${f.name}: ${f.error}`));
+}
+process.exit(fail > 0 ? 1 : 0);

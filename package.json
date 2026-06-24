@@ -8,6 +8,7 @@
     "build:blog": "node scripts/build-blog.mjs",
     "content:add": "node scripts/content-add.mjs",
     "content:list": "node scripts/content-list.mjs",
+    "agency:test": "cd agency-system && node tests/e2e.mjs",
     "build": "tsc -b && vite build && node scripts/generate-sitemap.mjs && node scripts/build-blog.mjs",
     "lint": "eslint .",
     "preview": "vite preview",

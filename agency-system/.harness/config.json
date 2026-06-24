@@ -1,0 +1,46 @@
+{
+  "$schema": "./config.schema.json",
+  "version": 1,
+  "project": {
+    "name": "agency",
+    "displayName": "Rafagandia GTM Agency",
+    "description": "GTM IA agency: market research, outbound, and automated systems",
+    "type": "system",
+    "stack": "node-supabase",
+    "language": "es",
+    "license": "MIT",
+    "domains": ["rafagandia.com"]
+  },
+  "harness": {
+    "stateDir": ".harness/state",
+    "skillsDir": ".claude/skills",
+    "scriptsDir": "scripts",
+    "cron": "0 8 * * 1",
+    "maxChangesPerAgentPerDay": 1,
+    "secretPatterns": [
+      "sb_secret_[A-Za-z0-9]{20,}",
+      "sk-[A-Za-z0-9]{40,}",
+      "sk-ant-[A-Za-z0-9-]{40,}"
+    ]
+  },
+  "data": {
+    "prospects": ".harness/prospects.json",
+    "dossiers": ".harness/dossiers",
+    "sequences": ".harness/sequences",
+    "pipeline": ".harness/state/pipeline.json",
+    "supabase": {
+      "enabled": true,
+      "url": "https://aemajqeksudfljdzsvfe.supabase.co",
+      "tables": ["agency_prospects", "agency_dossiers", "agency_sequences", "agency_pipeline_events"]
+    }
+  },
+  "agents": [
+    "market-researcher",
+    "outbound-writer"
+  ],
+  "futureAgents": [
+    "lead-enricher",
+    "gtm-strategist",
+    "pipeline-operator"
+  ]
+}
