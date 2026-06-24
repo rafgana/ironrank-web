@@ -568,6 +568,42 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("24. Supervisor: meta-agent + registry + 3 scripts + health", async () => {
+    const { existsSync } = await import("node:fs");
+    const { execSync } = await import("node:child_process");
+    const repoRoot = process.cwd();
+    // Files
+    const required = [
+      ".harness/agent-registry.json",
+      ".claude/skills/supervisor/SKILL.md",
+      "scripts/supervisor/monitor.mjs",
+      "scripts/supervisor/create-skill.mjs",
+      "scripts/supervisor/evolve.mjs",
+    ];
+    for (const f of required) {
+      assert(existsSync(`${repoRoot}/${f}`), `Missing supervisor file: ${f}`);
+    }
+    // Registry has 9 agents
+    const reg = JSON.parse(execSync(`cat ${repoRoot}/.harness/agent-registry.json`).toString());
+    const agentNames = Object.keys(reg.agents);
+    assert(agentNames.length === 9, `Registry should have 9 agents, got ${agentNames.length}: ${agentNames.join(", ")}`);
+    // Each agent has required fields
+    for (const [name, agent] of Object.entries(reg.agents)) {
+      assert(agent.name === name, `${name}: agent.name mismatch`);
+      assert(agent.skillPath, `${name}: missing skillPath`);
+      assert(agent.purpose, `${name}: missing purpose`);
+      assert(Array.isArray(agent.invariants) && agent.invariants.length >= 3, `${name}: needs >=3 invariants, has ${(agent.invariants || []).length}`);
+      assert(["tech", "marketing"].includes(agent.team), `${name}: team must be tech|marketing`);
+      assert(["ok", "broken", "deprecated"].includes(agent.health), `${name}: invalid health`);
+    }
+    // monitor.mjs runs and reports 9 OK
+    const monitorOut = execSync(`node ${repoRoot}/scripts/supervisor/monitor.mjs 2>&1`).toString();
+    assert(monitorOut.includes("9 OK"), `monitor.mjs should report 9 OK, output: ${monitorOut.slice(0, 200)}`);
+    // evolve.mjs runs
+    const evolveOut = execSync(`node ${repoRoot}/scripts/supervisor/evolve.mjs 2>&1`).toString();
+    assert(evolveOut.includes("Evolution proposals"), "evolve.mjs should output header");
+  });
+
   await scenario("23. Marketing team: 4 subagents + 4 scripts", async () => {
     const { existsSync } = await import("node:fs");
     const { execSync } = await import("node:child_process");

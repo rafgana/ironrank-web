@@ -1,0 +1,310 @@
+{
+  "$schema": "./agent-registry.schema.json",
+  "version": 1,
+  "lastReviewedAt": "2026-06-24T17:07:57.296Z",
+  "agents": {
+    "architect": {
+      "name": "architect",
+      "team": "tech",
+      "purpose": "Plan features, evaluate blast radius, design data model",
+      "skillPath": ".claude/skills/architect/SKILL.md",
+      "scripts": [],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "glob",
+        "grep",
+        "bash",
+        "webfetch"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        ".harness/intake/*.md",
+        ".harness/intake/*.json"
+      ],
+      "invariants": [
+        "Never writes code",
+        "Always references line numbers",
+        "Always includes validation"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "implementer": {
+      "name": "implementer",
+      "team": "tech",
+      "purpose": "Write code following the plan and project conventions",
+      "skillPath": ".claude/skills/implementer/SKILL.md",
+      "scripts": [],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "bash",
+        "glob",
+        "grep"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "src/**/*",
+        "tests/**/*"
+      ],
+      "invariants": [
+        "Always runs verify.sh before reporting success",
+        "Never modifies dist/ or .env",
+        "Never bumps schema without migration"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "verifier": {
+      "name": "verifier",
+      "team": "tech",
+      "purpose": "Validate changes (a11y, bundle size, tests, conventions)",
+      "skillPath": ".claude/skills/verifier/SKILL.md",
+      "scripts": [],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "bash",
+        "glob",
+        "grep"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "verification reports inline"
+      ],
+      "invariants": [
+        "Never edits source files",
+        "Never approves without running verify",
+        "Always reports verdict explicitly"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "docs-writer": {
+      "name": "docs-writer",
+      "team": "tech",
+      "purpose": "Write blog posts, update docs, write JSDoc",
+      "skillPath": ".claude/skills/docs-writer/SKILL.md",
+      "scripts": [],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "glob",
+        "grep",
+        "webfetch"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "content/posts/*.md",
+        "JSDoc comments"
+      ],
+      "invariants": [
+        "No emojis in posts",
+        "Always includes TL;DR",
+        "Always includes reading time"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "release-manager": {
+      "name": "release-manager",
+      "team": "tech",
+      "purpose": "Commits, opens PRs, drafts changelogs",
+      "skillPath": ".claude/skills/release-manager/SKILL.md",
+      "scripts": [],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "bash",
+        "glob",
+        "grep"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "commits",
+        "PR bodies"
+      ],
+      "invariants": [
+        "Never commits secrets",
+        "Always runs verify before commit",
+        "Always uses specific files in git add"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "marketing-strategist": {
+      "name": "marketing-strategist",
+      "team": "marketing",
+      "purpose": "Plan GTM, positioning, channels, 90-day roadmap",
+      "skillPath": ".claude/skills/marketing-strategist/SKILL.md",
+      "scripts": [],
+      "version": "1",
+      "grantedTools": ["read", "write", "edit", "glob", "grep", "webfetch"],
+      "invokedBy": ["main"],
+      "outputs": ["STRATEGY.md"],
+      "invariants": [
+        "No paid acquisition for Y1",
+        "No comparison claims without evidence",
+        "No 'free forever' claims"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "copywriter": {
+      "name": "copywriter",
+      "team": "marketing",
+      "purpose": "Write conversion copy: landings, emails, ads, microcopy",
+      "skillPath": ".claude/skills/copywriter/SKILL.md",
+      "scripts": ["content-brief.mjs"],
+      "version": "1",
+      "grantedTools": ["read", "write", "edit", "glob", "grep"],
+      "invokedBy": ["main"],
+      "outputs": ["landing copy", "email sequences", "ad copy"],
+      "invariants": [
+        "No emojis in user-facing copy",
+        "No hype words",
+        "No fake testimonials"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "seo-analyst": {
+      "name": "seo-analyst",
+      "team": "marketing",
+      "purpose": "Audit SEO, find keyword opportunities, content gaps",
+      "skillPath": ".claude/skills/seo-analyst/SKILL.md",
+      "scripts": ["competitor-scan.mjs", "keyword-research.mjs"],
+      "version": "1",
+      "grantedTools": ["read", "write", "edit", "glob", "grep", "webfetch"],
+      "invokedBy": ["main"],
+      "outputs": ["SEO.md"],
+      "invariants": [
+        "No gray-hat SEO",
+        "No keyword stuffing",
+        "Always include evidence"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "copywriter": {
+      "name": "copywriter",
+      "team": "marketing",
+      "purpose": "Write conversion copy: landings, emails, ads, microcopy",
+      "skillPath": ".claude/skills/copywriter/SKILL.md",
+      "scripts": [
+        "content-brief.mjs"
+      ],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "glob",
+        "grep"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "landing copy",
+        "email sequences",
+        "ad copy"
+      ],
+      "invariants": [
+        "No emojis in user-facing copy",
+        "No hype words",
+        "No fake testimonials"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "seo-analyst": {
+      "name": "seo-analyst",
+      "team": "marketing",
+      "purpose": "Audit SEO, find keyword opportunities, content gaps",
+      "skillPath": ".claude/skills/seo-analyst/SKILL.md",
+      "scripts": [
+        "competitor-scan.mjs",
+        "keyword-research.mjs"
+      ],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "glob",
+        "grep",
+        "webfetch"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "SEO.md"
+      ],
+      "invariants": [
+        "No gray-hat SEO",
+        "No keyword stuffing",
+        "Always include evidence"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    },
+    "growth-hacker": {
+      "name": "growth-hacker",
+      "team": "marketing",
+      "purpose": "Design growth experiments with guardrails",
+      "skillPath": ".claude/skills/growth-hacker/SKILL.md",
+      "scripts": [
+        "funnel.mjs"
+      ],
+      "version": "1",
+      "grantedTools": [
+        "read",
+        "write",
+        "edit",
+        "glob",
+        "grep"
+      ],
+      "invokedBy": [
+        "main"
+      ],
+      "outputs": [
+        "EXPERIMENT.md"
+      ],
+      "invariants": [
+        "No dark patterns",
+        "No addictive mechanics",
+        "Always pre-register hypothesis"
+      ],
+      "lastInvokedAt": null,
+      "health": "ok",
+      "deprecated": false
+    }
+  }
+}
