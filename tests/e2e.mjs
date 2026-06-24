@@ -576,7 +576,7 @@ async function scenario(name, fn) {
     const h1 = await p.locator("h1").first().textContent();
     assert(h1.includes("Blog"), `Blog index h1 should mention Blog, got: ${h1}`);
     const cards = await p.locator(".post-card").count();
-    assert(cards >= 1, `Blog index should have ≥1 post card, got ${cards}`);
+    assert(cards >= 2, `Blog index should have ≥2 post cards, got ${cards}`);
     // Sitemap debe incluir /blog/ y al menos un post
     const sitemap = await p.evaluate(async () => {
       const res = await fetch("/ironrank/sitemap.xml");
