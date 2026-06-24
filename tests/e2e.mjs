@@ -568,6 +568,44 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("22. Harness: scripts and state files exist + verify runs", async () => {
+    const { existsSync } = await import("node:fs");
+    const { execSync } = await import("node:child_process");
+    const repoRoot = process.cwd();
+    // Required files
+    const required = [
+      "AGENTS.md",
+      "HARNESS.md",
+      ".harness/FEATURE_INTAKE.md",
+      ".harness/README.md",
+      "scripts/harness/verify.sh",
+      "scripts/harness/context.sh",
+      "scripts/harness/evals.sh",
+      "scripts/harness/log.sh",
+      "scripts/harness/state.mjs",
+      ".claude/skills/architect/SKILL.md",
+      ".claude/skills/implementer/SKILL.md",
+      ".claude/skills/verifier/SKILL.md",
+      ".claude/skills/docs-writer/SKILL.md",
+      ".claude/skills/release-manager/SKILL.md",
+    ];
+    for (const f of required) {
+      assert(existsSync(`${repoRoot}/${f}`), `Missing harness file: ${f}`);
+    }
+    // State files
+    assert(existsSync(`${repoRoot}/.harness/state/state.json`), "state.json missing");
+    assert(existsSync(`${repoRoot}/.harness/state/plan.json`), "plan.json missing");
+    assert(existsSync(`${repoRoot}/.harness/state/query.json`), "query.json missing");
+    // Scripts executable
+    for (const s of ["verify.sh", "context.sh", "evals.sh", "log.sh"]) {
+      const stat = execSync(`stat -c %a ${repoRoot}/scripts/harness/${s}`).toString().trim();
+      assert(stat === "755" || stat === "775", `${s} should be executable, got ${stat}`);
+    }
+    // Harness state JSON is valid
+    const state = JSON.parse(execSync(`cat ${repoRoot}/.harness/state/state.json`).toString());
+    assert(state.schemaVersion === 1, `state.json should have schemaVersion=1, got ${state.schemaVersion}`);
+  });
+
   await scenario("21. Body measurements: añadir medida, ver snapshot", async () => {
     const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
     const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
