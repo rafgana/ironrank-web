@@ -15,11 +15,14 @@ if (!cmd || cmd === "help" || cmd === "--help") {
   console.log(`agency — GTM agency CLI
 
 Usage:
-  agency research icp "<ICP description>"           Find companies matching an ICP
+  agency research icp "<ICP>"                        Find companies matching an ICP
   agency research dossier "<name>" [--company X]    Build dossier on a person
-  agency outbound email --dossier <path>            Compose cold email
-  agency outbound linkedin --dossier <path>         Compose LinkedIn DM
+  agency enrich <prospect-id>                        Enrich a prospect with public data
+  agency outbound email --dossier <path>             Compose cold email
+  agency outbound linkedin --dossier <path>          Compose LinkedIn DM
+  agency proposal <prospect-id>                      Generate GTM proposal
   agency sync                                          Sync local state to Supabase
+  agency review                                        Weekly pipeline review
   agency status                                        Show pipeline status
   agency help                                          Show this help
 `);
@@ -33,7 +36,6 @@ if (cmd === "research") {
       console.error("ICP required: agency research icp \"<description>\"");
       process.exit(1);
     }
-    // Pass args via process.argv so the imported script sees them
     const orig = process.argv;
     process.argv = ["node", "icp-search.mjs", "--icp", icp];
     await import("./research/icp-search.mjs");
@@ -44,15 +46,23 @@ if (cmd === "research") {
       console.error("Name required: agency research dossier \"<name>\"");
       process.exit(1);
     }
-    // TODO: dossier script
     console.log("Dossier generation: not implemented yet (skeleton in place)");
   } else {
     console.error(`Unknown research subcommand: ${sub}`);
     process.exit(1);
   }
-  } else if (cmd === "outbound") {
+} else if (cmd === "enrich") {
+  const id = args[1];
+  if (!id) {
+    console.error("Usage: agency enrich <prospect-id>");
+    process.exit(1);
+  }
+  const orig = process.argv;
+  process.argv = ["node", "lead-enrich.mjs", "--id", id];
+  await import("./enrichment/lead-enrich.mjs");
+  process.argv = orig;
+} else if (cmd === "outbound") {
   if (sub === "email") {
-    // Forward remaining args
     const remaining = args.slice(2);
     const orig = process.argv;
     process.argv = ["node", "email-compose.mjs", ...remaining];
@@ -64,8 +74,20 @@ if (cmd === "research") {
     console.error(`Unknown outbound subcommand: ${sub}`);
     process.exit(1);
   }
+} else if (cmd === "proposal") {
+  const id = args[1];
+  if (!id) {
+    console.error("Usage: agency proposal <prospect-id>");
+    process.exit(1);
+  }
+  const orig = process.argv;
+  process.argv = ["node", "proposal-gen.mjs", "--id", id];
+  await import("./gtm/proposal-gen.mjs");
+  process.argv = orig;
 } else if (cmd === "sync") {
-  console.log("Sync to Supabase: not implemented yet (skeleton)");
+  await import("./pipeline/sync-supabase.mjs");
+} else if (cmd === "review") {
+  console.log("Weekly review: skeleton — not implemented yet");
 } else if (cmd === "status") {
   const fs = await import("node:fs");
   const prospectsFile = ".harness/prospects.json";
