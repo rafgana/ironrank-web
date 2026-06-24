@@ -1,0 +1,23 @@
+{
+  "keyword": "test keyword",
+  "slug": "test-keyword",
+  "intent": "informational",
+  "readingTime": 8,
+  "wordTarget": 800,
+  "sections": [
+    "Introducción: por qué importa este tema",
+    "El problema real (con datos si es posible)",
+    "Cómo funciona / la verdad sobre X",
+    "Errores comunes",
+    "Lo que aprendimos / conclusión",
+    "CTA: Probar IronRank →"
+  ],
+  "metaDescription": "test keyword: guía honesta 2026. Sin fluff, sin clickbait. IronRank blog.",
+  "keywords": [
+    "test keyword",
+    "gym",
+    "tracker"
+  ],
+  "internalLinks": [],
+  "externalLinks": []
+}

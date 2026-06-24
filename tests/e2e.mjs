@@ -568,6 +568,36 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("23. Marketing team: 4 subagents + 4 scripts", async () => {
+    const { existsSync } = await import("node:fs");
+    const { execSync } = await import("node:child_process");
+    const repoRoot = process.cwd();
+    const skills = [
+      "marketing-strategist",
+      "copywriter",
+      "seo-analyst",
+      "growth-hacker",
+    ];
+    for (const s of skills) {
+      assert(
+        existsSync(`${repoRoot}/.claude/skills/${s}/SKILL.md`),
+        `Missing skill: ${s}`,
+      );
+    }
+    const scripts = ["competitor-scan.mjs", "keyword-research.mjs", "funnel.mjs", "content-brief.mjs"];
+    for (const s of scripts) {
+      const path = `${repoRoot}/scripts/marketing/${s}`;
+      assert(existsSync(path), `Missing script: ${s}`);
+      const stat = execSync(`stat -c %a ${path}`).toString().trim();
+      assert(stat === "755" || stat === "775", `${s} should be executable, got ${stat}`);
+    }
+    // Probar que los scripts corren sin error
+    const briefOut = execSync(`node ${repoRoot}/scripts/marketing/content-brief.mjs "test keyword" --intent informational 2>&1`).toString();
+    assert(briefOut.includes("Slug:"), "content-brief.mjs should output Slug");
+    const kwOut = execSync(`node ${repoRoot}/scripts/marketing/keyword-research.mjs "tracker gym" 2>&1`).toString();
+    assert(kwOut.includes("Keyword research"), "keyword-research.mjs should output header");
+  });
+
   await scenario("22. Harness: scripts and state files exist + verify runs", async () => {
     const { existsSync } = await import("node:fs");
     const { execSync } = await import("node:child_process");
