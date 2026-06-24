@@ -7,10 +7,23 @@ Allow: /ironrank/landing/
 Disallow: /ironrank/?tab=*
 Disallow: /ironrank/?workout=*
 Disallow: /ironrank/?settings
-Disallow: /ironrank/manifest.json
-Disallow: /ironrank/sitemap.xml
-Disallow: /ironrank/sw.js
-Disallow: /ironrank/robots.txt
 Disallow: /api/
 
 Sitemap: https://rafagandia.com/ironrank/sitemap.xml
+Sitemap: https://rafagandia.com/ironrank/landing/
+
+# AI crawlers - permitidos para GEO (AI Overviews, ChatGPT, Perplexity)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /

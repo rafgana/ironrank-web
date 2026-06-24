@@ -568,6 +568,47 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("18. SEO: JSON-LD schemas + sitemap + robots.txt", async () => {
+    const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
+    const p = await browser.newContext().then((c) => c.newPage());
+    // Landing: 4 JSON-LD blocks (WebApplication, Organization, WebSite, FAQPage)
+    await p.goto("https://rafagandia.com/ironrank/landing/", { waitUntil: "networkidle" });
+    const schemas = await p.evaluate(() =>
+      [...document.querySelectorAll('script[type="application/ld+json"]')]
+        .map((b) => JSON.parse(b.textContent)["@type"])
+    );
+    assert(schemas.length >= 4, `Landing: expected ≥4 JSON-LD blocks, got ${schemas.length}: ${schemas.join(", ")}`);
+    assert(schemas.includes("WebApplication"), "Missing WebApplication schema");
+    assert(schemas.includes("Organization"), "Missing Organization schema");
+    assert(schemas.includes("WebSite"), "Missing WebSite schema");
+    assert(schemas.includes("FAQPage"), "Missing FAQPage schema");
+    // FAQPage con 5 preguntas
+    const faq = await p.evaluate(() => {
+      const blocks = [...document.querySelectorAll('script[type="application/ld+json"]')].map((b) => JSON.parse(b.textContent));
+      return blocks.find((j) => j["@type"] === "FAQPage");
+    });
+    assert(faq && faq.mainEntity.length === 5, `FAQPage: expected 5 questions, got ${faq?.mainEntity?.length}`);
+    // sitemap.xml: tiene lastmod y al menos 2 URLs
+    const sitemap = await p.evaluate(async () => {
+      const res = await fetch("/ironrank/sitemap.xml");
+      return await res.text();
+    });
+    const urls = (sitemap.match(/<loc>/g) || []).length;
+    const lastmods = (sitemap.match(/<lastmod>/g) || []).length;
+    assert(urls >= 2, `Sitemap: expected ≥2 URLs, got ${urls}`);
+    assert(lastmods === urls, `Sitemap: expected ${urls} lastmod tags, got ${lastmods}`);
+    assert(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/.test(sitemap), "Sitemap: lastmod format must be YYYY-MM-DD");
+    // robots.txt: tiene Sitemap directive + AI bots permitidos
+    const robots = await p.evaluate(async () => {
+      const res = await fetch("/ironrank/robots.txt");
+      return await res.text();
+    });
+    assert(robots.includes("Sitemap:"), "robots.txt: missing Sitemap directive");
+    assert(robots.includes("GPTBot") || robots.includes("ChatGPT-User"), "robots.txt: missing AI bot allow");
+    assert(robots.includes("PerplexityBot"), "robots.txt: missing PerplexityBot allow");
+    await browser.close();
+  });
+
   await scenario("15. Accessibility (axe-core WCAG 2.1 AA)", async () => {
     const urls = [
       "https://rafagandia.com/ironrank/landing/",
