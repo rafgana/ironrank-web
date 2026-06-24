@@ -358,6 +358,60 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("13. Timer starts after adding a set", async () => {
+    const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const p = await ctx.newPage();
+    const session = await getSession();
+    await p.goto(URL, { waitUntil: "networkidle" });
+    await p.waitForTimeout(2000);
+    // Sign in
+    await p.locator('input[type="email"]').fill(session.user?.email || TEST_EMAIL);
+    await p.locator('input[type="password"]').fill(TEST_PASSWORD);
+    await p.locator('button:has-text("Iniciar")').first().click();
+    await p.waitForTimeout(5000);
+    // Start workout
+    const newBtn = p.locator('button:has-text("Nuevo workout")').first();
+    if (await newBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+      await newBtn.click();
+      await p.waitForTimeout(2000);
+    }
+    // Add exercise
+    const addEx = p.locator('button:has-text("Añadir ejercicio")').first();
+    if (await addEx.isVisible({ timeout: 2000 }).catch(() => false)) {
+      await addEx.click();
+      await p.waitForTimeout(1500);
+    }
+    // Pick Press Banca
+    const firstEx = p.locator('button:has-text("Press Banca")').first();
+    if (await firstEx.isVisible({ timeout: 1500 }).catch(() => false)) {
+      await firstEx.click();
+      await p.waitForTimeout(1500);
+    }
+    // Open set sheet
+    const addSetBtn = p.locator('button:has-text("Añadir serie")').first();
+    if (await addSetBtn.isVisible({ timeout: 1500 }).catch(() => false)) {
+      await addSetBtn.click();
+      await p.waitForTimeout(1500);
+    }
+    // Fill and submit
+    const inputs = await p.locator('input[type="number"]').all();
+    if (inputs.length >= 2) {
+      await inputs[0].fill("60");
+      await inputs[1].fill("10");
+      await p.waitForTimeout(500);
+    }
+    const ctaBtns = await p.locator('button:has-text("Añadir serie")').all();
+    if (ctaBtns.length >= 2) {
+      await ctaBtns[ctaBtns.length - 1].click({ force: true });
+      await p.waitForTimeout(2000);
+    }
+    // Verify timer is visible
+    const timerVisible = await p.locator('text=/Descanso/i').first().isVisible({ timeout: 3000 }).catch(() => false);
+    assert(timerVisible, "Rest timer should appear after adding a set");
+    await browser.close();
+  });
+
   console.log(`\nResults: ${pass} pass, ${fail} fail`);
   if (fail > 0) {
     console.log("\nFailures:");
