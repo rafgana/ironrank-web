@@ -568,6 +568,45 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("25. Loop engineer: trace + design + optimize + auto-mejora", async () => {
+    const { existsSync } = await import("node:fs");
+    const { execSync } = await import("node:child_process");
+    const repoRoot = process.cwd();
+    // Files
+    const required = [
+      ".claude/skills/loop-engineer/SKILL.md",
+      "scripts/loop-engineer/loop-trace.mjs",
+      "scripts/loop-engineer/loop-design.mjs",
+      "scripts/loop-engineer/loop-optimize.mjs",
+      "scripts/supervisor/seed-logs.mjs",
+    ];
+    for (const f of required) {
+      assert(existsSync(`${repoRoot}/${f}`), `Missing loop-engineer file: ${f}`);
+    }
+    // Registry has 10 agents including loop-engineer
+    const reg = JSON.parse(execSync(`cat ${repoRoot}/.harness/agent-registry.json`).toString());
+    const agentNames = Object.keys(reg.agents);
+    assert(agentNames.length === 10, `Registry should have 10 agents, got ${agentNames.length}: ${agentNames.join(", ")}`);
+    assert(reg.agents["loop-engineer"], "Registry missing loop-engineer");
+    assert(reg.agents["loop-engineer"].team === "meta", `loop-engineer.team should be 'meta', got ${reg.agents["loop-engineer"].team}`);
+    // Seed logs (idempotent)
+    execSync(`node ${repoRoot}/scripts/supervisor/seed-logs.mjs --days 7`);
+    // loop-trace produces LOOP_REPORT
+    const traceOut = execSync(`node ${repoRoot}/scripts/loop-engineer/loop-trace.mjs --last 7 2>&1`).toString();
+    assert(traceOut.includes("Loop trace"), "loop-trace.mjs should output header");
+    assert(existsSync(`${repoRoot}/.harness/LOOP_REPORT.md`), "LOOP_REPORT.md should be created");
+    // loop-design creates a new loop
+    const designOut = execSync(`node ${repoRoot}/scripts/loop-engineer/loop-design.mjs test-loop --type build 2>&1`).toString();
+    assert(designOut.includes("Created"), "loop-design.mjs should create the loop");
+    assert(existsSync(`${repoRoot}/.harness/loops/test-loop.md`), "Loop file should be created");
+    // Cleanup test loop
+    execSync(`rm ${repoRoot}/.harness/loops/test-loop.md`);
+    // loop-optimize produces proposals
+    const optOut = execSync(`node ${repoRoot}/scripts/loop-engineer/loop-optimize.mjs 2>&1`).toString();
+    assert(optOut.includes("Loop optimization"), "loop-optimize.mjs should output header");
+    assert(existsSync(`${repoRoot}/.harness/LOOP_PROPOSAL.md`), "LOOP_PROPOSAL.md should be created");
+  });
+
   await scenario("24. Supervisor: meta-agent + registry + 3 scripts + health", async () => {
     const { existsSync } = await import("node:fs");
     const { execSync } = await import("node:child_process");
@@ -583,22 +622,22 @@ async function scenario(name, fn) {
     for (const f of required) {
       assert(existsSync(`${repoRoot}/${f}`), `Missing supervisor file: ${f}`);
     }
-    // Registry has 9 agents
+    // Registry has 10 agents
     const reg = JSON.parse(execSync(`cat ${repoRoot}/.harness/agent-registry.json`).toString());
     const agentNames = Object.keys(reg.agents);
-    assert(agentNames.length === 9, `Registry should have 9 agents, got ${agentNames.length}: ${agentNames.join(", ")}`);
+    assert(agentNames.length === 10, `Registry should have 10 agents, got ${agentNames.length}: ${agentNames.join(", ")}`);
     // Each agent has required fields
     for (const [name, agent] of Object.entries(reg.agents)) {
       assert(agent.name === name, `${name}: agent.name mismatch`);
       assert(agent.skillPath, `${name}: missing skillPath`);
       assert(agent.purpose, `${name}: missing purpose`);
       assert(Array.isArray(agent.invariants) && agent.invariants.length >= 3, `${name}: needs >=3 invariants, has ${(agent.invariants || []).length}`);
-      assert(["tech", "marketing"].includes(agent.team), `${name}: team must be tech|marketing`);
+      assert(["tech", "marketing", "meta"].includes(agent.team), `${name}: team must be tech|marketing|meta`);
       assert(["ok", "broken", "deprecated"].includes(agent.health), `${name}: invalid health`);
     }
-    // monitor.mjs runs and reports 9 OK
+    // monitor.mjs runs and reports 10 OK
     const monitorOut = execSync(`node ${repoRoot}/scripts/supervisor/monitor.mjs 2>&1`).toString();
-    assert(monitorOut.includes("9 OK"), `monitor.mjs should report 9 OK, output: ${monitorOut.slice(0, 200)}`);
+    assert(monitorOut.includes("10 OK"), `monitor.mjs should report 10 OK, output: ${monitorOut.slice(0, 200)}`);
     // evolve.mjs runs
     const evolveOut = execSync(`node ${repoRoot}/scripts/supervisor/evolve.mjs 2>&1`).toString();
     assert(evolveOut.includes("Evolution proposals"), "evolve.mjs should output header");

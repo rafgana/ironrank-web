@@ -55,13 +55,18 @@ for (const [name, agent] of Object.entries(reg.agents)) {
 
   // 3. Scripts exist + executable
   for (const script of agent.scripts || []) {
-    const scriptPath = resolve(`scripts/${agent.team}/${script}`);
-    if (!existsSync(scriptPath)) {
+    // Intentar varias rutas: scripts/<team>/, scripts/<name>/
+    const candidates = [
+      resolve(`scripts/${agent.team}/${script}`),
+      resolve(`scripts/${name}/${script}`),
+    ];
+    const found = candidates.find((p) => existsSync(p));
+    if (!found) {
       checks.push(`script missing: ${script}`);
       status = status === "OK" ? "DRIFT" : status;
     } else {
       try {
-        const mode = statSync(scriptPath).mode;
+        const mode = statSync(found).mode;
         if (!(mode & 0o111)) {
           checks.push(`not executable: ${script}`);
         }

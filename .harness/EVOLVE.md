@@ -1,9 +1,23 @@
 # Evolution proposals
 
-Generated: 2026-06-24T17:12:06.793Z
+Generated: 2026-06-24T17:31:10.552Z
 
-Total agents: 9
-Total proposals: 0
+Total agents: 10
+Total proposals: 3
 
-✓ No issues detected. Harness is healthy.
+
+## 1. orphan-script loop-engineer/loop-design.mjs
+
+- **Metric**: —
+- **Action**: Script loop-engineer/loop-design.mjs is not declared in any agent's registry
+
+## 2. orphan-script loop-engineer/loop-optimize.mjs
+
+- **Metric**: —
+- **Action**: Script loop-engineer/loop-optimize.mjs is not declared in any agent's registry
+
+## 3. orphan-script loop-engineer/loop-trace.mjs
+
+- **Metric**: —
+- **Action**: Script loop-engineer/loop-trace.mjs is not declared in any agent's registry
 
