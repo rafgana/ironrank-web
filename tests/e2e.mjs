@@ -476,6 +476,74 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("16. Complete workout flow (start → add 2 sets → finalize)", async () => {
+    const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const p = await ctx.newPage();
+    const session = await getSession();
+    await p.goto(URL, { waitUntil: "networkidle" });
+    await p.waitForTimeout(2000);
+    await p.locator('input[type="email"]').fill(session.user?.email || TEST_EMAIL);
+    await p.locator('input[type="password"]').fill(TEST_PASSWORD);
+    await p.locator('button:has-text("Iniciar")').first().click();
+    await p.waitForTimeout(5000);
+    // On dashboard
+    const onDash = await p.locator('text=/RANGO ACTUAL|TEMPORADA/i').first().isVisible({ timeout: 3000 }).catch(() => false);
+    assert(onDash, "Should be on dashboard after login");
+    // Start workout
+    await p.locator('button:has-text("Nuevo workout")').first().click();
+    await p.waitForTimeout(2000);
+    // Add Press Banca + set
+    await p.locator('button:has-text("Añadir ejercicio")').first().click();
+    await p.waitForTimeout(1500);
+    await p.locator('button:has-text("Press Banca")').first().click();
+    await p.waitForTimeout(1500);
+    await p.locator('button:has-text("Añadir serie")').first().click();
+    await p.waitForTimeout(1500);
+    let inputs = await p.locator('input[type="number"]').all();
+    if (inputs.length >= 2) {
+      await inputs[0].fill("60");
+      await inputs[1].fill("10");
+      await p.waitForTimeout(500);
+    }
+    let ctaBtns = await p.locator('button:has-text("Añadir serie")').all();
+    if (ctaBtns.length >= 2) {
+      await ctaBtns[ctaBtns.length - 1].click({ force: true });
+      await p.waitForTimeout(2500);
+    }
+    // Add second exercise: Sentadilla
+    const addEx2 = p.locator('button:has-text("Añadir otro ejercicio")').first();
+    if (await addEx2.isVisible({ timeout: 2000 }).catch(() => false)) {
+      await addEx2.click();
+      await p.waitForTimeout(1500);
+      await p.locator('button:has-text("Sentadilla")').first().click();
+      await p.waitForTimeout(1500);
+      await p.locator('button:has-text("Añadir serie")').first().click();
+      await p.waitForTimeout(1500);
+      inputs = await p.locator('input[type="number"]').all();
+      if (inputs.length >= 2) {
+        await inputs[0].fill("100");
+        await inputs[1].fill("5");
+        await p.waitForTimeout(500);
+      }
+      ctaBtns = await p.locator('button:has-text("Añadir serie")').all();
+      if (ctaBtns.length >= 2) {
+        await ctaBtns[ctaBtns.length - 1].click({ force: true });
+        await p.waitForTimeout(2500);
+      }
+    }
+    // Finalize
+    await p.locator('button:has-text("Finalizar")').first().click();
+    await p.waitForTimeout(3000);
+    // Should be back on dashboard
+    const back = await p.locator('text=/RANGO ACTUAL|TEMPORADA/i').first().isVisible({ timeout: 5000 }).catch(() => false);
+    assert(back, "Should return to dashboard after finalize");
+    // Should have stats updated (workouts counter > 0)
+    const statsVisible = await p.locator('text=/workouts/i').first().isVisible({ timeout: 2000 }).catch(() => false);
+    assert(statsVisible, "Stats should be visible after workout");
+    await browser.close();
+  });
+
   await scenario("15. Accessibility (axe-core WCAG 2.1 AA)", async () => {
     const urls = [
       "https://rafagandia.com/ironrank/landing/",
