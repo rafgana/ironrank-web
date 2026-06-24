@@ -1,20 +1,36 @@
 #!/usr/bin/env node
-// product/audit-portfolio.mjs — initial audit of IronRank's feature portfolio
+// product/audit-portfolio.mjs — initial audit of project's feature portfolio
 // Output: .harness/PRODUCT_AUDIT.md with RICE-scored features + recommendations
-// Este es el "audit inicial" que pidió el usuario.
+// Lee .harness/config.json para project name + src dir.
 
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { execSync } from "node:child_process";
 
-console.log(`\n=== Portfolio audit (IronRank) ===\n`);
+// Cargar config
+let config = {};
+if (existsSync(resolve(".harness/config.json"))) {
+  config = JSON.parse(readFileSync(resolve(".harness/config.json"), "utf8"));
+}
+const PROJECT_NAME = config.project?.name || "project";
+const SRC_DIR = config.build?.srcDir || "src";
+
+console.log(`\n=== Portfolio audit (${PROJECT_NAME}) ===\n`);
+if (existsSync(resolve(".harness/config.json"))) {
+  config = JSON.parse(readFileSync(resolve(".harness/config.json"), "utf8"));
+}
 
 // 1. Inventario de features (páginas + componentes)
 console.log("[1/4] Inventorying features...");
-const pages = execSync(`ls src/pages/`).toString().trim().split("\n");
-const components = execSync(`ls src/components/ironrank/`).toString().trim().split("\n");
-const hooks = execSync(`ls src/hooks/`).toString().trim().split("\n");
-const stores = execSync(`ls src/store/`).toString().trim().split("\n");
+const pagesDir = `${SRC_DIR}/pages`;
+const componentsDir = `${SRC_DIR}/components`;
+const hooksDir = `${SRC_DIR}/hooks`;
+const storesDir = `${SRC_DIR}/store`;
+
+const pages = existsSync(pagesDir) ? execSync(`ls ${pagesDir}/`).toString().trim().split("\n") : [];
+const components = existsSync(componentsDir) ? execSync(`ls ${componentsDir}/`).toString().trim().split("\n") : [];
+const hooks = existsSync(hooksDir) ? execSync(`ls ${hooksDir}/`).toString().trim().split("\n") : [];
+const stores = existsSync(storesDir) ? execSync(`ls ${storesDir}/`).toString().trim().split("\n") : [];
 
 console.log(`  Pages: ${pages.length}`);
 console.log(`  Components: ${components.length}`);

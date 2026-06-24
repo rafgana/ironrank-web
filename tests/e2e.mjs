@@ -581,6 +581,38 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("29. Template: init-config scaffolds a new project", async () => {
+    const { execSync } = await import("node:child_process");
+    const { existsSync, mkdtempSync, rmSync } = await import("node:fs");
+    const { tmpdir } = await import("node:os");
+    const { join } = await import("node:path");
+    // Create a temp project
+    const tmp = mkdtempSync(join(tmpdir(), "agent-harness-test-"));
+    try {
+      // Run init
+      const out = execSync(
+        `node ${process.cwd()}/scripts/harness/init-config.mjs --name "test-blog" --stack "next" 2>&1`,
+        { cwd: tmp },
+      ).toString();
+      assert(out.includes("Init complete"), `init-config.mjs should output 'Init complete', got: ${out.slice(0, 200)}`);
+      // Verify files created
+      assert(existsSync(join(tmp, ".harness/config.json")), ".harness/config.json should exist");
+      assert(existsSync(join(tmp, ".harness/agent-registry.json")), ".harness/agent-registry.json should exist");
+      assert(existsSync(join(tmp, ".harness/state/state.json")), "state.json should exist");
+      assert(existsSync(join(tmp, ".claude/skills/architect/SKILL.md")), "architect SKILL.md should exist");
+      assert(existsSync(join(tmp, ".claude/skills/sre/SKILL.md")), "sre SKILL.md should exist");
+      // Config is valid JSON
+      const config = JSON.parse(execSync(`cat ${join(tmp, ".harness/config.json")}`).toString());
+      assert(config.project.name === "test-blog", `Config project.name should be 'test-blog', got: ${config.project.name}`);
+      assert(config.build.srcDir === "src", "Default srcDir should be 'src'");
+      // 19 agents registered
+      const reg = JSON.parse(execSync(`cat ${join(tmp, ".harness/agent-registry.json")}`).toString());
+      assert(Object.keys(reg.agents).length === 19, `Should register 19 agents, got ${Object.keys(reg.agents).length}`);
+    } finally {
+      rmSync(tmp, { recursive: true, force: true });
+    }
+  });
+
   await scenario("28. Ops team: 4 subagents + 4 scripts + security audit", async () => {
     const { existsSync } = await import("node:fs");
     const { execSync } = await import("node:child_process");

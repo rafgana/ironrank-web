@@ -1,7 +1,8 @@
 # Security audit
 
-Generated: 2026-06-24T19:05:42.736Z
-Scope: IronRank source + live headers
+Project: ironrank
+Generated: 2026-06-24T19:21:33.567Z
+Scope: ironrank source + live headers
 
 ## Summary
 

@@ -1,0 +1,69 @@
+{
+  "$schema": "./config.schema.json",
+  "version": 1,
+  "project": {
+    "name": "ironrank",
+    "displayName": "IronRank",
+    "description": "Gym tracker with league system",
+    "type": "spa",
+    "stack": "react-vite-supabase",
+    "language": "es",
+    "license": "MIT"
+  },
+  "build": {
+    "framework": "react",
+    "buildCommand": "npm run build",
+    "devCommand": "npm run dev",
+    "testCommand": "node tests/e2e.mjs",
+    "typecheckCommand": "npx tsc --noEmit",
+    "lintCommand": "npm run lint",
+    "outputDir": "dist",
+    "publicDir": "public",
+    "srcDir": "src"
+  },
+  "deploy": {
+    "method": "manual",
+    "url": "https://rafagandia.com/ironrank/",
+    "previewUrl": "http://127.0.0.1:4173/ironrank/"
+  },
+  "database": {
+    "primary": "supabase",
+    "local": "dexie-idb",
+    "schemaVersionFile": "src/db/database.ts",
+    "schemaVersionMatch": "CURRENT_SCHEMA_VERSION\\s*=\\s*(\\d+)"
+  },
+  "seo": {
+    "siteUrl": "https://rafagandia.com/ironrank",
+    "siteName": "IronRank",
+    "twitterHandle": "",
+    "defaultOgImage": "/og-landing.png",
+    "sitemapPath": "public/sitemap.xml",
+    "robotsPath": "public/robots.txt"
+  },
+  "agents": {
+    "registry": ".harness/agent-registry.json",
+    "skillsDir": ".claude/skills",
+    "stateDir": ".harness/state",
+    "logsDir": ".harness/logs",
+    "scriptsDir": "scripts"
+  },
+  "harness": {
+    "cron": "0 8 * * 1",
+    "maxChangesPerAgentPerDay": 1,
+    "secretPatterns": [
+      "sb_secret_[A-Za-z0-9]{20,}",
+      "AIzaSy[A-Za-z0-9_-]{33}",
+      "sk-[A-Za-z0-9]{40,}",
+      "sk-ant-[A-Za-z0-9-]{40,}",
+      "ghp_[A-Za-z0-9]{30,}",
+      "AKIA[0-9A-Z]{16}"
+    ],
+    "ignoreFiles": [
+      "tests/e2e.mjs",
+      "node_modules/",
+      "dist/",
+      ".harness/logs/",
+      ".harness/evals/"
+    ]
+  }
+}

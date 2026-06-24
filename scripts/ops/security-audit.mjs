@@ -1,14 +1,28 @@
 #!/usr/bin/env node
-// ops/security-audit.mjs — automated security scanner for IronRank
+// ops/security-audit.mjs — automated security scanner
 // Detects: secrets in code, missing security headers, OWASP top 10 issues,
 // GDPR compliance gaps, dangerous dependencies
+// Lee .harness/config.json para project name, secret patterns, ignore files.
 
 import { readFileSync, readdirSync, existsSync, writeFileSync, statSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { execSync } from "node:child_process";
 
+// Cargar config
+const CONFIG_PATH = resolve(".harness/config.json");
+let config = {};
+if (existsSync(CONFIG_PATH)) {
+  config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
+} else {
+  console.warn("⚠ .harness/config.json not found, using defaults");
+}
+
+const PROJECT_NAME = config.project?.name || "project";
+const SECRET_PATTERNS_CONFIG = config.harness?.secretPatterns || [];
+const IGNORE_FILES = config.harness?.ignoreFiles || [];
+const SITE_URL = process.env.SITE_URL || config.deploy?.url || `http://localhost:4173/${PROJECT_NAME}/`;
+
 const findings = [];
-const suppressed = [];
 
 function add(severity, location, description, remediation, refs = []) {
   findings.push({ severity, location, description, remediation, refs });
@@ -19,7 +33,8 @@ function add(severity, location, description, remediation, refs = []) {
 // ============================================================
 console.log("[1/6] Scanning for secrets in source...");
 
-  const SECRET_PATTERNS = [
+  // Secret patterns: usar config si está, sino defaults
+const DEFAULT_SECRET_PATTERNS = [
   { re: /sb_secret_[A-Za-z0-9]{20,}/g, name: "Supabase service role key" },
   { re: /AIzaSy[A-Za-z0-9_-]{33}/g, name: "Google API key" },
   { re: /sk-[A-Za-z0-9]{40,}/g, name: "OpenAI key" },
@@ -29,14 +44,19 @@ console.log("[1/6] Scanning for secrets in source...");
   { re: /BEGIN (RSA |OPENSSH |DSA |EC )?PRIVATE KEY/g, name: "Private key" },
 ];
 
-// Falsos positivos conocidos (excluidos del scan)
-const IGNORE_FILES = [
-  "tests/e2e.mjs", // contiene credenciales de test deliberadas
-  ".env", // en .gitignore, no se commitea
+// Convertir patterns de config (strings) a objetos con name
+const configPatterns = SECRET_PATTERNS_CONFIG.map((p) => {
+  const match = p.match(/^\/(.+)\/([gimsuy]*)$/);
+  if (!match) return null;
+  return { re: new RegExp(match[1], match[2] + "g"), name: p };
+}).filter(Boolean);
+
+const SECRET_PATTERNS = [...DEFAULT_SECRET_PATTERNS, ...configPatterns];
+const IGNORE_FILES_LIST = [
+  ...IGNORE_FILES,
+  ".env",
   "node_modules/",
   "dist/",
-  ".harness/logs/",
-  ".harness/evals/",
 ];
 
 function* walkSrc(dir) {
@@ -55,7 +75,7 @@ function* walkSrc(dir) {
 
 let secretCount = 0;
 for (const file of walkSrc(".")) {
-  if (IGNORE_FILES.some((ig) => file.includes(ig))) continue;
+  if (IGNORE_FILES_LIST.some((ig) => file.includes(ig))) continue;
   const content = readFileSync(file, "utf8");
   for (const { re, name } of SECRET_PATTERNS) {
     const matches = content.match(re);
@@ -113,7 +133,7 @@ console.log(`  .env: checked`);
 // [3/6] Security headers check (live site)
 // ============================================================
 console.log("[3/6] Checking live security headers...");
-const SITE = process.env.SITE_URL || "https://rafagandia.com/ironrank";
+const SITE = SITE_URL;
 
 try {
   const res = await fetch(SITE, { method: "HEAD" });
@@ -225,13 +245,14 @@ console.log(`  GDPR: checked`);
 const counts = { CRITICAL: 0, HIGH: 0, MEDIUM: 0, LOW: 0, INFO: 0 };
 for (const f of findings) counts[f.severity]++;
 
-console.log(`\n=== Security audit ===\n`);
+console.log(`\n=== Security audit (${PROJECT_NAME}) ===\n`);
 console.log(`  ${counts.CRITICAL} CRITICAL, ${counts.HIGH} HIGH, ${counts.MEDIUM} MEDIUM, ${counts.LOW} LOW, ${counts.INFO} INFO`);
 
 const md = `# Security audit
 
+Project: ${PROJECT_NAME}
 Generated: ${new Date().toISOString()}
-Scope: IronRank source + live headers
+Scope: ${PROJECT_NAME} source + live headers
 
 ## Summary
 
