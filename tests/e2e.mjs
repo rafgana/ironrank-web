@@ -283,7 +283,12 @@ async function scenario(name, fn) {
   });
 
   await scenario("9. Auto-backup runs after login", async () => {
-    const session = await getFreshSession();
+    // Usa getSession (solo ANON key) en lugar de getFreshSession (requiere SERVICE_ROLE_KEY)
+    // para que el test pase en CI sin secretos.
+    const session = await getSession();
+    if (!session?.access_token) {
+      throw new Error("No session — el usuario de test debe existir (se creó con SERVICE_ROLE_KEY en otra sesión)");
+    }
     const { browser, p } = await runWithSession(session);
     await p.waitForTimeout(3000);
     // Trigger manual backup by navigating to profile (no UI for this yet)

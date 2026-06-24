@@ -1,50 +1,50 @@
 {
-  "ts": "2026-06-24T17:59:35.463Z",
+  "ts": "2026-06-24T18:17:38.538Z",
   "window_days": 7,
-  "total_entries": 50,
-  "total_sessions": 11,
+  "total_entries": 52,
+  "total_sessions": 12,
   "longest_sessions": [
     {
       "date": "2026-06-18",
-      "duration_ms": 590352,
-      "ops": 5,
-      "agents": 5,
-      "actions": "architect_review → implementer_test → verifier_approve → docs-writer_jsdoc → release-manager_pr"
-    },
-    {
-      "date": "2026-06-20",
-      "duration_ms": 528224,
+      "duration_ms": 513841,
       "ops": 4,
       "agents": 4,
-      "actions": "architect_plan → implementer_code → verifier_audit → release-manager_changelog"
-    },
-    {
-      "date": "2026-06-21",
-      "duration_ms": 503391,
-      "ops": 5,
-      "agents": 5,
-      "actions": "architect_plan → implementer_fix → verifier_approve → docs-writer_jsdoc → release-manager_pr"
+      "actions": "architect_intake → implementer_test → verifier_audit → release-manager_commit"
     },
     {
       "date": "2026-06-19",
-      "duration_ms": 494280,
+      "duration_ms": 432971,
+      "ops": 4,
+      "agents": 4,
+      "actions": "architect_intake → implementer_fix → verifier_approve → docs-writer_jsdoc"
+    },
+    {
+      "date": "2026-06-21",
+      "duration_ms": 432911,
       "ops": 5,
       "agents": 5,
-      "actions": "architect_review → implementer_fix → verifier_reject → docs-writer_jsdoc → release-manager_changelog"
+      "actions": "architect_review → implementer_fix → verifier_approve → docs-writer_jsdoc → release-manager_changelog"
     },
     {
       "date": "2026-06-22",
-      "duration_ms": 472511,
+      "duration_ms": 428178,
       "ops": 4,
       "agents": 4,
-      "actions": "architect_intake → implementer_code → docs-writer_jsdoc → release-manager_changelog"
+      "actions": "architect_review → verifier_reject → docs-writer_readme → release-manager_commit"
+    },
+    {
+      "date": "2026-06-18",
+      "duration_ms": 418816,
+      "ops": 3,
+      "agents": 3,
+      "actions": "architect_review → implementer_code → release-manager_changelog"
     }
   ],
   "invocations_per_agent": {
     "architect": 11,
     "implementer": 10,
-    "verifier": 9,
-    "docs-writer": 8,
-    "release-manager": 12
+    "verifier": 12,
+    "release-manager": 11,
+    "docs-writer": 8
   }
 }
