@@ -568,6 +568,54 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
+  await scenario("20. Streak counter: visible en header con workouts del día", async () => {
+    const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const p = await ctx.newPage();
+    const session = await getSession();
+    await p.goto(URL, { waitUntil: "networkidle" });
+    await p.waitForTimeout(2000);
+    await p.locator('input[type="email"]').fill(session.user?.email || TEST_EMAIL);
+    await p.locator('input[type="password"]').fill(TEST_PASSWORD);
+    await p.locator('button:has-text("Iniciar")').first().click();
+    await p.waitForTimeout(3000);
+    // Completar un workout para generar data de racha
+    const startBtn = p.locator('button:has-text("Nuevo workout")').first();
+    if (await startBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+      await startBtn.click();
+      await p.waitForTimeout(1500);
+      // Buscar un ejercicio y agregar series mínimas
+      const exBtn = p.locator('text=/sentadilla|prensa|press banca|peso muerto/i').first();
+      if (await exBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
+        await exBtn.click();
+        await p.waitForTimeout(800);
+        // Añadir 1 set
+        const addSet = p.locator('button:has-text("+"), [aria-label*="Añadir"], [aria-label*="set"]').first();
+        if (await addSet.isVisible({ timeout: 1000 }).catch(() => false)) await addSet.click();
+        await p.waitForTimeout(500);
+        // Completar workout
+        const complete = p.locator('button:has-text("Completar")').first();
+        if (await complete.isVisible({ timeout: 1000 }).catch(() => false)) {
+          await complete.click();
+          await p.waitForTimeout(1500);
+        }
+      }
+    }
+    // Volver al Dashboard y buscar el StreakBadge
+    await p.goto(URL, { waitUntil: "networkidle" });
+    await p.waitForTimeout(2500);
+    const streak = p.locator('[aria-label*="Racha"]');
+    const isVisible = await streak.isVisible({ timeout: 3000 }).catch(() => false);
+    assert(isVisible, "StreakBadge should be visible after completing a workout");
+    const ariaLabel = await streak.getAttribute("aria-label");
+    assert(ariaLabel && /Racha: \d+ día/.test(ariaLabel), `StreakBadge aria-label should match 'Racha: N día(s)', got: ${ariaLabel}`);
+    // El número debería ser ≥1 (acabas de hacer un workout)
+    const text = await streak.textContent();
+    const match = text?.match(/(\d+)/);
+    assert(match && parseInt(match[1]) >= 1, `Streak should show ≥1, got: ${text}`);
+    await browser.close();
+  });
+
   await scenario("19. Blog: index + post + BlogPosting schema", async () => {
     const browser = await chromium.launch({ headless: true, executablePath: "/usr/bin/chromium-browser", args: ["--no-sandbox"] });
     const p = await browser.newContext({ viewport: { width: 1440, height: 900 } }).then((c) => c.newPage());

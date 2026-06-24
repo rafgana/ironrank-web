@@ -26,6 +26,7 @@ import { useProfileStore } from "./store/profileStore";
 import { useOverallTier } from "./hooks/useOverallTier";
 import { setTierAccent } from "./lib/tierAccent";
 import { Logo } from "./components/ironrank/Logo";
+import { StreakBadge } from "./components/ironrank/StreakBadge";
 import { OfflineBanner } from "./hooks/useServiceWorker";
 import { isSyncEnabled } from "./services/sync/config";
 import { usePlausibleInit, track } from "./services/analytics";
@@ -311,6 +312,9 @@ export default function App() {
                 ⌘K
               </kbd>
             </button>
+
+            {/* Streak badge */}
+            <StreakBadge />
 
             {/* Tier pill */}
             <div
