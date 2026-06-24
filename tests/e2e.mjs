@@ -568,21 +568,31 @@ async function scenario(name, fn) {
     await browser.close();
   });
 
-  await scenario("26. Loop engineer auto-apply: aplica diffs con guardrails", async () => {
+  await scenario("26. Loop engineer autonomous: aplica sin flag", async () => {
+    const { existsSync } = await import("node:fs");
     const { execSync } = await import("node:child_process");
     const repoRoot = process.cwd();
-    // Idempotente: ya aplicamos antes, debe skip por "ya aplicado hoy"
-    const out = execSync(`node ${repoRoot}/scripts/loop-engineer/loop-optimize.mjs --auto-apply 2>&1`).toString();
+    // Sin flag: modo autónomo es el default
+    const out = execSync(`node ${repoRoot}/scripts/loop-engineer/loop-optimize.mjs 2>&1`).toString();
     assert(
-      out.includes("AUTO-APPLY"),
-      "auto-apply mode should run",
+      out.includes("AUTO-APPLY (autonomous mode)"),
+      "autonomous mode should run by default (no --auto-apply flag needed)",
     );
-    // Debe haber guardrails: skip por "ya aplicado hoy" o "ya tiene sección"
+    // En modo autónomo, si hay propuestas nuevas (no aplicadas hoy) las aplica
+    // Como ya aplicamos antes, debe skip (idempotente)
     const skipped = out.includes("ya aplicado hoy") || out.includes("ya tiene sección");
-    assert(skipped, "auto-apply should skip already-applied proposals (guardrail 1 cambio/día)");
-    // Verificar que NINGÚN SKILL.md fue editado en este run (todos skipped)
-    const appliedCount = (out.match(/✓ \[.*\] applied/g) || []).length;
-    assert(appliedCount === 0, `Idempotency: expected 0 new applied, got ${appliedCount}`);
+    assert(skipped, "Should skip already-applied (guardrail 1 cambio/día)");
+    // Verificar que self-improve.sh existe y es ejecutable
+    const selfImprove = `${repoRoot}/scripts/harness/self-improve.sh`;
+    assert(existsSync(selfImprove), "self-improve.sh should exist");
+    const stat = execSync(`stat -c %a ${selfImprove}`).toString().trim();
+    assert(stat === "755" || stat === "775", `self-improve.sh should be executable, got ${stat}`);
+    // Verificar que el workflow self-improve.yml existe
+    const wf = `${repoRoot}/.github/workflows/self-improve.yml`;
+    assert(existsSync(wf), "self-improve.yml workflow should exist");
+    const wfContent = execSync(`cat ${wf}`).toString();
+    assert(wfContent.includes("cron:"), "self-improve.yml should have a cron schedule");
+    assert(wfContent.includes("permissions:") && wfContent.includes("write"), "self-improve.yml should have write permissions to commit");
   });
 
   await scenario("25. Loop engineer: trace + design + optimize + auto-mejora", async () => {

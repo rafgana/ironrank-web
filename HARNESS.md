@@ -114,7 +114,32 @@ The harness exposes a small CLI at `scripts/harness/`:
 - Not a framework (no opinionated abstractions over the code)
 - Not a runtime (no long-lived process; the agent runs the harness ad-hoc)
 - Not a tool wrapper (not a single LLM call)
-- Not autonomous (always under user control; user approves commits, deploys, schema changes)
+
+## Autonomous mode (default)
+
+The harness runs in **autonomous mode** by default. The user has chosen to delegate all non-destructive decisions to the agents.
+
+### What runs autonomously
+
+- **loop-engineer**: detects and auto-applies improvements to other agents' SKILL.md
+- **supervisor**: monitors agent health, flags drift, proposes new agents
+- **CI**: runs tests on every push, runs evals on master, runs self-improve weekly
+- **release-manager**: commits and pushes when the harness detects changes
+
+### What still requires human approval
+
+- **Schema changes** to IDB (migrations)
+- **Dependency additions** (new packages in package.json)
+- **Deletion of subagents**
+- **Deployment** to production (still manual: `rsync` or `git pull` on server)
+- **Anything that costs money** (API keys, paid services)
+
+### How autonomy is bounded
+
+- **Hard guardrails** in scripts (forbidden paths, daily rate limits, no deletes)
+- **Git history** as the rollback mechanism (`git revert` if a bad change is pushed)
+- **Open issues** when manual review is needed (via `gh issue create`)
+- **Tests must pass** before any auto-commit is pushed
 
 ## References
 

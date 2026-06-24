@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-// loop-optimize.mjs — detecta cuellos de botella en loops y propone mejoras
-// Output: .harness/LOOP_PROPOSAL.md con diffs sugeridos a SKILL.md de otros agentes
-// Uso: node scripts/loop-engineer/loop-optimize.mjs [--auto-apply]
-//      --auto-apply: aplica los diffs (solo añadir líneas, con guardrails)
+// loop-optimize.mjs — detecta cuellos de botella y AUTO-APLICA mejoras
+// Modo autónomo: siempre aplica, sin pedir permiso
+// Output: .harness/LOOP_PROPOSAL.md (registro) + edits a SKILL.md
+// Uso: node scripts/loop-engineer/loop-optimize.mjs
+//      (sin flags; modo autónomo es el default)
 
 import { readFileSync, readdirSync, existsSync, writeFileSync } from "node:fs";
 
@@ -176,16 +177,20 @@ for (const p of proposals) {
 console.log(`\nSaved to ${outPath}`);
 
 // ============================================================
-// AUTO-APPLY (opt-in via --auto-apply flag)
+// ============================================================
+// AUTO-APPLY (always-on, autonomous mode)
 // ============================================================
 // Aplica los diffs propuestos a los SKILL.md de otros agentes.
 // Solo aplica diffs que AÑADEN secciones (+ líneas), nunca los
 // que eliminan (- líneas). Respeta guardrails: nunca toca
 // archivos críticos, limita 1 cambio/agente/día, etc.
+//
+// En modo autónomo, el loop-engineer SIEMPRE aplica sin pedir
+// permiso. El usuario puede revertir con `git revert` si no
+// está de acuerdo.
 
-const autoApply = args.includes("--auto-apply");
-if (autoApply && proposals.length > 0) {
-  console.log(`\n=== AUTO-APPLY (--auto-apply flag) ===\n`);
+if (proposals.length > 0) {
+  console.log(`\n=== AUTO-APPLY (autonomous mode) ===\n`);
   const { statSync: ss } = await import("node:fs");
   const stateFile = resolve(".harness/state/state.json");
   const state = JSON.parse(readFileSync(stateFile, "utf8"));

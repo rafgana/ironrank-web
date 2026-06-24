@@ -1,24 +1,24 @@
 # Loop trace report
 
-Generated: 2026-06-24T17:41:30.731Z
+Generated: 2026-06-24T17:53:37.905Z
 Window: last 7 days
-Total entries: 59
+Total entries: 57
 Total sessions: 11
 
 ## Top 5 longest sessions
 
 | Date | Duration | Ops | Agents | Chain |
 |---|---|---|---|---|
-| 2026-06-23 | 595215ms | 4 | 4 | architect_review → implementer_fix → verifier_reje |
-| 2026-06-18 | 403074ms | 4 | 4 | architect_review → implementer_fix → verifier_audi |
-| 2026-06-23 | 337119ms | 4 | 4 | architect_plan → implementer_fix → verifier_audit  |
-| 2026-06-22 | 210804ms | 3 | 3 | implementer_test → verifier_reject → release-manag |
-| 2026-06-20 | 123779ms | 3 | 3 | architect_plan → verifier_approve → release-manage |
+| 2026-06-24 | 536300ms | 5 | 5 | architect_intake → implementer_test → verifier_app |
+| 2026-06-20 | 528224ms | 4 | 4 | architect_plan → implementer_code → verifier_audit |
+| 2026-06-22 | 472511ms | 4 | 4 | architect_intake → implementer_code → docs-writer_ |
+| 2026-06-19 | 451764ms | 4 | 4 | architect_review → implementer_test → verifier_app |
+| 2026-06-19 | 289465ms | 4 | 4 | architect_review → implementer_code → verifier_app |
 
 ## Invocations per agent
 
-- **verifier**: 15
-- **implementer**: 13
-- **architect**: 12
-- **release-manager**: 12
-- **docs-writer**: 7
+- **implementer**: 14
+- **verifier**: 11
+- **docs-writer**: 11
+- **release-manager**: 11
+- **architect**: 10

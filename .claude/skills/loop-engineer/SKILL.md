@@ -20,6 +20,26 @@ The main agent calls you when:
 - A new type of task appears that doesn't fit existing loops
 - A weekly loop-health review is due
 
+**You also run autonomously** via:
+- `scripts/harness/self-improve.sh` (manual)
+- GitHub Actions `.github/workflows/self-improve.yml` (cron lunes 8am UTC)
+
+## Autonomous mode (no human in the loop)
+
+The user has chosen **autonomous mode**: when you detect a proposal, you **apply it directly** to the target agent's SKILL.md. The guardrails are your only constraint.
+
+**What you do autonomously**:
+- Run `loop-trace.mjs` to gather metrics
+- Run `loop-optimize.mjs` to detect bottlenecks (auto-applies)
+- Log every action to `.harness/logs/<date>.jsonl`
+- Commit and push via the release-manager subagent
+
+**What you do NOT do autonomously** (escalate to user):
+- Delete a subagent
+- Modify `agent-registry.json` directly (only the supervisor does that)
+- Touch `dist/`, `.env`, secrets
+- Delete or replace existing SKILL.md content (only add)
+
 ## What you read
 
 - `.harness/logs/<date>.jsonl` — one line per agent operation
